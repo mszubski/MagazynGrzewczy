@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="zamowienieWpis">
+            <h2><span>Zamowienie Wpis</span> {{zamowienieWpis.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Ilosc</span></dt>
+                <dd>
+                    <span>{{zamowienieWpis.ilosc}}</span>
+                </dd>
+                <dt><span>Cena</span></dt>
+                <dd>
+                    <span>{{zamowienieWpis.cena}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{zamowienieWpis.status}}</span>
+                </dd>
+                <dt><span>Status Zamowienia</span></dt>
+                <dd>
+                    <span>{{zamowienieWpis.statusZamowienia}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/zamowienie-wpis', zamowienieWpis.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

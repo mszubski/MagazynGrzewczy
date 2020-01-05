@@ -1,0 +1,7 @@
+export const enum StatusZamowieniaEnum {
+  UTWORZONE = 'UTWORZONE',
+  ZATWIERDZONE = 'ZATWIERDZONE',
+  OPLACONE = 'OPLACONE',
+  ZWROT = 'ZWROT',
+  WYSLANE = 'WYSLANE'
+}

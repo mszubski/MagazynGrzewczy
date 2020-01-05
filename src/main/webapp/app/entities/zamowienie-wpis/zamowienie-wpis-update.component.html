@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-zamowienie-wpis-heading">Create or edit a Zamowienie Wpis</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ilosc">Ilosc</label>
+                    <input type="number" class="form-control" name="ilosc" id="field_ilosc"
+                           formControlName="ilosc"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cena">Cena</label>
+                    <input type="number" class="form-control" name="cena" id="field_cena"
+                           formControlName="cena"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_status">Status</label>
+                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                        <option value="KOSZYK">KOSZYK</option>
+                        <option value="ZAMOWIENIE">ZAMOWIENIE</option>
+                        <option value="ANULOWANE">ANULOWANE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_statusZamowienia">Status Zamowienia</label>
+                    <select class="form-control" name="statusZamowienia" formControlName="statusZamowienia" id="field_statusZamowienia">
+                        <option value="UTWORZONE">UTWORZONE</option>
+                        <option value="ZATWIERDZONE">ZATWIERDZONE</option>
+                        <option value="OPLACONE">OPLACONE</option>
+                        <option value="ZWROT">ZWROT</option>
+                        <option value="WYSLANE">WYSLANE</option>
+                    </select>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
