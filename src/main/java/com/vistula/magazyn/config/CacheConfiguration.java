@@ -42,6 +42,7 @@ public class CacheConfiguration {
             createCache(cm, com.vistula.magazyn.domain.User.class.getName());
             createCache(cm, com.vistula.magazyn.domain.Authority.class.getName());
             createCache(cm, com.vistula.magazyn.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.vistula.magazyn.domain.Produkt.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
