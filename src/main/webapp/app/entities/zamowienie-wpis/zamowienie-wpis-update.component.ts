@@ -5,8 +5,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
 import { IZamowienieWpis, ZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 import { ZamowienieWpisService } from './zamowienie-wpis.service';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
   selector: 'jhi-zamowienie-wpis-update',
@@ -15,21 +18,33 @@ import { ZamowienieWpisService } from './zamowienie-wpis.service';
 export class ZamowienieWpisUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  users: IUser[];
+
   editForm = this.fb.group({
     id: [],
     ilosc: [],
     cena: [],
     status: [],
-    statusZamowienia: []
+    statusZamowienia: [],
+    user: []
   });
 
-  constructor(protected zamowienieWpisService: ZamowienieWpisService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected jhiAlertService: JhiAlertService,
+    protected zamowienieWpisService: ZamowienieWpisService,
+    protected userService: UserService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ zamowienieWpis }) => {
       this.updateForm(zamowienieWpis);
     });
+    this.userService
+      .query()
+      .subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(zamowienieWpis: IZamowienieWpis) {
@@ -38,7 +53,8 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
       ilosc: zamowienieWpis.ilosc,
       cena: zamowienieWpis.cena,
       status: zamowienieWpis.status,
-      statusZamowienia: zamowienieWpis.statusZamowienia
+      statusZamowienia: zamowienieWpis.statusZamowienia,
+      user: zamowienieWpis.user
     });
   }
 
@@ -63,7 +79,8 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
       ilosc: this.editForm.get(['ilosc']).value,
       cena: this.editForm.get(['cena']).value,
       status: this.editForm.get(['status']).value,
-      statusZamowienia: this.editForm.get(['statusZamowienia']).value
+      statusZamowienia: this.editForm.get(['statusZamowienia']).value,
+      user: this.editForm.get(['user']).value
     };
   }
 
@@ -78,5 +95,12 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  trackUserById(index: number, item: IUser) {
+    return item.id;
   }
 }

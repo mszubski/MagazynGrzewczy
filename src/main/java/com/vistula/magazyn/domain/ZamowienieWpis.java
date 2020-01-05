@@ -1,4 +1,5 @@
 package com.vistula.magazyn.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -14,7 +15,7 @@ import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
  * A ZamowienieWpis.
  */
 @Entity
-@Table(name = "zamowienie_wpis")
+@Table(name = "zam_wpis")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ZamowienieWpis implements Serializable {
 
@@ -38,6 +39,10 @@ public class ZamowienieWpis implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_zamowienia")
     private StatusZamowieniaEnum statusZamowienia;
+
+    @ManyToOne
+    @JsonIgnoreProperties("zamowienieWpis")
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -98,6 +103,19 @@ public class ZamowienieWpis implements Serializable {
 
     public void setStatusZamowienia(StatusZamowieniaEnum statusZamowienia) {
         this.statusZamowienia = statusZamowienia;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public ZamowienieWpis user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

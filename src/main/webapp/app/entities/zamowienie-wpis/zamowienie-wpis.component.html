@@ -23,6 +23,7 @@
             <th scope="col"  jhiSortBy="cena"><span>Cena</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="statusZamowienia"><span>Status Zamowienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="user.login"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -33,6 +34,9 @@
                 <td>{{zamowienieWpis.cena}}</td>
                 <td>{{zamowienieWpis.status}}</td>
                 <td>{{zamowienieWpis.statusZamowienia}}</td>
+                <td>
+                    {{zamowienieWpis.user?.login}}
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

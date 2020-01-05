@@ -11,7 +11,7 @@
         Added the entity ZamowienieWpis.
     -->
     <changeSet id="20200105153541-1" author="jhipster">
-        <createTable tableName="zamowienie_wpis">
+        <createTable tableName="zam_wpis">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -25,6 +25,9 @@
                 <constraints nullable="true" />
             </column>
             <column name="status_zamowienia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -46,9 +49,9 @@
     -->
     <changeSet id="20200105153541-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/zamowienie_wpis.csv"
+                  file="config/liquibase/fake-data/zam_wpis.csv"
                   separator=";"
-                  tableName="zamowienie_wpis">
+                  tableName="zam_wpis">
             <column name="id" type="numeric"/>
             <column name="ilosc" type="numeric"/>
             <column name="cena" type="numeric"/>
