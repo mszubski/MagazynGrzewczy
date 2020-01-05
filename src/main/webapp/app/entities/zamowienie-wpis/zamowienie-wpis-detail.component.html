@@ -25,6 +25,12 @@
                 <dd>
                     {{zamowienieWpis.user?.login}}
                 </dd>
+                <dt><span>Produkt</span></dt>
+                <dd>
+                    <div *ngIf="zamowienieWpis.produkt">
+                        <a [routerLink]="['/produkt', zamowienieWpis.produkt?.id, 'view']">{{zamowienieWpis.produkt?.id}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

@@ -44,6 +44,10 @@ public class ZamowienieWpis implements Serializable {
     @JsonIgnoreProperties("zamowienieWpis")
     private User user;
 
+    @ManyToOne
+    @JsonIgnoreProperties("zamowienieWpis")
+    private Produkt produkt;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -116,6 +120,19 @@ public class ZamowienieWpis implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Produkt getProdukt() {
+        return produkt;
+    }
+
+    public ZamowienieWpis produkt(Produkt produkt) {
+        this.produkt = produkt;
+        return this;
+    }
+
+    public void setProdukt(Produkt produkt) {
+        this.produkt = produkt;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

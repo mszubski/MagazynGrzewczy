@@ -10,6 +10,8 @@ import { IZamowienieWpis, ZamowienieWpis } from 'app/shared/model/zamowienie-wpi
 import { ZamowienieWpisService } from './zamowienie-wpis.service';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
+import { IProdukt } from 'app/shared/model/produkt.model';
+import { ProduktService } from 'app/entities/produkt/produkt.service';
 
 @Component({
   selector: 'jhi-zamowienie-wpis-update',
@@ -20,19 +22,23 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
 
   users: IUser[];
 
+  produkts: IProdukt[];
+
   editForm = this.fb.group({
     id: [],
     ilosc: [],
     cena: [],
     status: [],
     statusZamowienia: [],
-    user: []
+    user: [],
+    produkt: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected zamowienieWpisService: ZamowienieWpisService,
     protected userService: UserService,
+    protected produktService: ProduktService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -45,6 +51,9 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
     this.userService
       .query()
       .subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+    this.produktService
+      .query()
+      .subscribe((res: HttpResponse<IProdukt[]>) => (this.produkts = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(zamowienieWpis: IZamowienieWpis) {
@@ -54,7 +63,8 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
       cena: zamowienieWpis.cena,
       status: zamowienieWpis.status,
       statusZamowienia: zamowienieWpis.statusZamowienia,
-      user: zamowienieWpis.user
+      user: zamowienieWpis.user,
+      produkt: zamowienieWpis.produkt
     });
   }
 
@@ -80,7 +90,8 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
       cena: this.editForm.get(['cena']).value,
       status: this.editForm.get(['status']).value,
       statusZamowienia: this.editForm.get(['statusZamowienia']).value,
-      user: this.editForm.get(['user']).value
+      user: this.editForm.get(['user']).value,
+      produkt: this.editForm.get(['produkt']).value
     };
   }
 
@@ -101,6 +112,10 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
   }
 
   trackUserById(index: number, item: IUser) {
+    return item.id;
+  }
+
+  trackProduktById(index: number, item: IProdukt) {
     return item.id;
   }
 }

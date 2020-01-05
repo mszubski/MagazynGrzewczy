@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <addForeignKeyConstraint baseColumnNames="produkt_id"
+                                 baseTableName="zam_wpis"
+                                 constraintName="fk_zam_wpis_produkt_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="produkt"/>
+
     </changeSet>
 </databaseChangeLog>
