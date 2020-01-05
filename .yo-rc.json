@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.vistula.magazyn"
+    },
+    "jhipsterVersion": "6.5.1",
+    "applicationType": "monolith",
+    "baseName": "magazynGrzewczy",
+    "packageName": "com.vistula.magazyn",
+    "packageFolder": "com/vistula/magazyn",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "oracle",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NzQ5NTFmYzFjY2VlY2MzMTJhOTIxMWEwMzFjYTY5ODIzODhkMzc0MDcxMTVkYmU2MmVkMTU5ZDBmYWFlNmJjYmNhN2IxZjE2YmY4YTQyZmMwMzU2ODY1ZWI5NWQ5Y2IxNjc5NDJjZmU3YjE0YjM3ZjUwOTcyOWViZDRmMDgwMzc=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "sandstone",
+    "clientThemeVariant": "light",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}
