@@ -1,5 +1,8 @@
 package com.vistula.magazyn.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -8,12 +11,13 @@ public class KursyWalutFixerModel {
     private Timestamp timestamp;
     private String base;
     private Date date;
-    private Rates rates;
+    @JsonProperty("rates")
+    private JsonNode rates;
 
     public KursyWalutFixerModel() {
     }
 
-    public KursyWalutFixerModel(String success, Timestamp timestamp, String base, Date date, Rates rates) {
+    public KursyWalutFixerModel(String success, Timestamp timestamp, String base, Date date, JsonNode rates) {
         this.success = success;
         this.timestamp = timestamp;
         this.base = base;
@@ -53,11 +57,11 @@ public class KursyWalutFixerModel {
         this.date = date;
     }
 
-    public Rates getRates() {
+    public JsonNode getRates() {
         return rates;
     }
 
-    public void setRates(Rates rates) {
+    public void setRates(JsonNode rates) {
         this.rates = rates;
     }
 
