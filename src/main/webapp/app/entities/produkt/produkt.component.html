@@ -25,7 +25,7 @@
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="zdjecie"><span>Zdjecie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="stan"><span>Stan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"></th>
+            <th scope="col">Dodaj</th>
             </tr>
             </thead>
             <tbody>
@@ -37,8 +37,16 @@
                 <td>{{produkt.status}}</td>
                 <td>{{produkt.zdjecie}}</td>
                 <td>{{produkt.stan}}</td>
+                <!--<td><input class="form-control" type="number" value="1" id="number-input"></td>-->
+                <td><input class="form-control" type="number" [formControl]="ilosc"></td>
                 <td class="text-right">
                     <div class="btn-group">
+                        <button type="submit"
+                                class="btn btn-info btn-sm"
+                                (click)="dodajProduktZamowienieWpis(produkt, ilosc.value)">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span class="d-none d-md-inline">Dodaj</span>
+                        </button>
                         <button type="submit"
                                 [routerLink]="['/produkt', produkt.id, 'view' ]"
                                 class="btn btn-info btn-sm">

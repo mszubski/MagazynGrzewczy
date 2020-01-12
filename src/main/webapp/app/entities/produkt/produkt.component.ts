@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IProdukt } from 'app/shared/model/produkt.model';
@@ -10,6 +10,8 @@ import { IProdukt } from 'app/shared/model/produkt.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ProduktService } from './produkt.service';
 import { ProduktDeleteDialogComponent } from './produkt-delete-dialog.component';
+import { ZamowienieWpisService } from 'app/entities/zamowienie-wpis/zamowienie-wpis.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'jhi-produkt',
@@ -28,6 +30,7 @@ export class ProduktComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  ilosc = new FormControl(1, Validators.required);
 
   constructor(
     protected produktService: ProduktService,
@@ -35,7 +38,9 @@ export class ProduktComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected zamowienieWpisService: ZamowienieWpisService,
+    protected jhiAlertService: JhiAlertService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -120,5 +125,13 @@ export class ProduktComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.produkts = data;
+  }
+
+  dodajProduktZamowienieWpis(produkt: IProdukt, ilosc: number) {
+    this.zamowienieWpisService.createProduktZamowienieWpis(produkt, ilosc);
+  }
+
+  private onError(error) {
+    this.jhiAlertService.error(error.error, error.message, null);
   }
 }
