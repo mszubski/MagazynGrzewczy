@@ -25,7 +25,9 @@
             <th scope="col"  jhiSortBy="statusZamowienia"><span>Status Zamowienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="user.login"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="produkt.id"><span>Produkt</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"></th>
+            <th scope="col"  jhiSortBy="produkt.nazwa"><span>Nazwa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -43,6 +45,7 @@
                         <a [routerLink]="['/produkt', zamowienieWpis.produkt?.id, 'view' ]" >{{zamowienieWpis.produkt?.id}}</a>
                     </div>
                 </td>
+                <td>{{zamowienieWpis.produkt.nazwa}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

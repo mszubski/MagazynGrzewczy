@@ -8,6 +8,7 @@ import { IZamowienieWpis, ZamowienieWpis } from 'app/shared/model/zamowienie-wpi
 import { IProdukt } from 'app/shared/model/produkt.model';
 import { StatusEnum } from 'app/shared/model/enumerations/status-enum.model';
 import { StatusZamowieniaEnum } from 'app/shared/model/enumerations/status-zamowienia-enum.model';
+import { UserService } from 'app/core/user/user.service';
 
 type EntityResponseType = HttpResponse<IZamowienieWpis>;
 type EntityArrayResponseType = HttpResponse<IZamowienieWpis[]>;
@@ -16,7 +17,7 @@ type EntityArrayResponseType = HttpResponse<IZamowienieWpis[]>;
 export class ZamowienieWpisService {
   public resourceUrl = SERVER_API_URL + 'api/zamowienie-wpis';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient, protected userService: UserService) {}
 
   create(zamowienieWpis: IZamowienieWpis): Observable<EntityResponseType> {
     return this.http.post<IZamowienieWpis>(this.resourceUrl, zamowienieWpis, { observe: 'response' });
@@ -42,11 +43,10 @@ export class ZamowienieWpisService {
   createProduktZamowienieWpis(produkt: IProdukt, ilosc: number) {
     let zamowienieWpis = new ZamowienieWpis();
     zamowienieWpis.produkt = produkt;
-    zamowienieWpis.cena = produkt.cena;
+    zamowienieWpis.cena = produkt.cena * ilosc;
     zamowienieWpis.ilosc = ilosc;
     zamowienieWpis.status = StatusEnum.KOSZYK;
     zamowienieWpis.statusZamowienia = StatusZamowieniaEnum.UTWORZONE;
-    //zamowienieWpis.user = ;
     this.create(zamowienieWpis).subscribe();
   }
 }

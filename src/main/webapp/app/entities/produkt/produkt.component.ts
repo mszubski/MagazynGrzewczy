@@ -12,6 +12,11 @@ import { ProduktService } from './produkt.service';
 import { ProduktDeleteDialogComponent } from './produkt-delete-dialog.component';
 import { ZamowienieWpisService } from 'app/entities/zamowienie-wpis/zamowienie-wpis.service';
 import { FormControl, Validators } from '@angular/forms';
+import { AccountService } from 'app/core/auth/account.service';
+import { User } from 'app/core/user/user.model';
+import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
+
+type EntityResponseType = HttpResponse<IZamowienieWpis>;
 
 @Component({
   selector: 'jhi-produkt',
@@ -19,6 +24,8 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class ProduktComponent implements OnInit, OnDestroy {
   produkts: IProdukt[];
+  login: string;
+  user: User;
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -40,7 +47,8 @@ export class ProduktComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
     protected zamowienieWpisService: ZamowienieWpisService,
-    protected jhiAlertService: JhiAlertService
+    protected jhiAlertService: JhiAlertService,
+    protected accountService: AccountService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -125,6 +133,15 @@ export class ProduktComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.produkts = data;
+  }
+
+  pobierzObecnegoUzytkownika() {
+    let user = new User();
+    this.accountService.identity().subscribe(account => {
+      user.login = account.login;
+      user.email = account.email;
+    });
+    return this.user;
   }
 
   dodajProduktZamowienieWpis(produkt: IProdukt, ilosc: number) {

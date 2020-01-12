@@ -33,7 +33,9 @@ import {
   faAsterisk,
   faTasks,
   faHome,
-  faPhoneSquare
+  faPhoneSquare,
+  faJedi,
+  faCartPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
@@ -71,5 +73,7 @@ export const fontAwesomeIcons = [
   faSearch,
   faTrashAlt,
   faAsterisk,
-  faPhoneSquare
+  faPhoneSquare,
+  faJedi,
+  faCartPlus
 ];
