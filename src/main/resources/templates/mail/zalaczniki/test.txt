@@ -1,0 +1,38 @@
+def czy_przestepny(rok):
+	if rok % 4 != 0:
+		return False
+	elif rok % 100 != 0:
+		return True
+	elif rok % 400 != 0:
+		return False
+	else:
+		return True
+		
+def dni_w_miesiacu(rok, miesiac):
+    if czy_przestepny(rok) == True:
+        if miesiac in [1,3,5,7,8,9,12]:
+            return 31
+        elif miesiac in [4,6,10,11]:
+            return 30
+        elif miesiac in [2]:
+            return 29
+    else:
+        if miesiac in [1,3,5,7,8,9,12]:
+            return 31
+        elif miesiac in [4,6,10,11]:
+            return 30
+        elif miesiac in [2]:
+            return 28
+
+testuj_lata = [1900, 2000, 2016, 1987]
+testuj_miesiace = [2, 2, 1, 11]
+testuj_wynik = [28, 29, 31, 30]
+for i in range(len(testuj_lata)):
+	r = testuj_lata[i]
+	m = testuj_miesiace[i]
+	print(r, m, "-> ", end="")
+	wynik = dni_w_miesiacu(r, m)
+	if wynik == testuj_wynik[i]:
+		print("OK")
+	else:
+		print("Nie powiodło się")
