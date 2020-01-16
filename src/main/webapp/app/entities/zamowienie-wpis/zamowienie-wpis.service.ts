@@ -16,11 +16,16 @@ type EntityArrayResponseType = HttpResponse<IZamowienieWpis[]>;
 @Injectable({ providedIn: 'root' })
 export class ZamowienieWpisService {
   public resourceUrl = SERVER_API_URL + 'api/zamowienie-wpis';
+  public resourceUrlZamowienieWpis = SERVER_API_URL + 'api/zamowienie-wpis-principal';
 
   constructor(protected http: HttpClient, protected userService: UserService) {}
 
   create(zamowienieWpis: IZamowienieWpis): Observable<EntityResponseType> {
     return this.http.post<IZamowienieWpis>(this.resourceUrl, zamowienieWpis, { observe: 'response' });
+  }
+
+  createZamowienieWpisWithUser(zamowienieWpis: IZamowienieWpis): Observable<EntityResponseType> {
+    return this.http.post<IZamowienieWpis>(this.resourceUrlZamowienieWpis, zamowienieWpis, { observe: 'response' });
   }
 
   update(zamowienieWpis: IZamowienieWpis): Observable<EntityResponseType> {
@@ -47,6 +52,6 @@ export class ZamowienieWpisService {
     zamowienieWpis.ilosc = ilosc;
     zamowienieWpis.status = StatusEnum.KOSZYK;
     zamowienieWpis.statusZamowienia = StatusZamowieniaEnum.UTWORZONE;
-    this.create(zamowienieWpis).subscribe();
+    this.createZamowienieWpisWithUser(zamowienieWpis).subscribe();
   }
 }

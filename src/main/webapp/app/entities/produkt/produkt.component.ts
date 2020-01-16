@@ -135,13 +135,17 @@ export class ProduktComponent implements OnInit, OnDestroy {
     this.produkts = data;
   }
 
-  pobierzObecnegoUzytkownika() {
+  pobierzObecnegoUzytkownika(): User {
+    console.log('pobierzObecnegoUzytkownika');
     let user = new User();
     this.accountService.identity().subscribe(account => {
       user.login = account.login;
       user.email = account.email;
+      console.log('user.login' + user.login);
+      console.log('user.login' + user.email);
     });
-    return this.user;
+    console.log(user);
+    return user;
   }
 
   dodajProduktZamowienieWpis(produkt: IProdukt, ilosc: number) {

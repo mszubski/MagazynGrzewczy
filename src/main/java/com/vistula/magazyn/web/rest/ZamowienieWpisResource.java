@@ -1,6 +1,8 @@
 package com.vistula.magazyn.web.rest;
 
+import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.ZamowienieWpis;
+import com.vistula.magazyn.service.UserService;
 import com.vistula.magazyn.service.ZamowienieWpisService;
 import com.vistula.magazyn.web.rest.errors.BadRequestAlertException;
 
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +43,11 @@ public class ZamowienieWpisResource {
     private String applicationName;
 
     private final ZamowienieWpisService zamowienieWpisService;
+    private UserService userService;
 
-    public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService) {
+    public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService,UserService userService) {
         this.zamowienieWpisService = zamowienieWpisService;
+        this.userService = userService;
     }
 
     /**
@@ -56,6 +62,25 @@ public class ZamowienieWpisResource {
         log.debug("REST request to save ZamowienieWpis : {}", zamowienieWpis);
         if (zamowienieWpis.getId() != null) {
             throw new BadRequestAlertException("A new zamowienieWpis cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        ZamowienieWpis result = zamowienieWpisService.save(zamowienieWpis);
+        return ResponseEntity.created(new URI("/api/zamowienie-wpis/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/zamowienie-wpis-principal")
+    public ResponseEntity<ZamowienieWpis> createZamowienieWpisPrincipal(Principal principal, @RequestBody ZamowienieWpis zamowienieWpis) throws URISyntaxException {
+        log.debug("REST request to save ZamowienieWpis : {}", zamowienieWpis);
+
+
+        if (zamowienieWpis.getId() != null) {
+            throw new BadRequestAlertException("A new zamowienieWpis cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(principal.getName());
+        if(user.isPresent()){
+            zamowienieWpis.setUser(user.get());
         }
         ZamowienieWpis result = zamowienieWpisService.save(zamowienieWpis);
         return ResponseEntity.created(new URI("/api/zamowienie-wpis/" + result.getId()))
