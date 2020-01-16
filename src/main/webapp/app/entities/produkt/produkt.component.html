@@ -7,6 +7,12 @@
             Create a new Produkt
             </span>
         </button>
+        <button type="submit"
+                class="btn btn-info btn-sm"
+                (click)="getAllProduktXlsx('D:/PIMK/magazyn-grzewczy/src/main/resources/templates/mail/zalaczniki/Produkty.xlsx')">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="d-none d-md-inline">Pobierz Excela</span>
+        </button>
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>

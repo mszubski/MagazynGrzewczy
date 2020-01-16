@@ -81,7 +81,7 @@ public class ProduktResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProduktResource produktResource = new ProduktResource(produktService);
+        final ProduktResource produktResource = new ProduktResource(produktService,null);
         this.restProduktMockMvc = MockMvcBuilders.standaloneSetup(produktResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

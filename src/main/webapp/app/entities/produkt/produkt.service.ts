@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<IProdukt[]>;
 @Injectable({ providedIn: 'root' })
 export class ProduktService {
   public resourceUrl = SERVER_API_URL + 'api/produkts';
+  public resourceUrlProduktsXlsx = SERVER_API_URL + 'api/produkts/xlsx/';
 
   constructor(protected http: HttpClient) {}
 
@@ -34,5 +35,12 @@ export class ProduktService {
 
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getAllProduktXlsx(path: string): Observable<EntityArrayResponseType> {
+    console.log('path');
+    console.log(path);
+    /*return this.http.get<IProdukt>(`${this.resourceUrlProduktsXlsx}/${path}`, { observe: 'response' });*/
+    return this.http.get<IProdukt[]>(this.resourceUrlProduktsXlsx + path, { observe: 'response' });
   }
 }

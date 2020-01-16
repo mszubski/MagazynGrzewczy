@@ -98,8 +98,8 @@ public class ProduktXlsxService {
     }
 
     //@Scheduled(cron = "0 0/1 * 1/1 * ?")
-    public void getProduktyXlsxFile() throws IOException, NoSuchFieldException {
-        String fileDestination = "D:/PIMK/magazyn-grzewczy/src/main/resources/templates/mail/zalaczniki/test.xlsx";
-        savaXlsxFile(utworzXlsxProdukty(),fileDestination);
+    public void getProduktyXlsxFile(String path) throws IOException, NoSuchFieldException {
+        /*path = "D:/PIMK/magazyn-grzewczy/src/main/resources/templates/mail/zalaczniki/Produkty.xlsx";*/
+        savaXlsxFile(utworzXlsxProdukty(),path);
     }
 }

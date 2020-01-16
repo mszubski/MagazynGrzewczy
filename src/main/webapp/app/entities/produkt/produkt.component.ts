@@ -38,6 +38,7 @@ export class ProduktComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   ilosc = new FormControl(1, Validators.required);
+  path: string;
 
   constructor(
     protected produktService: ProduktService,
@@ -154,5 +155,10 @@ export class ProduktComponent implements OnInit, OnDestroy {
 
   private onError(error) {
     this.jhiAlertService.error(error.error, error.message, null);
+  }
+
+  getAllProduktXlsx(path) {
+    console.log(path);
+    this.produktService.getAllProduktXlsx(path).subscribe();
   }
 }

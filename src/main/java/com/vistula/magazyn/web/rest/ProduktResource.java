@@ -2,6 +2,7 @@ package com.vistula.magazyn.web.rest;
 
 import com.vistula.magazyn.domain.Produkt;
 import com.vistula.magazyn.service.ProduktService;
+import com.vistula.magazyn.service.ProduktXlsxService;
 import com.vistula.magazyn.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -39,9 +41,11 @@ public class ProduktResource {
     private String applicationName;
 
     private final ProduktService produktService;
+    private final ProduktXlsxService produktXlsxService;
 
-    public ProduktResource(ProduktService produktService) {
+    public ProduktResource(ProduktService produktService, ProduktXlsxService produktXlsxService) {
         this.produktService = produktService;
+        this.produktXlsxService = produktXlsxService;
     }
 
     /**
@@ -87,9 +91,7 @@ public class ProduktResource {
     /**
      * {@code GET  /produkts} : get all the produkts.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
      */
     @GetMapping("/produkts")
@@ -124,5 +126,12 @@ public class ProduktResource {
         log.debug("REST request to delete Produkt : {}", id);
         produktService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/produkts/xlsx/{path}")
+    public ResponseEntity<Void> getPodpisyXlsx(@PathVariable String path) throws IOException, NoSuchFieldException {
+        log.debug("REST request to get PodpisyXlsx");
+        produktXlsxService.getProduktyXlsxFile(path);
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, path)).build();
     }
 }
