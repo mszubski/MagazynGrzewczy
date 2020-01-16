@@ -88,18 +88,7 @@ public class SendEmailService {
         String mailTo = "szubskimateusz@gmail.com";
         String subject = "Nowy mail";
 
-        StringBuilder contentBuilder = new StringBuilder();
-        FileReader fileReader = new FileReader("src/main/resources/templates/mail/mailTemplate.html");
-
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String str;
-        while ((str = bufferedReader.readLine()) != null) {
-            contentBuilder.append(str);
-        }
-        bufferedReader.close();
-
-        String message = contentBuilder.toString();
-        System.out.println(message);
+        String message = getStringContent("src/main/resources/templates/mail/mailTemplate.html");
 
         // zalaczniki
         String[] attachFiles = new String[1];
@@ -113,5 +102,21 @@ public class SendEmailService {
             System.out.println("Nie można wysłać maila.");
             ex.printStackTrace();
         }
+    }
+
+    private String getStringContent(String filePath) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+        FileReader fileReader = new FileReader(filePath);
+
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            contentBuilder.append(str);
+        }
+        bufferedReader.close();
+
+        String message = contentBuilder.toString();
+        System.out.println(message);
+        return message;
     }
 }
