@@ -3,24 +3,13 @@ package com.vistula.magazyn.service.email;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 @Service
 public class SendEmailService {
@@ -28,7 +17,7 @@ public class SendEmailService {
     public void sendEmailWithAttachments(String host, String port, String userName, String password,
                                          String toAddress, String subject, String message, String[] attachFiles)
         throws AddressException, MessagingException {
-        // sets SMTP server properties
+        // ustaw wlaściwości dla obiektu Properties - SMTP
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
@@ -38,7 +27,7 @@ public class SendEmailService {
         properties.put("mail.user", userName);
         properties.put("mail.password", password);
 
-        // creates a new session with an authenticator
+        // stwórz nową sesję z autentykacją
         Authenticator auth = new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(userName, password);
@@ -46,7 +35,7 @@ public class SendEmailService {
         };
         Session session = Session.getInstance(properties, auth);
 
-        // creates a new e-mail message
+        // utwórz wiadomosc email
         Message msg = new MimeMessage(session);
 
         msg.setFrom(new InternetAddress(userName));
@@ -55,15 +44,15 @@ public class SendEmailService {
         msg.setSubject(subject);
         msg.setSentDate(new Date());
 
-        // creates message part
+        // stwórz wiadomosc
         MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(message, "text/html");
+        messageBodyPart.setContent(message, "text/html; charset=UTF-8");
 
-        // creates multi-part
+        // stwórz multi-part
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
 
-        // adds attachments
+        // dodaj zalaczniki
         if (attachFiles != null && attachFiles.length > 0) {
             for (String filePath : attachFiles) {
                 MimeBodyPart attachPart = new MimeBodyPart();
@@ -78,7 +67,7 @@ public class SendEmailService {
             }
         }
 
-        // sets the multi-part as e-mail's content
+        // stwórz the multi-part as e-mail's content
         msg.setContent(multipart);
 
         // sends the e-mail
@@ -89,20 +78,30 @@ public class SendEmailService {
     /**
      * Wysyłka maila z gmaila wraz z załącznikami.
      */
-    @Scheduled(cron = "0 0/1 * 1/1 * ?")
-    public void sendMail() throws FileNotFoundException {
-        // SMTP info
+    //@Scheduled(cron = "0 0/1 * 1/1 * ?")
+    public void sendMail() throws IOException {
+        // SMTP properties
         String host = "smtp.gmail.com";
         String port = "587";
         String mailFrom = "mszubski92@gmail.com";
         String password = "Pomidorowa1";
-
-        //
         String mailTo = "szubskimateusz@gmail.com";
         String subject = "Nowy mail";
-        String message = "Mam dla Ciebie nową wiadomość i załączniki";
 
-        // attachments
+        StringBuilder contentBuilder = new StringBuilder();
+        FileReader fileReader = new FileReader("src/main/resources/templates/mail/mailTemplate.html");
+
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String str;
+        while ((str = bufferedReader.readLine()) != null) {
+            contentBuilder.append(str);
+        }
+        bufferedReader.close();
+
+        String message = contentBuilder.toString();
+        System.out.println(message);
+
+        // zalaczniki
         String[] attachFiles = new String[1];
         attachFiles[0] = "D:/PIMK/magazyn-grzewczy/src/main/resources/templates/mail/zalaczniki/test.txt";
 
