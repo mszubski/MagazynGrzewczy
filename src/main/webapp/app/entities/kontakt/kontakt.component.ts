@@ -1,21 +1,50 @@
 import { Component, OnInit } from '@angular/core';
+import { MouseEvent } from '@agm/core';
+
 @Component({
   selector: 'jhi-kontakt',
   templateUrl: './kontakt.component.html'
 })
 export class KontaktComponent implements OnInit {
-  longitude = 7.809007;
-  latitute = 51.678418;
-  locationChosen = false;
+  lat: number = 52.3060318;
+  lng: number = 20.9881805;
+  zoom: number = 10;
+  label?: string;
 
   constructor() {}
 
   ngOnInit() {}
 
-  onChoseLocation(event: any) {
-    console.log(event);
-    this.latitute = event.coords.lat;
-    this.longitude = event.coords.lng;
-    this.locationChosen = true;
+  clickedMarker(label: string, index: number) {
+    console.log(`Kliknąłeś punkt na mapie: ${label || index}`);
   }
+
+  markerDragEnd(m: marker, $event: MouseEvent) {
+    console.log('dragEnd', m, $event);
+  }
+
+  mapClicked($event: MouseEvent) {
+    this.markers.push({
+      lat: $event.coords.lat,
+      lng: $event.coords.lng,
+      draggable: false
+    });
+  }
+
+  markers: marker[] = [
+    {
+      lat: 52.3060318,
+      lng: 20.9881805,
+      label: 'MG',
+      draggable: false
+    }
+  ];
+}
+
+// just an interface for type safety.
+interface marker {
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
 }
