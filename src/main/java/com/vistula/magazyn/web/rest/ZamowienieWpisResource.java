@@ -2,6 +2,7 @@ package com.vistula.magazyn.web.rest;
 
 import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.ZamowienieWpis;
+import com.vistula.magazyn.repository.ZamowienieWpisRepository;
 import com.vistula.magazyn.service.UserService;
 import com.vistula.magazyn.service.ZamowienieWpisService;
 import com.vistula.magazyn.web.rest.errors.BadRequestAlertException;
@@ -44,10 +45,14 @@ public class ZamowienieWpisResource {
 
     private final ZamowienieWpisService zamowienieWpisService;
     private UserService userService;
+    private ZamowienieWpisRepository zamowienieWpisRepository;
 
-    public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService,UserService userService) {
+    public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService,
+                                  UserService userService,
+                                  ZamowienieWpisRepository zamowienieWpisRepository) {
         this.zamowienieWpisService = zamowienieWpisService;
         this.userService = userService;
+        this.zamowienieWpisRepository = zamowienieWpisRepository;
     }
 
     /**
@@ -121,6 +126,15 @@ public class ZamowienieWpisResource {
     public ResponseEntity<List<ZamowienieWpis>> getAllZamowienieWpis(Pageable pageable) {
         log.debug("REST request to get a page of ZamowienieWpis");
         Page<ZamowienieWpis> page = zamowienieWpisService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/zamowienie-wpis/user-koszyk")
+    public ResponseEntity<List<ZamowienieWpis>> getAllZamowienieWpisByUser(Pageable pageable, Principal principal) {
+        log.debug("REST request to get a page of ZamowienieWpis");
+        Optional<User> users = userService.getUserWithAuthoritiesByLogin(principal.getName());
+        Page<ZamowienieWpis> page = zamowienieWpisService.findAllByUserLogin(pageable, users);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

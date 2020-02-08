@@ -1,5 +1,6 @@
 package com.vistula.magazyn.service;
 
+import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.ZamowienieWpis;
 
 import org.springframework.data.domain.Page;
@@ -28,6 +29,14 @@ public interface ZamowienieWpisService {
      */
     Page<ZamowienieWpis> findAll(Pageable pageable);
 
+    /**
+     * Get all the zamowienieWpisByUser.
+     *
+     * @param pageable the pagination information.
+     * @param user
+     * @return the list of entities.
+     */
+    Page<ZamowienieWpis> findAllByUserLogin(Pageable pageable, Optional<User> user);
 
     /**
      * Get the "id" zamowienieWpis.

@@ -10,6 +10,7 @@ import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ZamowienieWpisService } from './zamowienie-wpis.service';
 import { ZamowienieWpisDeleteDialogComponent } from './zamowienie-wpis-delete-dialog.component';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-zamowienie-wpis',
@@ -35,7 +36,8 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected accountService: AccountService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -120,5 +122,11 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.zamowienieWpis = data;
+  }
+
+  getUserByKoszyk() {
+    this.zamowienieWpisService
+      .queryForUserKoszyk()
+      .subscribe((res: HttpResponse<IZamowienieWpis[]>) => this.paginateZamowienieWpis(res.body, res.headers));
   }
 }

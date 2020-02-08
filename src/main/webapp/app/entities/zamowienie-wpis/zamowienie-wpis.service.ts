@@ -17,6 +17,7 @@ type EntityArrayResponseType = HttpResponse<IZamowienieWpis[]>;
 export class ZamowienieWpisService {
   public resourceUrl = SERVER_API_URL + 'api/zamowienie-wpis';
   public resourceUrlZamowienieWpis = SERVER_API_URL + 'api/zamowienie-wpis-principal';
+  public resourceUrlByUser = SERVER_API_URL + 'api/zamowienie-wpis/user-koszyk';
 
   constructor(protected http: HttpClient, protected userService: UserService) {}
 
@@ -41,17 +42,24 @@ export class ZamowienieWpisService {
     return this.http.get<IZamowienieWpis[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  queryForUserKoszyk(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IZamowienieWpis[]>(this.resourceUrlByUser, { params: options, observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   createProduktZamowienieWpis(produkt: IProdukt, ilosc: number) {
     let zamowienieWpis = new ZamowienieWpis();
-    zamowienieWpis.produkt = produkt;
-    zamowienieWpis.cena = produkt.cena * ilosc;
-    zamowienieWpis.ilosc = ilosc;
-    zamowienieWpis.status = StatusEnum.KOSZYK;
-    zamowienieWpis.statusZamowienia = StatusZamowieniaEnum.UTWORZONE;
-    this.createZamowienieWpisWithUser(zamowienieWpis).subscribe();
+    if (ilosc > 0) {
+      zamowienieWpis.produkt = produkt;
+      zamowienieWpis.cena = produkt.cena * ilosc;
+      zamowienieWpis.ilosc = ilosc;
+      zamowienieWpis.status = StatusEnum.KOSZYK;
+      zamowienieWpis.statusZamowienia = StatusZamowieniaEnum.UTWORZONE;
+      this.createZamowienieWpisWithUser(zamowienieWpis).subscribe();
+    } else null;
   }
 }

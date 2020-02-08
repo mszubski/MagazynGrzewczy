@@ -1,5 +1,6 @@
 package com.vistula.magazyn.service.impl;
 
+import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.service.ZamowienieWpisService;
 import com.vistula.magazyn.domain.ZamowienieWpis;
 import com.vistula.magazyn.repository.ZamowienieWpisRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.Optional;
 
 /**
@@ -53,6 +55,11 @@ public class ZamowienieWpisServiceImpl implements ZamowienieWpisService {
         return zamowienieWpisRepository.findAll(pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ZamowienieWpis> findAllByUserLogin(Pageable pageable, Optional<User> user) {
+        return zamowienieWpisRepository.findAllByUser(pageable, user);
+    }
 
     /**
      * Get one zamowienieWpis by id.
