@@ -168,4 +168,26 @@ export class ProduktComponent implements OnInit, OnDestroy {
       .queryAllProduktForAkcesoria()
       .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
   }
+
+  getAllPiece() {
+    this.produktService
+      .queryAllProduktForPiece()
+      .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
+  }
+
+  getAllGrzejniki() {
+    this.produktService
+      .queryAllProduktForGrzejniki()
+      .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
+  }
+
+  getAllKominki() {
+    this.produktService
+      .queryAllProduktForKominki()
+      .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
+  }
+
+  getAllProdukts() {
+    this.loadAll();
+  }
 }

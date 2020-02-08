@@ -106,17 +106,65 @@ public class ProduktResource {
     }
 
     /**
-     * {@code GET  /produkts/kategoria} : get all the produkts.
+     * {@code GET  /produkts/akcesoria} : get all the produkts if ProduktKategoriaEnum =  AKCESORIA.
      *
 
      * @param pageable the pagination information.
 
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
      */
-    @GetMapping("/produkts/kategoria")
-    public ResponseEntity<List<Produkt>> getAllProduktsByKategoria(Pageable pageable) {
+    @GetMapping("/produkts/akcesoria")
+    public ResponseEntity<List<Produkt>> getAllProduktsByKategoriaAkcesoria(Pageable pageable) {
         log.debug("REST request to get a page of Produkts");
         Page<Produkt> page = produktRepository.findAllByKategoria(ProduktKategoriaEnum.AKCESORIA, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /produkts/grzejniki} : get all the produkts if ProduktKategoriaEnum =  GRZEJNIKI.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
+     */
+    @GetMapping("/produkts/grzejniki")
+    public ResponseEntity<List<Produkt>> getAllProduktsByKategoriaGrzejniki(Pageable pageable) {
+        log.debug("REST request to get a page of Produkts");
+        Page<Produkt> page = produktRepository.findAllByKategoria(ProduktKategoriaEnum.GRZEJNIKI, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /produkts/piece} : get all the produkts if ProduktKategoriaEnum =  PIECE.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
+     */
+    @GetMapping("/produkts/piece")
+    public ResponseEntity<List<Produkt>> getAllProduktsByKategoriaPiece(Pageable pageable) {
+        log.debug("REST request to get a page of Produkts");
+        Page<Produkt> page = produktRepository.findAllByKategoria(ProduktKategoriaEnum.PIECE, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /produkts/grzejniki} : get all the produkts if ProduktKategoriaEnum =  KOMINKI.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
+     */
+    @GetMapping("/produkts/kominki")
+    public ResponseEntity<List<Produkt>> getAllProduktsByKategoriaKominki(Pageable pageable) {
+        log.debug("REST request to get a page of Produkts");
+        Page<Produkt> page = produktRepository.findAllByKategoria(ProduktKategoriaEnum.KOMINKI, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

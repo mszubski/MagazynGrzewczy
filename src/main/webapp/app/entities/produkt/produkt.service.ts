@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IProdukt } from 'app/shared/model/produkt.model';
-import { ProduktKategoriaEnum } from 'app/shared/model/enumerations/produkt-kategoria-enum.model';
 
 type EntityResponseType = HttpResponse<IProdukt>;
 type EntityArrayResponseType = HttpResponse<IProdukt[]>;
@@ -14,7 +13,10 @@ type EntityArrayResponseType = HttpResponse<IProdukt[]>;
 export class ProduktService {
   public resourceUrl = SERVER_API_URL + 'api/produkts';
   public resourceUrlProduktsXlsx = SERVER_API_URL + 'api/produkts/xlsx/';
-  public resourceUrlAllProduktByKategoria = SERVER_API_URL + 'api/produkts/kategoria';
+  public resourceUrlAllProduktByKategoriaAkcesoria = SERVER_API_URL + 'api/produkts/akcesoria';
+  public resourceUrlAllProduktByKategoriaPiece = SERVER_API_URL + 'api/produkts/piece';
+  public resourceUrlAllProduktByKategoriaGrzejniki = SERVER_API_URL + 'api/produkts/grzejniki';
+  public resourceUrlAllProduktByKategoriaKominki = SERVER_API_URL + 'api/produkts/kominki';
 
   constructor(protected http: HttpClient) {}
 
@@ -37,7 +39,31 @@ export class ProduktService {
 
   queryAllProduktForAkcesoria(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoria, {
+    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoriaAkcesoria, {
+      params: options,
+      observe: 'response'
+    });
+  }
+
+  queryAllProduktForPiece(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoriaPiece, {
+      params: options,
+      observe: 'response'
+    });
+  }
+
+  queryAllProduktForGrzejniki(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoriaGrzejniki, {
+      params: options,
+      observe: 'response'
+    });
+  }
+
+  queryAllProduktForKominki(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoriaKominki, {
       params: options,
       observe: 'response'
     });
