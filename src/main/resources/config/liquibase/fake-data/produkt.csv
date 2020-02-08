@@ -1,11 +1,11 @@
-id;nazwa;cena;opis;status;zdjecie;stan
-1;mobile Fish;77969;Savings Account Dam;NIEDOSTEPNY;alarm;2058
-2;Producer;83244;red Chips Soap;DOSTEPNY;Home Namibia;39986
-3;Gorgeous Frozen Pants;23277;Licensed Savings Account;DOSTEPNY;Credit Card Account Table Small Frozen Sausages;96563
-4;cross-platform access;9767;Nakfa;NIEDOSTEPNY;Salad;39106
-5;Tuna;75536;convergence;DOSTEPNY;Facilitator;77513
-6;Markets Chief;59789;National Awesome sky blue;NIEDOSTEPNY;compress South Georgia and the South Sandwich Islands;58675
-7;Specialist Home Loan Account;27599;scalable;NIEDOSTEPNY;index orange;552
-8;overriding;70685;application quantify Unbranded Plastic Tuna;NIEDOSTEPNY;Highway Ergonomic;37081
-9;Lempira;66592;New York tangible Mississippi;NIEDOSTEPNY;Idaho compress Avon;52273
-10;partnerships Grocery Intelligent;3142;withdrawal knowledge base Buckinghamshire;DOSTEPNY;Brand;59886
+id;nazwa;cena;opis;status;zdjecie;stan;kategoria
+1;mobile Fish;77969;Savings Account Dam;NIEDOSTEPNY;alarm;2058;AKCESORIA
+2;red Chips Soap;30424;Albania web-readiness;DOSTEPNY;Gorgeous Frozen Pants;23277;PIECE
+3;Planner Canyon;85994;Yuan Renminbi Centers;NIEDOSTEPNY;cross-platform access;9767;PIECE
+4;Rubber Buckinghamshire Games;90932;Digitized invoice;DOSTEPNY;Georgia Industrial;84228;KOMINKI
+5;archive Georgia Aruba;96117;navigating;DOSTEPNY;Faroe Islands Plastic;80219;AKCESORIA
+6;index orange;552;overriding;NIEDOSTEPNY;deposit Internal;85003;PIECE
+7;Lempira;66592;New York tangible Mississippi;NIEDOSTEPNY;Idaho compress Avon;52273;GRZEJNIKI
+8;withdrawal knowledge base Buckinghamshire;90756;Phased;NIEDOSTEPNY;Money Market Account;69478;KOMINKI
+9;modular Refined Squares;21844;e-business;DOSTEPNY;Gorgeous Profit-focused synergies;81801;KOMINKI
+10;supply-chains magenta;11986;24/7;DOSTEPNY;Tasty Concrete Chips Exclusive;69630;AKCESORIA

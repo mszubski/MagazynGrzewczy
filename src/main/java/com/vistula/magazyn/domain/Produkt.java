@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 import com.vistula.magazyn.domain.enumeration.StatusProdukt;
 
+import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
+
 /**
  * A Produkt.
  */
@@ -41,6 +43,10 @@ public class Produkt implements Serializable {
 
     @Column(name = "stan")
     private Integer stan;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "kategoria")
+    private ProduktKategoriaEnum kategoria;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -128,6 +134,19 @@ public class Produkt implements Serializable {
     public void setStan(Integer stan) {
         this.stan = stan;
     }
+
+    public ProduktKategoriaEnum getKategoria() {
+        return kategoria;
+    }
+
+    public Produkt kategoria(ProduktKategoriaEnum kategoria) {
+        this.kategoria = kategoria;
+        return this;
+    }
+
+    public void setKategoria(ProduktKategoriaEnum kategoria) {
+        this.kategoria = kategoria;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -156,6 +175,7 @@ public class Produkt implements Serializable {
             ", status='" + getStatus() + "'" +
             ", zdjecie='" + getZdjecie() + "'" +
             ", stan=" + getStan() +
+            ", kategoria='" + getKategoria() + "'" +
             "}";
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { AccountService } from 'app/core/auth/account.service';
 import { User } from 'app/core/user/user.model';
 import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
+import { ProduktKategoriaEnum } from 'app/shared/model/enumerations/produkt-kategoria-enum.model';
 
 type EntityResponseType = HttpResponse<IZamowienieWpis>;
 
@@ -63,6 +64,16 @@ export class ProduktComponent implements OnInit, OnDestroy {
   loadAll() {
     this.produktService
       .query({
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
+  }
+
+  loadAllByKategoria() {
+    this.produktService
+      .queryForKategoria({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
@@ -160,5 +171,9 @@ export class ProduktComponent implements OnInit, OnDestroy {
   getAllProduktXlsx(path) {
     console.log(path);
     this.produktService.getAllProduktXlsx(path).subscribe();
+  }
+
+  getAllAkcesoriaProdukt() {
+    this.produktService.getAllProduktByKategoria(ProduktKategoriaEnum.AKCESORIA).subscribe();
   }
 }

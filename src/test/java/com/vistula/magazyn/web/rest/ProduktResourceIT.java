@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.vistula.magazyn.domain.enumeration.StatusProdukt;
+import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
 /**
  * Integration tests for the {@link ProduktResource} REST controller.
  */
@@ -52,6 +53,9 @@ public class ProduktResourceIT {
 
     private static final Integer DEFAULT_STAN = 1;
     private static final Integer UPDATED_STAN = 2;
+
+    private static final ProduktKategoriaEnum DEFAULT_KATEGORIA = ProduktKategoriaEnum.GRZEJNIKI;
+    private static final ProduktKategoriaEnum UPDATED_KATEGORIA = ProduktKategoriaEnum.PIECE;
 
     @Autowired
     private ProduktRepository produktRepository;
@@ -81,7 +85,7 @@ public class ProduktResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProduktResource produktResource = new ProduktResource(produktService,null);
+        final ProduktResource produktResource = new ProduktResource(produktService, produktRepository);
         this.restProduktMockMvc = MockMvcBuilders.standaloneSetup(produktResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -103,7 +107,8 @@ public class ProduktResourceIT {
             .opis(DEFAULT_OPIS)
             .status(DEFAULT_STATUS)
             .zdjecie(DEFAULT_ZDJECIE)
-            .stan(DEFAULT_STAN);
+            .stan(DEFAULT_STAN)
+            .kategoria(DEFAULT_KATEGORIA);
         return produkt;
     }
     /**
@@ -119,7 +124,8 @@ public class ProduktResourceIT {
             .opis(UPDATED_OPIS)
             .status(UPDATED_STATUS)
             .zdjecie(UPDATED_ZDJECIE)
-            .stan(UPDATED_STAN);
+            .stan(UPDATED_STAN)
+            .kategoria(UPDATED_KATEGORIA);
         return produkt;
     }
 
@@ -149,6 +155,7 @@ public class ProduktResourceIT {
         assertThat(testProdukt.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testProdukt.getZdjecie()).isEqualTo(DEFAULT_ZDJECIE);
         assertThat(testProdukt.getStan()).isEqualTo(DEFAULT_STAN);
+        assertThat(testProdukt.getKategoria()).isEqualTo(DEFAULT_KATEGORIA);
     }
 
     @Test
@@ -187,7 +194,8 @@ public class ProduktResourceIT {
             .andExpect(jsonPath("$.[*].opis").value(hasItem(DEFAULT_OPIS)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].zdjecie").value(hasItem(DEFAULT_ZDJECIE)))
-            .andExpect(jsonPath("$.[*].stan").value(hasItem(DEFAULT_STAN)));
+            .andExpect(jsonPath("$.[*].stan").value(hasItem(DEFAULT_STAN)))
+            .andExpect(jsonPath("$.[*].kategoria").value(hasItem(DEFAULT_KATEGORIA.toString())));
     }
     
     @Test
@@ -206,7 +214,8 @@ public class ProduktResourceIT {
             .andExpect(jsonPath("$.opis").value(DEFAULT_OPIS))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.zdjecie").value(DEFAULT_ZDJECIE))
-            .andExpect(jsonPath("$.stan").value(DEFAULT_STAN));
+            .andExpect(jsonPath("$.stan").value(DEFAULT_STAN))
+            .andExpect(jsonPath("$.kategoria").value(DEFAULT_KATEGORIA.toString()));
     }
 
     @Test
@@ -235,7 +244,8 @@ public class ProduktResourceIT {
             .opis(UPDATED_OPIS)
             .status(UPDATED_STATUS)
             .zdjecie(UPDATED_ZDJECIE)
-            .stan(UPDATED_STAN);
+            .stan(UPDATED_STAN)
+            .kategoria(UPDATED_KATEGORIA);
 
         restProduktMockMvc.perform(put("/api/produkts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -252,6 +262,7 @@ public class ProduktResourceIT {
         assertThat(testProdukt.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProdukt.getZdjecie()).isEqualTo(UPDATED_ZDJECIE);
         assertThat(testProdukt.getStan()).isEqualTo(UPDATED_STAN);
+        assertThat(testProdukt.getKategoria()).isEqualTo(UPDATED_KATEGORIA);
     }
 
     @Test

@@ -4,6 +4,7 @@ import { take, map } from 'rxjs/operators';
 import { ProduktService } from 'app/entities/produkt/produkt.service';
 import { IProdukt, Produkt } from 'app/shared/model/produkt.model';
 import { StatusProdukt } from 'app/shared/model/enumerations/status-produkt.model';
+import { ProduktKategoriaEnum } from 'app/shared/model/enumerations/produkt-kategoria-enum.model';
 
 describe('Service Tests', () => {
   describe('Produkt Service', () => {
@@ -21,7 +22,7 @@ describe('Service Tests', () => {
       service = injector.get(ProduktService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Produkt(0, 'AAAAAAA', 0, 'AAAAAAA', StatusProdukt.DOSTEPNY, 'AAAAAAA', 0);
+      elemDefault = new Produkt(0, 'AAAAAAA', 0, 'AAAAAAA', StatusProdukt.DOSTEPNY, 'AAAAAAA', 0, ProduktKategoriaEnum.GRZEJNIKI);
     });
 
     describe('Service methods', () => {
@@ -62,7 +63,8 @@ describe('Service Tests', () => {
             opis: 'BBBBBB',
             status: 'BBBBBB',
             zdjecie: 'BBBBBB',
-            stan: 1
+            stan: 1,
+            kategoria: 'BBBBBB'
           },
           elemDefault
         );
@@ -85,7 +87,8 @@ describe('Service Tests', () => {
             opis: 'BBBBBB',
             status: 'BBBBBB',
             zdjecie: 'BBBBBB',
-            stan: 1
+            stan: 1,
+            kategoria: 'BBBBBB'
           },
           elemDefault
         );

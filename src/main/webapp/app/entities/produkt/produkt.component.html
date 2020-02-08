@@ -4,21 +4,33 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-produkt" [routerLink]="['/produkt/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create a new Produkt
+            Dodaj nowy produkt
             </span>
         </button>
         <button type="submit"
                 class="btn btn-info btn-sm"
-                (click)="getAllProduktXlsx('D:/PIMK/magazyn-grzewczy/src/main/resources/templates/mail/zalaczniki/Produkty.xlsx')">
+                (click)="getAllAkcesoriaProdukt()">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="d-none d-md-inline">Pobierz Excela</span>
+            <span class="d-none d-md-inline">Akcesoria</span>
+        </button>
+        <button type="submit"
+                class="btn btn-info btn-sm"
+                (click)="loadAllByKategoria()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="d-none d-md-inline">AKCESORIA</span>
+        </button>
+        <button type="submit"
+                class="btn btn-info btn-sm"
+                (click)="getAllProduktXlsx('D:/PIMK/magazyn-grzewczy/src/main/resources/templates/mail/zalaczniki/Produkty.xlsx')">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="d-none d-md-inline">Pobierz Excela</span>
         </button>
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
     <div class="alert alert-warning" *ngIf="produkts?.length === 0">
-        <span>No produkts found</span>
+        <span>Nie znaleziono produktów</span>
     </div>
     <div class="table-responsive" *ngIf="produkts?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
@@ -31,7 +43,8 @@
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="zdjecie"><span>Zdjecie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="stan"><span>Stan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col">Dodaj</th>
+            <th scope="col"  jhiSortBy="kategoria"><span>Kategoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  ><span>Ilość</span></th>
             </tr>
             </thead>
             <tbody>
@@ -43,6 +56,7 @@
                 <td>{{produkt.status}}</td>
                 <td>{{produkt.zdjecie}}</td>
                 <td>{{produkt.stan}}</td>
+                <td>{{produkt.kategoria}}</td>
                 <!--<td><input class="form-control" type="number" value="1" id="number-input"></td>-->
                 <td><input class="form-control" type="number" [formControl]="ilosc"></td>
                 <td class="text-right">
@@ -57,18 +71,18 @@
                                 [routerLink]="['/produkt', produkt.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">Zobacz</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/produkt', produkt.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Edytuj</span>
                         </button>
                         <button type="submit" (click)="delete(produkt)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Usuń</span>
                         </button>
                     </div>
                 </td>

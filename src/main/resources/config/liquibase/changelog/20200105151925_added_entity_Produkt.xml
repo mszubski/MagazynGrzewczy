@@ -33,6 +33,9 @@
             <column name="stan" type="integer">
                 <constraints nullable="true" />
             </column>
+            <column name="kategoria" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
     </changeSet>
@@ -62,6 +65,7 @@
             <column name="status" type="string"/>
             <column name="zdjecie" type="string"/>
             <column name="stan" type="numeric"/>
+            <column name="kategoria" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

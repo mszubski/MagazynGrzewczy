@@ -1,8 +1,9 @@
 package com.vistula.magazyn.web.rest;
 
 import com.vistula.magazyn.domain.Produkt;
+import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
+import com.vistula.magazyn.repository.ProduktRepository;
 import com.vistula.magazyn.service.ProduktService;
-import com.vistula.magazyn.service.ProduktXlsxService;
 import com.vistula.magazyn.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -41,11 +41,12 @@ public class ProduktResource {
     private String applicationName;
 
     private final ProduktService produktService;
-    private final ProduktXlsxService produktXlsxService;
+    private final ProduktRepository produktRepository;
 
-    public ProduktResource(ProduktService produktService, ProduktXlsxService produktXlsxService) {
+    public ProduktResource(ProduktService produktService,
+                           ProduktRepository produktRepository) {
         this.produktService = produktService;
-        this.produktXlsxService = produktXlsxService;
+        this.produktRepository = produktRepository;
     }
 
     /**
@@ -91,7 +92,9 @@ public class ProduktResource {
     /**
      * {@code GET  /produkts} : get all the produkts.
      *
+
      * @param pageable the pagination information.
+
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
      */
     @GetMapping("/produkts")
@@ -116,6 +119,19 @@ public class ProduktResource {
     }
 
     /**
+     * {@code GET  /produkts/:kategoria} : get the Produkts by "kategoria".
+     *
+     * @param kategoria the ProduktKategoriaEnum of the produkt to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the produkt, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/produkty/{kategoria}")
+    public ResponseEntity<List<Produkt>> getAllProduktByKategoria(@PathVariable ProduktKategoriaEnum kategoria) {
+        log.debug("REST request to get ProduktByKategoria : {}", kategoria);
+        Optional<List<Produkt>> produkt = produktRepository.findAllByKategoria(kategoria);
+        return ResponseUtil.wrapOrNotFound(produkt);
+    }
+
+    /**
      * {@code DELETE  /produkts/:id} : delete the "id" produkt.
      *
      * @param id the id of the produkt to delete.
@@ -126,12 +142,5 @@ public class ProduktResource {
         log.debug("REST request to delete Produkt : {}", id);
         produktService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
-    }
-
-    @GetMapping("/produkts/xlsx/{path}")
-    public ResponseEntity<Void> getPodpisyXlsx(@PathVariable String path) throws IOException, NoSuchFieldException {
-        log.debug("REST request to get PodpisyXlsx");
-        produktXlsxService.getProduktyXlsxFile(path);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, path)).build();
     }
 }

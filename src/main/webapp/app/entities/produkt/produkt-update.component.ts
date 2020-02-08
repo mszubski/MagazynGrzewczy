@@ -22,7 +22,8 @@ export class ProduktUpdateComponent implements OnInit {
     opis: [],
     status: [],
     zdjecie: [],
-    stan: []
+    stan: [],
+    kategoria: []
   });
 
   constructor(protected produktService: ProduktService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -42,7 +43,8 @@ export class ProduktUpdateComponent implements OnInit {
       opis: produkt.opis,
       status: produkt.status,
       zdjecie: produkt.zdjecie,
-      stan: produkt.stan
+      stan: produkt.stan,
+      kategoria: produkt.kategoria
     });
   }
 
@@ -69,7 +71,8 @@ export class ProduktUpdateComponent implements OnInit {
       opis: this.editForm.get(['opis']).value,
       status: this.editForm.get(['status']).value,
       zdjecie: this.editForm.get(['zdjecie']).value,
-      stan: this.editForm.get(['stan']).value
+      stan: this.editForm.get(['stan']).value,
+      kategoria: this.editForm.get(['kategoria']).value
     };
   }
 
