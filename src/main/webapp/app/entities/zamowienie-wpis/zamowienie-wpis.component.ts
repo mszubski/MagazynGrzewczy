@@ -50,7 +50,7 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.zamowienieWpisService
-      .query({
+      .queryForUserKoszyk({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
