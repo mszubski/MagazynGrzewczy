@@ -106,6 +106,22 @@ public class ProduktResource {
     }
 
     /**
+     * {@code GET  /produkts/kategoria} : get all the produkts.
+     *
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
+     */
+    @GetMapping("/produkts/{produktKategoriaEnum}")
+    public ResponseEntity<List<Produkt>> getAllProduktsByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum) {
+        log.debug("REST request to get a page of Produkts");
+        Page<Produkt> page = produktService.findAllByKategoria(pageable, produktKategoriaEnum);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /produkts/:id} : get the "id" produkt.
      *
      * @param id the id of the produkt to retrieve.

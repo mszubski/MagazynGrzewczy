@@ -1,7 +1,10 @@
 package com.vistula.magazyn.repository;
+
 import com.vistula.magazyn.domain.Produkt;
 import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +20,6 @@ public interface ProduktRepository extends JpaRepository<Produkt, Long> {
     List<Produkt> findAll();
 
     Optional<List<Produkt>> findAllByKategoria(ProduktKategoriaEnum produktKategoriaEnum);
+
+    Page<Produkt> findAllByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum);
 }

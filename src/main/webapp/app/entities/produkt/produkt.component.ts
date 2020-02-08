@@ -71,16 +71,6 @@ export class ProduktComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
   }
 
-  loadAllByKategoria() {
-    this.produktService
-      .queryForKategoria({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
-  }
-
   loadPage(page: number) {
     if (page !== this.previousPage) {
       this.previousPage = page;
@@ -173,7 +163,9 @@ export class ProduktComponent implements OnInit, OnDestroy {
     this.produktService.getAllProduktXlsx(path).subscribe();
   }
 
-  getAllAkcesoriaProdukt() {
-    this.produktService.getAllProduktByKategoria(ProduktKategoriaEnum.AKCESORIA).subscribe();
+  getAllAkcesoria() {
+    this.produktService
+      .queryAllProduktForAkcesoria()
+      .subscribe((res: HttpResponse<IProdukt[]>) => this.paginateProdukts(res.body, res.headers));
   }
 }

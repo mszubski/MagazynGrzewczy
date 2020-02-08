@@ -45,14 +45,12 @@ public class ZamowienieWpisResource {
 
     private final ZamowienieWpisService zamowienieWpisService;
     private UserService userService;
-    private ZamowienieWpisRepository zamowienieWpisRepository;
 
     public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService,
-                                  UserService userService,
-                                  ZamowienieWpisRepository zamowienieWpisRepository) {
+                                  UserService userService)
+                                  {
         this.zamowienieWpisService = zamowienieWpisService;
         this.userService = userService;
-        this.zamowienieWpisRepository = zamowienieWpisRepository;
     }
 
     /**

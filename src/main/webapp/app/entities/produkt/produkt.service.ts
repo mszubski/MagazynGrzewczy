@@ -14,8 +14,7 @@ type EntityArrayResponseType = HttpResponse<IProdukt[]>;
 export class ProduktService {
   public resourceUrl = SERVER_API_URL + 'api/produkts';
   public resourceUrlProduktsXlsx = SERVER_API_URL + 'api/produkts/xlsx/';
-  public resourceUrlProduktByKategoria = SERVER_API_URL + 'api/produkty/';
-  public resourceUrlProduktByKategoria2 = SERVER_API_URL + 'api/produkty/AKCESORIA';
+  public resourceUrlAllProduktByKategoria = SERVER_API_URL + 'api/produkty/';
 
   constructor(protected http: HttpClient) {}
 
@@ -36,17 +35,16 @@ export class ProduktService {
     return this.http.get<IProdukt[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  queryForKategoria(req?: any): Observable<EntityArrayResponseType> {
+  queryAllProduktForAkcesoria(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IProdukt[]>(this.resourceUrlProduktByKategoria2, { params: options, observe: 'response' });
+    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoria + ProduktKategoriaEnum.AKCESORIA, {
+      params: options,
+      observe: 'response'
+    });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  getAllProduktByKategoria(kategoria: ProduktKategoriaEnum): Observable<EntityArrayResponseType> {
-    return this.http.get<IProdukt[]>(this.resourceUrlProduktByKategoria + kategoria, { observe: 'response' });
   }
 
   getAllProduktXlsx(path: string): Observable<EntityArrayResponseType> {

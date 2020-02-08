@@ -1,5 +1,6 @@
 package com.vistula.magazyn.service.impl;
 
+import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
 import com.vistula.magazyn.service.ProduktService;
 import com.vistula.magazyn.domain.Produkt;
 import com.vistula.magazyn.repository.ProduktRepository;
@@ -51,6 +52,12 @@ public class ProduktServiceImpl implements ProduktService {
     public Page<Produkt> findAll(Pageable pageable) {
         log.debug("Request to get all Produkts");
         return produktRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Produkt> findAllByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum) {
+        return produktRepository.findAllByKategoria(pageable, produktKategoriaEnum);
     }
 
 

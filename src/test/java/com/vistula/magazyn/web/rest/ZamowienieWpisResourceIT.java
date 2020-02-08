@@ -76,7 +76,7 @@ public class ZamowienieWpisResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ZamowienieWpisResource zamowienieWpisResource = new ZamowienieWpisResource(zamowienieWpisService, null,null);
+        final ZamowienieWpisResource zamowienieWpisResource = new ZamowienieWpisResource(zamowienieWpisService, null);
         this.restZamowienieWpisMockMvc = MockMvcBuilders.standaloneSetup(zamowienieWpisResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -2,6 +2,7 @@ package com.vistula.magazyn.service;
 
 import com.vistula.magazyn.domain.Produkt;
 
+import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,6 +29,13 @@ public interface ProduktService {
      */
     Page<Produkt> findAll(Pageable pageable);
 
+    /**
+     * Get all the produkts by their categories.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<Produkt> findAllByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum);
 
     /**
      * Get the "id" produkt.

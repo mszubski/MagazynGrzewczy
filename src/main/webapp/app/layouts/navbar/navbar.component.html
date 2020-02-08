@@ -25,6 +25,14 @@
                 </a>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="kursy-walut" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="phone-square"></fa-icon>
+                        <span>Kursy Walut</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="produkt" (click)="collapseNavbar()">
                     <span>
                         <fa-icon icon="jedi"></fa-icon>
