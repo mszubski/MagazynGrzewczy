@@ -14,7 +14,7 @@ type EntityArrayResponseType = HttpResponse<IProdukt[]>;
 export class ProduktService {
   public resourceUrl = SERVER_API_URL + 'api/produkts';
   public resourceUrlProduktsXlsx = SERVER_API_URL + 'api/produkts/xlsx/';
-  public resourceUrlAllProduktByKategoria = SERVER_API_URL + 'api/produkty/';
+  public resourceUrlAllProduktByKategoria = SERVER_API_URL + 'api/produkts/kategoria';
 
   constructor(protected http: HttpClient) {}
 
@@ -37,7 +37,7 @@ export class ProduktService {
 
   queryAllProduktForAkcesoria(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoria + ProduktKategoriaEnum.AKCESORIA, {
+    return this.http.get<IProdukt[]>(this.resourceUrlAllProduktByKategoria, {
       params: options,
       observe: 'response'
     });

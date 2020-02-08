@@ -35,7 +35,7 @@ public interface ProduktService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Produkt> findAllByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum);
+    Page<Produkt> findAllByKategoria(ProduktKategoriaEnum produktKategoriaEnum, Pageable pageable);
 
     /**
      * Get the "id" produkt.

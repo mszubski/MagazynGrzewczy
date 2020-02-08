@@ -21,5 +21,5 @@ public interface ProduktRepository extends JpaRepository<Produkt, Long> {
 
     Optional<List<Produkt>> findAllByKategoria(ProduktKategoriaEnum produktKategoriaEnum);
 
-    Page<Produkt> findAllByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum);
+    Page<Produkt> findAllByKategoria(ProduktKategoriaEnum produktKategoriaEnum, Pageable pageable);
 }

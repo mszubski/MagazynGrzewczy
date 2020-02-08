@@ -56,8 +56,8 @@ public class ProduktServiceImpl implements ProduktService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Produkt> findAllByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum) {
-        return produktRepository.findAllByKategoria(pageable, produktKategoriaEnum);
+    public Page<Produkt> findAllByKategoria(ProduktKategoriaEnum produktKategoriaEnum, Pageable pageable) {
+        return produktRepository.findAllByKategoria(produktKategoriaEnum, pageable);
     }
 
 

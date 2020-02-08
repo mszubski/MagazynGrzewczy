@@ -113,10 +113,10 @@ public class ProduktResource {
 
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of produkts in body.
      */
-    @GetMapping("/produkts/{produktKategoriaEnum}")
-    public ResponseEntity<List<Produkt>> getAllProduktsByKategoria(Pageable pageable, ProduktKategoriaEnum produktKategoriaEnum) {
+    @GetMapping("/produkts/kategoria")
+    public ResponseEntity<List<Produkt>> getAllProduktsByKategoria(Pageable pageable) {
         log.debug("REST request to get a page of Produkts");
-        Page<Produkt> page = produktService.findAllByKategoria(pageable, produktKategoriaEnum);
+        Page<Produkt> page = produktRepository.findAllByKategoria(ProduktKategoriaEnum.AKCESORIA, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -131,19 +131,6 @@ public class ProduktResource {
     public ResponseEntity<Produkt> getProdukt(@PathVariable Long id) {
         log.debug("REST request to get Produkt : {}", id);
         Optional<Produkt> produkt = produktService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(produkt);
-    }
-
-    /**
-     * {@code GET  /produkts/:kategoria} : get the Produkts by "kategoria".
-     *
-     * @param kategoria the ProduktKategoriaEnum of the produkt to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the produkt, or with status {@code 404 (Not Found)}.
-     */
-    @GetMapping("/produkty/{kategoria}")
-    public ResponseEntity<List<Produkt>> getAllProduktByKategoria(@PathVariable ProduktKategoriaEnum kategoria) {
-        log.debug("REST request to get ProduktByKategoria : {}", kategoria);
-        Optional<List<Produkt>> produkt = produktRepository.findAllByKategoria(kategoria);
         return ResponseUtil.wrapOrNotFound(produkt);
     }
 
