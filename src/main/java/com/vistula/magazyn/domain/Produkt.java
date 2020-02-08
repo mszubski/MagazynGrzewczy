@@ -38,15 +38,19 @@ public class Produkt implements Serializable {
     @Column(name = "status")
     private StatusProdukt status;
 
-    @Column(name = "zdjecie")
-    private String zdjecie;
-
     @Column(name = "stan")
     private Integer stan;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "kategoria")
     private ProduktKategoriaEnum kategoria;
+
+    @Lob
+    @Column(name = "zdjecie")
+    private byte[] zdjecie;
+
+    @Column(name = "zdjecie_content_type")
+    private String zdjecieContentType;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -109,19 +113,6 @@ public class Produkt implements Serializable {
         this.status = status;
     }
 
-    public String getZdjecie() {
-        return zdjecie;
-    }
-
-    public Produkt zdjecie(String zdjecie) {
-        this.zdjecie = zdjecie;
-        return this;
-    }
-
-    public void setZdjecie(String zdjecie) {
-        this.zdjecie = zdjecie;
-    }
-
     public Integer getStan() {
         return stan;
     }
@@ -146,6 +137,32 @@ public class Produkt implements Serializable {
 
     public void setKategoria(ProduktKategoriaEnum kategoria) {
         this.kategoria = kategoria;
+    }
+
+    public byte[] getZdjecie() {
+        return zdjecie;
+    }
+
+    public Produkt zdjecie(byte[] zdjecie) {
+        this.zdjecie = zdjecie;
+        return this;
+    }
+
+    public void setZdjecie(byte[] zdjecie) {
+        this.zdjecie = zdjecie;
+    }
+
+    public String getZdjecieContentType() {
+        return zdjecieContentType;
+    }
+
+    public Produkt zdjecieContentType(String zdjecieContentType) {
+        this.zdjecieContentType = zdjecieContentType;
+        return this;
+    }
+
+    public void setZdjecieContentType(String zdjecieContentType) {
+        this.zdjecieContentType = zdjecieContentType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -173,9 +190,10 @@ public class Produkt implements Serializable {
             ", cena=" + getCena() +
             ", opis='" + getOpis() + "'" +
             ", status='" + getStatus() + "'" +
-            ", zdjecie='" + getZdjecie() + "'" +
             ", stan=" + getStan() +
             ", kategoria='" + getKategoria() + "'" +
+            ", zdjecie='" + getZdjecie() + "'" +
+            ", zdjecieContentType='" + getZdjecieContentType() + "'" +
             "}";
     }
 }

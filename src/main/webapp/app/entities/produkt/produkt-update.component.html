@@ -32,11 +32,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_zdjecie">Zdjecie</label>
-                    <input type="text" class="form-control" name="zdjecie" id="field_zdjecie"
-                           formControlName="zdjecie"/>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" for="field_stan">Stan</label>
                     <input type="number" class="form-control" name="stan" id="field_stan"
                            formControlName="stan"/>
@@ -49,6 +44,23 @@
                         <option value="KOMINKI">KOMINKI</option>
                         <option value="AKCESORIA">AKCESORIA</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_zdjecie">Zdjecie</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('zdjecieContentType').value + ';base64,' + editForm.get('zdjecie').value" style="max-height: 100px;" *ngIf="editForm.get('zdjecie').value" alt="produkt image"/>
+                        <div *ngIf="editForm.get('zdjecie').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('zdjecieContentType').value}}, {{byteSize(editForm.get('zdjecie').value)}}</span>
+                            <button type="button" (click)="clearInputImage('zdjecie', 'zdjecieContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_zdjecie" (change)="setFileData($event, 'zdjecie', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="zdjecie" id="field_zdjecie"
+                           formControlName="zdjecie"/>
+                    <input type="hidden" class="form-control" name="zdjecieContentType" id="field_zdjecieContentType"
+                           formControlName="zdjecieContentType" />
                 </div>
 
             </div>

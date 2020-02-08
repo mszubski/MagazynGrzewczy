@@ -7,9 +7,10 @@ export interface IProdukt {
   cena?: number;
   opis?: string;
   status?: StatusProdukt;
-  zdjecie?: string;
   stan?: number;
   kategoria?: ProduktKategoriaEnum;
+  zdjecieContentType?: string;
+  zdjecie?: any;
 }
 
 export class Produkt implements IProdukt {
@@ -19,8 +20,9 @@ export class Produkt implements IProdukt {
     public cena?: number,
     public opis?: string,
     public status?: StatusProdukt,
-    public zdjecie?: string,
     public stan?: number,
-    public kategoria?: ProduktKategoriaEnum
+    public kategoria?: ProduktKategoriaEnum,
+    public zdjecieContentType?: string,
+    public zdjecie?: any
   ) {}
 }

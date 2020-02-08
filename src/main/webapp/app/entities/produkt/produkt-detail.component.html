@@ -21,10 +21,6 @@
                 <dd>
                     <span>{{produkt.status}}</span>
                 </dd>
-                <dt><span>Zdjecie</span></dt>
-                <dd>
-                    <span>{{produkt.zdjecie}}</span>
-                </dd>
                 <dt><span>Stan</span></dt>
                 <dd>
                     <span>{{produkt.stan}}</span>
@@ -32,6 +28,15 @@
                 <dt><span>Kategoria</span></dt>
                 <dd>
                     <span>{{produkt.kategoria}}</span>
+                </dd>
+                <dt><span>Zdjecie</span></dt>
+                <dd>
+                    <div *ngIf="produkt.zdjecie">
+                        <a (click)="openFile(produkt.zdjecieContentType, produkt.zdjecie)">
+                            <img [src]="'data:' + produkt.zdjecieContentType + ';base64,' + produkt.zdjecie" style="max-width: 100%;" alt="produkt image"/>
+                        </a>
+                        {{produkt.zdjecieContentType}}, {{byteSize(produkt.zdjecie)}}
+                    </div>
                 </dd>
             </dl>
 

@@ -1,11 +1,11 @@
-id;nazwa;cena;opis;status;zdjecie;stan;kategoria
-1;mobile Fish;77969;Savings Account Dam;NIEDOSTEPNY;alarm;2058;AKCESORIA
-2;red Chips Soap;30424;Albania web-readiness;DOSTEPNY;Gorgeous Frozen Pants;23277;PIECE
-3;Planner Canyon;85994;Yuan Renminbi Centers;NIEDOSTEPNY;cross-platform access;9767;PIECE
-4;Rubber Buckinghamshire Games;90932;Digitized invoice;DOSTEPNY;Georgia Industrial;84228;KOMINKI
-5;archive Georgia Aruba;96117;navigating;DOSTEPNY;Faroe Islands Plastic;80219;AKCESORIA
-6;index orange;552;overriding;NIEDOSTEPNY;deposit Internal;85003;PIECE
-7;Lempira;66592;New York tangible Mississippi;NIEDOSTEPNY;Idaho compress Avon;52273;GRZEJNIKI
-8;withdrawal knowledge base Buckinghamshire;90756;Phased;NIEDOSTEPNY;Money Market Account;69478;KOMINKI
-9;modular Refined Squares;21844;e-business;DOSTEPNY;Gorgeous Profit-focused synergies;81801;KOMINKI
-10;supply-chains magenta;11986;24/7;DOSTEPNY;Tasty Concrete Chips Exclusive;69630;AKCESORIA
+id;nazwa;cena;opis;status;stan;kategoria;zdjecie;zdjecie_content_type
+1;mobile Fish;77969;Savings Account Dam;NIEDOSTEPNY;14286;GRZEJNIKI;../fake-data/blob/hipster.png;image/png
+2;Officer;61748;Home Loan Account;DOSTEPNY;52477;GRZEJNIKI;../fake-data/blob/hipster.png;image/png
+3;Licensed Savings Account;38246;Planner Canyon;NIEDOSTEPNY;56328;GRZEJNIKI;../fake-data/blob/hipster.png;image/png
+4;Bahamian Dollar Investment Account;83319;Salad;DOSTEPNY;42515;GRZEJNIKI;../fake-data/blob/hipster.png;image/png
+5;synthesizing Views e-enable;92665;capacitor archive;DOSTEPNY;74732;KOMINKI;../fake-data/blob/hipster.png;image/png
+6;Specialist Home Loan Account;27599;scalable;NIEDOSTEPNY;42340;GRZEJNIKI;../fake-data/blob/hipster.png;image/png
+7;monitor 1080p Checking Account;92630;deposit Internal;DOSTEPNY;66592;PIECE;../fake-data/blob/hipster.png;image/png
+8;Developer;84891;hard drive Robust Networked;DOSTEPNY;11089;GRZEJNIKI;../fake-data/blob/hipster.png;image/png
+9;Dynamic;47537;Montana;NIEDOSTEPNY;20306;KOMINKI;../fake-data/blob/hipster.png;image/png
+10;Chilean Peso Unidades de fomento;88046;Auto Loan Account modular Refined;NIEDOSTEPNY;88328;PIECE;../fake-data/blob/hipster.png;image/png

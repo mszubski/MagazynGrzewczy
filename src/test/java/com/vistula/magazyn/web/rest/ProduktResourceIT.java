@@ -17,6 +17,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -48,14 +49,16 @@ public class ProduktResourceIT {
     private static final StatusProdukt DEFAULT_STATUS = StatusProdukt.DOSTEPNY;
     private static final StatusProdukt UPDATED_STATUS = StatusProdukt.NIEDOSTEPNY;
 
-    private static final String DEFAULT_ZDJECIE = "AAAAAAAAAA";
-    private static final String UPDATED_ZDJECIE = "BBBBBBBBBB";
-
     private static final Integer DEFAULT_STAN = 1;
     private static final Integer UPDATED_STAN = 2;
 
     private static final ProduktKategoriaEnum DEFAULT_KATEGORIA = ProduktKategoriaEnum.GRZEJNIKI;
     private static final ProduktKategoriaEnum UPDATED_KATEGORIA = ProduktKategoriaEnum.PIECE;
+
+    private static final byte[] DEFAULT_ZDJECIE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_ZDJECIE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_ZDJECIE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_ZDJECIE_CONTENT_TYPE = "image/png";
 
     @Autowired
     private ProduktRepository produktRepository;
@@ -85,7 +88,7 @@ public class ProduktResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProduktResource produktResource = new ProduktResource(produktService, produktRepository);
+        final ProduktResource produktResource = new ProduktResource(produktService, null);
         this.restProduktMockMvc = MockMvcBuilders.standaloneSetup(produktResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -106,9 +109,10 @@ public class ProduktResourceIT {
             .cena(DEFAULT_CENA)
             .opis(DEFAULT_OPIS)
             .status(DEFAULT_STATUS)
-            .zdjecie(DEFAULT_ZDJECIE)
             .stan(DEFAULT_STAN)
-            .kategoria(DEFAULT_KATEGORIA);
+            .kategoria(DEFAULT_KATEGORIA)
+            .zdjecie(DEFAULT_ZDJECIE)
+            .zdjecieContentType(DEFAULT_ZDJECIE_CONTENT_TYPE);
         return produkt;
     }
     /**
@@ -123,9 +127,10 @@ public class ProduktResourceIT {
             .cena(UPDATED_CENA)
             .opis(UPDATED_OPIS)
             .status(UPDATED_STATUS)
-            .zdjecie(UPDATED_ZDJECIE)
             .stan(UPDATED_STAN)
-            .kategoria(UPDATED_KATEGORIA);
+            .kategoria(UPDATED_KATEGORIA)
+            .zdjecie(UPDATED_ZDJECIE)
+            .zdjecieContentType(UPDATED_ZDJECIE_CONTENT_TYPE);
         return produkt;
     }
 
@@ -153,9 +158,10 @@ public class ProduktResourceIT {
         assertThat(testProdukt.getCena()).isEqualTo(DEFAULT_CENA);
         assertThat(testProdukt.getOpis()).isEqualTo(DEFAULT_OPIS);
         assertThat(testProdukt.getStatus()).isEqualTo(DEFAULT_STATUS);
-        assertThat(testProdukt.getZdjecie()).isEqualTo(DEFAULT_ZDJECIE);
         assertThat(testProdukt.getStan()).isEqualTo(DEFAULT_STAN);
         assertThat(testProdukt.getKategoria()).isEqualTo(DEFAULT_KATEGORIA);
+        assertThat(testProdukt.getZdjecie()).isEqualTo(DEFAULT_ZDJECIE);
+        assertThat(testProdukt.getZdjecieContentType()).isEqualTo(DEFAULT_ZDJECIE_CONTENT_TYPE);
     }
 
     @Test
@@ -193,9 +199,10 @@ public class ProduktResourceIT {
             .andExpect(jsonPath("$.[*].cena").value(hasItem(DEFAULT_CENA.doubleValue())))
             .andExpect(jsonPath("$.[*].opis").value(hasItem(DEFAULT_OPIS)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].zdjecie").value(hasItem(DEFAULT_ZDJECIE)))
             .andExpect(jsonPath("$.[*].stan").value(hasItem(DEFAULT_STAN)))
-            .andExpect(jsonPath("$.[*].kategoria").value(hasItem(DEFAULT_KATEGORIA.toString())));
+            .andExpect(jsonPath("$.[*].kategoria").value(hasItem(DEFAULT_KATEGORIA.toString())))
+            .andExpect(jsonPath("$.[*].zdjecieContentType").value(hasItem(DEFAULT_ZDJECIE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].zdjecie").value(hasItem(Base64Utils.encodeToString(DEFAULT_ZDJECIE))));
     }
     
     @Test
@@ -213,9 +220,10 @@ public class ProduktResourceIT {
             .andExpect(jsonPath("$.cena").value(DEFAULT_CENA.doubleValue()))
             .andExpect(jsonPath("$.opis").value(DEFAULT_OPIS))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.zdjecie").value(DEFAULT_ZDJECIE))
             .andExpect(jsonPath("$.stan").value(DEFAULT_STAN))
-            .andExpect(jsonPath("$.kategoria").value(DEFAULT_KATEGORIA.toString()));
+            .andExpect(jsonPath("$.kategoria").value(DEFAULT_KATEGORIA.toString()))
+            .andExpect(jsonPath("$.zdjecieContentType").value(DEFAULT_ZDJECIE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.zdjecie").value(Base64Utils.encodeToString(DEFAULT_ZDJECIE)));
     }
 
     @Test
@@ -243,9 +251,10 @@ public class ProduktResourceIT {
             .cena(UPDATED_CENA)
             .opis(UPDATED_OPIS)
             .status(UPDATED_STATUS)
-            .zdjecie(UPDATED_ZDJECIE)
             .stan(UPDATED_STAN)
-            .kategoria(UPDATED_KATEGORIA);
+            .kategoria(UPDATED_KATEGORIA)
+            .zdjecie(UPDATED_ZDJECIE)
+            .zdjecieContentType(UPDATED_ZDJECIE_CONTENT_TYPE);
 
         restProduktMockMvc.perform(put("/api/produkts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -260,9 +269,10 @@ public class ProduktResourceIT {
         assertThat(testProdukt.getCena()).isEqualTo(UPDATED_CENA);
         assertThat(testProdukt.getOpis()).isEqualTo(UPDATED_OPIS);
         assertThat(testProdukt.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testProdukt.getZdjecie()).isEqualTo(UPDATED_ZDJECIE);
         assertThat(testProdukt.getStan()).isEqualTo(UPDATED_STAN);
         assertThat(testProdukt.getKategoria()).isEqualTo(UPDATED_KATEGORIA);
+        assertThat(testProdukt.getZdjecie()).isEqualTo(UPDATED_ZDJECIE);
+        assertThat(testProdukt.getZdjecieContentType()).isEqualTo(UPDATED_ZDJECIE_CONTENT_TYPE);
     }
 
     @Test

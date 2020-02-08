@@ -60,9 +60,9 @@
             <th scope="col"  jhiSortBy="cena"><span>Cena</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="opis"><span>Opis</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="zdjecie"><span>Zdjecie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="stan"><span>Stan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="kategoria"><span>Kategoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="zdjecie"><span>Zdjecie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  ><span>Ilość</span></th>
             </tr>
             </thead>
@@ -73,10 +73,14 @@
                 <td>{{produkt.cena}}</td>
                 <td>{{produkt.opis}}</td>
                 <td>{{produkt.status}}</td>
-                <td>{{produkt.zdjecie}}</td>
                 <td>{{produkt.stan}}</td>
                 <td>{{produkt.kategoria}}</td>
-                <!--<td><input class="form-control" type="number" value="1" id="number-input"></td>-->
+                <td>
+                    <a *ngIf="produkt.zdjecie" (click)="openFile(produkt.zdjecieContentType, produkt.zdjecie)">
+                        <img [src]="'data:' + produkt.zdjecieContentType + ';base64,' + produkt.zdjecie" style="max-height: 30px;" alt="{{produkt.nazwa}}"/>
+                    </a>
+                    <span *ngIf="produkt.zdjecie"></span>
+                </td>
                 <td><input class="form-control" type="number" [formControl]="ilosc"></td>
                 <td class="text-right">
                     <div class="btn-group">

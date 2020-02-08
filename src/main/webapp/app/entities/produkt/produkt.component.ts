@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IProdukt } from 'app/shared/model/produkt.model';
@@ -45,6 +45,7 @@ export class ProduktComponent implements OnInit, OnDestroy {
     protected produktService: ProduktService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
+    protected dataUtils: JhiDataUtils,
     protected router: Router,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
@@ -112,6 +113,14 @@ export class ProduktComponent implements OnInit, OnDestroy {
 
   trackId(index: number, item: IProdukt) {
     return item.id;
+  }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
   }
 
   registerChangeInProdukts() {

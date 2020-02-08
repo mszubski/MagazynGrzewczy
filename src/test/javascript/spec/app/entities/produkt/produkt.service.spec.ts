@@ -22,7 +22,17 @@ describe('Service Tests', () => {
       service = injector.get(ProduktService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Produkt(0, 'AAAAAAA', 0, 'AAAAAAA', StatusProdukt.DOSTEPNY, 'AAAAAAA', 0, ProduktKategoriaEnum.GRZEJNIKI);
+      elemDefault = new Produkt(
+        0,
+        'AAAAAAA',
+        0,
+        'AAAAAAA',
+        StatusProdukt.DOSTEPNY,
+        0,
+        ProduktKategoriaEnum.GRZEJNIKI,
+        'image/png',
+        'AAAAAAA'
+      );
     });
 
     describe('Service methods', () => {
@@ -62,9 +72,9 @@ describe('Service Tests', () => {
             cena: 1,
             opis: 'BBBBBB',
             status: 'BBBBBB',
-            zdjecie: 'BBBBBB',
             stan: 1,
-            kategoria: 'BBBBBB'
+            kategoria: 'BBBBBB',
+            zdjecie: 'BBBBBB'
           },
           elemDefault
         );
@@ -86,9 +96,9 @@ describe('Service Tests', () => {
             cena: 1,
             opis: 'BBBBBB',
             status: 'BBBBBB',
-            zdjecie: 'BBBBBB',
             stan: 1,
-            kategoria: 'BBBBBB'
+            kategoria: 'BBBBBB',
+            zdjecie: 'BBBBBB'
           },
           elemDefault
         );

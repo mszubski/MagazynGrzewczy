@@ -27,13 +27,16 @@
             <column name="status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="zdjecie" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="stan" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="kategoria" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="zdjecie" type="blob">
+                <constraints nullable="true" />
+            </column>
+            <column name="zdjecie_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -63,9 +66,10 @@
             <column name="cena" type="numeric"/>
             <column name="opis" type="string"/>
             <column name="status" type="string"/>
-            <column name="zdjecie" type="string"/>
             <column name="stan" type="numeric"/>
             <column name="kategoria" type="string"/>
+            <column name="zdjecie" type="blob"/>
+            <column name="zdjecie_content_type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

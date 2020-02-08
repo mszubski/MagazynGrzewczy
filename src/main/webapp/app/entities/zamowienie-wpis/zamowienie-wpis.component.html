@@ -5,12 +5,6 @@
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
-    <button type="submit"
-            class="btn btn-info btn-sm"
-            (click)="getUserByKoszyk()">
-        <fa-icon [icon]="'plus'"></fa-icon>
-        <span class="d-none d-md-inline">GetUser</span>
-    </button>
     <div class="alert alert-warning" *ngIf="zamowienieWpis?.length === 0">
         <span>Twój koszyk jest pusty!</span>
     </div>
@@ -25,8 +19,7 @@
             <th scope="col"  jhiSortBy="statusZamowienia"><span>Status Zamowienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="user.login"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="produkt.id"><span>Produkt</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="produkt.nazwa"><span>Nazwa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-
+            <th scope="col"><span>Zdjęcie</span></th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -42,30 +35,21 @@
                 </td>
                 <td>
                     <div *ngIf="zamowienieWpis.produkt">
-                        <a [routerLink]="['/produkt', zamowienieWpis.produkt?.id, 'view' ]" >{{zamowienieWpis.produkt?.id}}</a>
+                        <a [routerLink]="['/produkt', zamowienieWpis.produkt?.id, 'view' ]" >{{zamowienieWpis.produkt?.nazwa}}</a>
                     </div>
                 </td>
-                <td>{{zamowienieWpis.produkt.nazwa}}</td>
+                <td>
+                    <a *ngIf="zamowienieWpis.produkt.zdjecie" (click)="openFile(zamowienieWpis.produkt.zdjecieContentType, zamowienieWpis.produkt.zdjecie)">
+                        <img [src]="'data:' + zamowienieWpis.produkt.zdjecieContentType + ';base64,' + zamowienieWpis.produkt.zdjecie" style="max-height: 30px;" alt="{{zamowienieWpis.produkt.nazwa}}"/>
+                    </a>
+                    <span *ngIf="zamowienieWpis.produkt.zdjecie"></span>
+                </td>
                 <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/zamowienie-wpis', zamowienieWpis.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/zamowienie-wpis', zamowienieWpis.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
-                        </button>
                         <button type="submit" (click)="delete(zamowienieWpis)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Usuń z koszyka</span>
                         </button>
-                    </div>
                 </td>
             </tr>
             </tbody>
@@ -79,4 +63,10 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
+    <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-produkt" [routerLink]="['/produkt/new']">
+        <fa-icon [icon]="'plus'"></fa-icon>
+        <span >
+            Złóż zamówienie
+            </span>
+    </button>
 </div>

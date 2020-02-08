@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
@@ -37,7 +37,8 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
-    protected accountService: AccountService
+    protected accountService: AccountService,
+    protected dataUtils: JhiDataUtils
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -128,5 +129,9 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
     this.zamowienieWpisService
       .queryForUserKoszyk()
       .subscribe((res: HttpResponse<IZamowienieWpis[]>) => this.paginateZamowienieWpis(res.body, res.headers));
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
   }
 }
