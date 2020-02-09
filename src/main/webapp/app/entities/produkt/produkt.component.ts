@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,7 +15,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { AccountService } from 'app/core/auth/account.service';
 import { User } from 'app/core/user/user.model';
 import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
-import { ProduktKategoriaEnum } from 'app/shared/model/enumerations/produkt-kategoria-enum.model';
+import { ExcelServicesService } from 'app/entities/produkt/services/excel-services.service';
 
 type EntityResponseType = HttpResponse<IZamowienieWpis>;
 
@@ -51,7 +51,9 @@ export class ProduktComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected zamowienieWpisService: ZamowienieWpisService,
     protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService
+    protected accountService: AccountService,
+    protected excelService: ExcelServicesService,
+    protected http: HttpClient
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -198,5 +200,9 @@ export class ProduktComponent implements OnInit, OnDestroy {
 
   getAllProdukts() {
     this.loadAll();
+  }
+
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.produkts, 'ProduktyMagazyn');
   }
 }
