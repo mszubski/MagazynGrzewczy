@@ -1,14 +1,10 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="produkt">
-            <h2><span>Produkt</span> {{produkt.id}}</h2>
+            <h2><span>{{produkt.nazwa}}</span></h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Nazwa</span></dt>
-                <dd>
-                    <span>{{produkt.nazwa}}</span>
-                </dd>
                 <dt><span>Cena</span></dt>
                 <dd>
                     <span>{{produkt.cena}}</span>
@@ -21,21 +17,16 @@
                 <dd>
                     <span>{{produkt.status}}</span>
                 </dd>
-                <dt><span>Stan</span></dt>
+                <dt><span>Stan Magazynowy</span></dt>
                 <dd>
                     <span>{{produkt.stan}}</span>
                 </dd>
-                <dt><span>Kategoria</span></dt>
-                <dd>
-                    <span>{{produkt.kategoria}}</span>
-                </dd>
-                <dt><span>Zdjecie</span></dt>
+                <dt><span>Zdjęcie poglądowe</span></dt>
                 <dd>
                     <div *ngIf="produkt.zdjecie">
                         <a (click)="openFile(produkt.zdjecieContentType, produkt.zdjecie)">
                             <img [src]="'data:' + produkt.zdjecieContentType + ';base64,' + produkt.zdjecie" style="max-width: 100%;" alt="produkt image"/>
                         </a>
-                        {{produkt.zdjecieContentType}}, {{byteSize(produkt.zdjecie)}}
                     </div>
                 </dd>
             </dl>
@@ -43,13 +34,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Wróć</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/produkt', produkt.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edytuj</span>
             </button>
         </div>
     </div>

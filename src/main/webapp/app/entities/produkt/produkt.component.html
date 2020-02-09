@@ -51,6 +51,9 @@
     <div class="alert alert-warning" *ngIf="produkts?.length === 0">
         <span>Nie znaleziono produktów</span>
     </div>
+    <div class="alert alert-warning" *ngIf="ilosc?.value <= 0">
+        <span>Wpisz dodatną ilość produktu!</span>
+    </div>
     <div class="table-responsive" *ngIf="produkts?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
@@ -62,7 +65,7 @@
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="stan"><span>Stan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="kategoria"><span>Kategoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="zdjecie"><span>Zdjecie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"><span></span></th>
             <th scope="col"  ><span>Ilość</span></th>
             </tr>
             </thead>
