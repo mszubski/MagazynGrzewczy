@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MouseEvent } from '@agm/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { JhiAlertService } from 'ng-jhipster';
+import { KontaktService } from 'app/entities/kontakt/kontakt.service';
 
 @Component({
   selector: 'jhi-kontakt',
@@ -28,7 +30,9 @@ export class KontaktComponent implements OnInit {
     poleTekstowe: new FormControl('')
   });
 
-  constructor() {}
+  constructor(protected kontaktService: KontaktService) {
+    this.kontaktService = kontaktService;
+  }
 
   ngOnInit() {}
 
@@ -81,6 +85,10 @@ export class KontaktComponent implements OnInit {
 
   resetForm() {
     this.form.reset({ dane: '', temat: '', email: '', poleTekstowe: '' });
+  }
+
+  sendMail() {
+    this.kontaktService.sendKontaktMail();
   }
 }
 

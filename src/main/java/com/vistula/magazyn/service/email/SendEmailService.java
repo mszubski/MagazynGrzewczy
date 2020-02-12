@@ -104,6 +104,36 @@ public class SendEmailService {
         }
     }
 
+    /**
+     * Wysyłka maila z gmaila wraz z załącznikami.
+     */
+    //@Scheduled(cron = "0 0/1 * 1/1 * ?")
+    public void sendContactMail() throws IOException {
+        // SMTP properties
+        String host = "smtp.gmail.com";
+        String port = "587";
+        String mailFrom = "mszubski92@gmail.com";
+        String password = "Pomidorowa1";
+        String mailTo = "szubskimateusz@gmail.com";
+        String subject = "Nowy mail";
+
+        String message = getStringContent("src/main/resources/templates/mail/mailTemplate.html");
+
+        //zamienić
+//        String content = message.toString();
+//        content = content.replace("{#modulo}", modulo);
+//        System.out.println(content);
+
+        try {
+            sendEmailWithAttachments(host, port, mailFrom, password, mailTo,
+                subject, message, null);
+            System.out.println("Email został wysłany.");
+        } catch (Exception ex) {
+            System.out.println("Nie można wysłać maila.");
+            ex.printStackTrace();
+        }
+    }
+
     private String getStringContent(String filePath) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
         FileReader fileReader = new FileReader(filePath);
