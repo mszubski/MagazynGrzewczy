@@ -114,7 +114,12 @@ jhipster:
       queue-size: 512
   audit-events:
     retention-period: 30 # Number of days before audit events are deleted.
-
+gmail: #SMTP properties
+  user: 'mszubski92@gmail.com'
+  host: 'smtp.gmail.com'
+  port: '587'
+  password: 'Pomidorowa1'
+  mailTo: 'szubskimateusz@gmail.com'
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

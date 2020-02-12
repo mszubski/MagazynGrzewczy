@@ -78,7 +78,7 @@ export class KontaktComponent implements OnInit {
     this.telefon = this.form.get('telefon').value;
     this.poleTekstowe = this.form.get('poleTekstowe').value;
 
-    // email wyslij
+    this.sendMail();
 
     this.resetForm();
   }
@@ -88,7 +88,15 @@ export class KontaktComponent implements OnInit {
   }
 
   sendMail() {
-    this.kontaktService.sendKontaktMail();
+    const formData = new FormData();
+
+    formData.append('dane', this.dane);
+    formData.append('temat', this.temat);
+    formData.append('email', this.email);
+    formData.append('telefon', this.telefon);
+    formData.append('poleTekstowe', this.poleTekstowe);
+
+    this.kontaktService.sendKontaktMail(formData);
   }
 }
 

@@ -10,7 +10,7 @@ export class KontaktService {
 
   ngOnInit() {}
 
-  sendKontaktMail() {
-    return this.http.post(this.resourceUrlKontaktMailService, HttpClient).subscribe();
+  sendKontaktMail(formData: FormData) {
+    return this.http.post(this.resourceUrlKontaktMailService, formData).subscribe();
   }
 }

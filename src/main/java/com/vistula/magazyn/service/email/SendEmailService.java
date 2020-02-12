@@ -1,5 +1,6 @@
 package com.vistula.magazyn.service.email;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,17 @@ import java.util.Properties;
 
 @Service
 public class SendEmailService {
+
+    @Value("${gmail.user}")
+    private String user;
+    @Value("${gmail.port}")
+    private String port;
+    @Value("${gmail.host}")
+    private String host;
+    @Value("${gmail.password}")
+    private String password;
+    @Value("${gmail.mailTo}")
+    private String mailTo;
 
     public void sendEmailWithAttachments(String host, String port, String userName, String password,
                                          String toAddress, String subject, String message, String[] attachFiles)
@@ -105,28 +117,24 @@ public class SendEmailService {
     }
 
     /**
-     * Wysyłka maila z gmaila wraz z załącznikami.
+     * Wysyłka maila z gmaila - dla formularza kontaktowego.
      */
-    //@Scheduled(cron = "0 0/1 * 1/1 * ?")
-    public void sendContactMail() throws IOException {
-        // SMTP properties
-        String host = "smtp.gmail.com";
-        String port = "587";
-        String mailFrom = "mszubski92@gmail.com";
-        String password = "Pomidorowa1";
-        String mailTo = "szubskimateusz@gmail.com";
-        String subject = "Nowy mail";
+    public void sendContactMail(String dane, String temat, String email, String telefon, String poleTekstowe) throws IOException {
 
-        String message = getStringContent("src/main/resources/templates/mail/mailTemplate.html");
+        String message = getStringContent("src/main/resources/templates/mail/kontaktMailTemplate.html");
 
-        //zamienić
-//        String content = message.toString();
-//        content = content.replace("{#modulo}", modulo);
-//        System.out.println(content);
+        String content = message.toString();
+        content = content.replace("#dane", dane);
+        content = content.replace("#temat", temat);
+        content = content.replace("#email", email);
+        content = content.replace("#telefon", telefon);
+        content = content.replace("#poleTekstowe", poleTekstowe);
+
+        String tematWiadomosci = "Formularz Kontaktowy: " + dane + " - " + temat;
 
         try {
-            sendEmailWithAttachments(host, port, mailFrom, password, mailTo,
-                subject, message, null);
+            sendEmailWithAttachments(host, port, user, password, mailTo,
+                tematWiadomosci, content, null);
             System.out.println("Email został wysłany.");
         } catch (Exception ex) {
             System.out.println("Nie można wysłać maila.");
