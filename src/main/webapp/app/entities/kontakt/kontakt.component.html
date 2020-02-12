@@ -1,5 +1,93 @@
-<div>
-    <h2>Kontakt</h2>
+<div class="jumbotron">
+    <h1><b>Kontakt</b></h1>
+    <div class="form">
+        <div><b>Magazyn Grzewczy</b> <br>
+            ul. Modlińska 56a/54 <br>
+            03-198 Warszawa <br>
+            NIP: 9714700869 <br>
+            REGON: 361947383 <br>
+        </div>
+        <div>
+            <b>Obsługa sklepu:</b> <br>
+            575 358 800 <br>
+            b2b@magazyngrzewczy.pl
+        </div>
+        <div>
+            <b>Administracja i księgowość:</b> <br>
+            531 671 489 <br>
+            biuro@magazyngrzewczy.pl <br>
+        </div>
+        <b>Nasz magazyn: </b> <br>
+        ul. Modlińska 56a/54 <br>
+        03-198 Warszawa <br>
+    </div>
+    <div>
+        <div>
+            <h1>Formularz kontaktowy</h1>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <label for="dane">Podaj swoje imię i nazwisko</label>
+                    <input
+                        formControlName="dane"
+                        id="dane"
+                        type="text"
+                        class="form-control">
+                    <div *ngIf="f.dane.touched && f.dane.invalid" class="alert alert-danger">
+                        <div *ngIf="f.dane.errors.required">Podaj swoje imię i nazwisko!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="temat">Temat zapytania</label>
+                    <input
+                        formControlName="temat"
+                        id="temat"
+                        type="text"
+                        class="form-control">
+                    <div *ngIf="f.temat.touched && f.temat.invalid" class="alert alert-danger">
+                        <div *ngIf="f.temat.errors.required">Wpisz temat zapytania!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telefon">Jeśli chcesz podaj swój numer telefonu w celu przyśpieszenia obsługi</label>
+                    <input
+                        formControlName="telefon"
+                        id="telefon"
+                        type="text"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Podaj swój adres email</label>
+                    <input
+                        formControlName="email"
+                        id="email"
+                        type="text"
+                        class="form-control">
+                    <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
+                        <div *ngIf="f.email.errors.required || f.email.touched">Podaj swój adres email!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="poleTekstowe">W pole tekstowe wpisz treść zapytania</label>
+                    <textarea class="form-control" formControlName="poleTekstowe" id="poleTekstowe" rows="5"></textarea>
+                </div>
+                <div *ngIf="wyslane == true">
+                    <div class="form-group">
+                        <label>Dziękujemy za przesłanie formularza kontaktowego!
+                            Nasz konsultant odezwie się do Ciebie w ciągu 24 godzin!</label><br>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Wyślij</button>
+                <br>
+                <div>
+                    <h5>Zobacz Nas na Mapach Google:</h5>
+                    <h6>Na mapie kolorem zielonym został oznaczony
+                        teren darmowej dostawy o promieniu 100 km dla zamówień powyżej 1000 zł</h6>
+                </div>
+            </form>
+        </div>
+    </div>
     <agm-map
         [latitude]="lat"
         [longitude]="lng"
@@ -29,6 +117,5 @@
                     [circleDraggable]="false"
                     [editable]="false">
         </agm-circle>
-
     </agm-map>
 </div>

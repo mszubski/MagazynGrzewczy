@@ -74,9 +74,6 @@ export class ProduktService {
   }
 
   getAllProduktXlsx(path: string): Observable<EntityArrayResponseType> {
-    console.log('path');
-    console.log(path);
-    /*return this.http.get<IProdukt>(`${this.resourceUrlProduktsXlsx}/${path}`, { observe: 'response' });*/
     return this.http.get<IProdukt[]>(this.resourceUrlProduktsXlsx + path, { observe: 'response' });
   }
 }

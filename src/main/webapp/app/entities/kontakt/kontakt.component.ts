@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MouseEvent } from '@agm/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'jhi-kontakt',
@@ -10,6 +11,22 @@ export class KontaktComponent implements OnInit {
   lng: number = 20.9881805;
   zoom: number = 10;
   label?: string;
+  isNavbarCollapsed: boolean;
+  dane: string;
+  temat: string;
+  telefon: string;
+  email: string;
+  poleTekstowe: string;
+  wyslane = false;
+
+  // Tworzenie formularza ze zmiennymi
+  form = new FormGroup({
+    dane: new FormControl('', [Validators.required]),
+    temat: new FormControl('', [Validators.required]),
+    telefon: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    poleTekstowe: new FormControl('')
+  });
 
   constructor() {}
 
@@ -39,6 +56,32 @@ export class KontaktComponent implements OnInit {
       draggable: false
     }
   ];
+
+  collapseNavbar() {
+    this.isNavbarCollapsed = true;
+  }
+
+  get f() {
+    return this.form.controls;
+  }
+
+  onSubmit() {
+    this.wyslane = true;
+
+    this.dane = this.form.get('dane').value;
+    this.temat = this.form.get('temat').value;
+    this.email = this.form.get('email').value;
+    this.telefon = this.form.get('telefon').value;
+    this.poleTekstowe = this.form.get('poleTekstowe').value;
+
+    // email wyslij
+
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.form.reset({ dane: '', temat: '', email: '', poleTekstowe: '' });
+  }
 }
 
 // just an interface for type safety.
