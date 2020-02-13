@@ -1,0 +1,72 @@
+<div class="jumbotron">
+    <div>
+        <div>
+            <h1><b>Kalkulator zapotrzebowania budynku na moc cieplną</b></h1>
+            <form [formGroup]="kalkulatorForm"
+                  (ngSubmit)="onSubmit()">
+                <h2>Wymiary budynku:</h2>
+                <div class="form-group">
+                    <label for="wysokosc">Wysokość:</label>
+                    <input formControlName="wysokosc" id="wysokosc" type="number" class="form-control">
+                    <div *ngIf="f.wysokosc.touched && f.wysokosc.invalid" class="alert alert-danger">
+                        <div *ngIf="f.wysokosc.errors.required">Wpisz wysokość!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="szerokosc">Szerokość:</label>
+                    <input formControlName="szerokosc" id="szerokosc" type="number" class="form-control">
+                    <div *ngIf="f.szerokosc.touched && f.szerokosc.invalid" class="alert alert-danger">
+                        <div *ngIf="f.szerokosc.errors.required">Wpisz szerokość!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dlugosc">Długość:</label>
+                    <input formControlName="dlugosc" id="dlugosc" type="number" class="form-control">
+                    <div *ngIf="f.dlugosc.touched && f.dlugosc.invalid" class="alert alert-danger">
+                        <div *ngIf="f.dlugosc.errors.required">Wpisz długość!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="temperaturaZewnatrz">Temperatura zewnętrzna:</label>
+                    <input formControlName="temperaturaZewnatrz" id="temperaturaZewnatrz" type="number"
+                           class="form-control">
+                    <div *ngIf="f.temperaturaZewnatrz.touched && f.temperaturaZewnatrz.invalid"
+                         class="alert alert-danger">
+                        <div *ngIf="f.temperaturaZewnatrz.errors.required">Wpisz temperaturę zewnętrzną!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="temperaturaWewnatrz">Temperatura wewnętrzna:</label>
+                    <input formControlName="temperaturaWewnatrz" id="temperaturaWewnatrz" type="number"
+                           class="form-control">
+                    <div *ngIf="f.temperaturaWewnatrz.touched && f.temperaturaWewnatrz.invalid"
+                         class="alert alert-danger">
+                        <div *ngIf="f.temperaturaWewnatrz.errors.required">Wpisz temperaturę wewnętrzną!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="izolacja">Współczynnik izolacji:</label>
+                    <div>
+                        <span>Legenda:</span>
+                        <li>Współczynnik G równy od 3,0 do 4,0 - Brak Izolacji - Budynki nie izolowane, o konstrukcji drewnianej lub metalowej</li>
+                        <li>Współczynnik G równy od 1,7 do 3,0 - Słaba Izolacja - Budynki ze słabą izolacją, ściany z pojedynczej warstwy cegieł, okna i dach bez izlacji</li>
+                        <li>Współczynnik G równy od 1,0 do 1,7 - Dobra Izolacja - Budynki o grubych ścianach, izolowany sufit, niezbyt wiele okien</li>
+                        <li>Współczynnik G równy od 0,8 do 1,0 - Bardzo Dobra Izolacja -  Okna z podwójnymi szybami, grube izolowane ściany, izolowany dach, podłoga,sufity i drzwi</li>
+                    </div>
+                    <input formControlName="izolacja" id="izolacja" type="number" class="form-control">
+                    <div *ngIf="f.izolacja.touched && f.izolacja.invalid" class="alert alert-danger">
+                        <div *ngIf="f.izolacja.errors.required">Wpisz wartość współczynnika izolacji!</div>
+                    </div>
+                </div>
+                <div *ngIf="obliczone == true">
+                    <div class="form-group">
+                        <h2>Zapotrzebowanie na energię cieplną takiego budynku będzie równe:<br>
+                            <span style="background-color: forestgreen">{{wynik.toPrecision(4)}} Wat [W]</span></h2>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Oblicz</button>
+                <button class="btn btn-info" type="button" (click)="resetForm()">Wyczyść</button>
+            </form>
+        </div>
+    </div>
+</div>
