@@ -2,6 +2,9 @@ package com.vistula.magazyn.web.rest;
 
 import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.Zamowienie;
+import com.vistula.magazyn.domain.ZamowienieWpis;
+import com.vistula.magazyn.domain.enumeration.StatusEnum;
+import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
 import com.vistula.magazyn.repository.ZamowienieWpisRepository;
 import com.vistula.magazyn.service.UserService;
 import com.vistula.magazyn.service.ZamowienieService;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,12 +88,53 @@ public class ZamowienieResource {
         if (zamowienie.getId() != null) {
             throw new BadRequestAlertException("A new zamowienie cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        //ustawiam użytkownika, który robi wpis
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(principal.getName());
         if(user.isPresent()){
             zamowienie.setUser(user.get());
         }
-        Zamowienie result = zamowienieService.save(zamowienie);
+        //inicjalna wartosc dla ceny
+        double cenaCalkowita = 0.0;
+        //lista produków z koszyka dla usera po statusie zamowienia i loginie
+        List<ZamowienieWpis> zamowienieWpisList = zamowienieWpisRepository.findAllByUserAndStatusZamowienia(user, StatusZamowieniaEnum.UTWORZONE);
 
+        //iteracja po liście, aby uzyskać cenę całkowitą z koszyka
+        for (ZamowienieWpis zamowienieWpis: zamowienieWpisList){
+            ZamowienieWpis zamowienieWpisItem = new ZamowienieWpis();
+            zamowienieWpisItem.setCena(zamowienieWpis.getCena());
+            cenaCalkowita = cenaCalkowita + zamowienieWpis.getCena();
+            log.info("cenaCalkowita.toString()");
+            log.info(Double.toString(cenaCalkowita));
+        }
+        //ustawienie ceny dla zamowienia
+        zamowienie.setCena(cenaCalkowita);
+
+        //zapis wpisu dla Zamowienie
+        Zamowienie result = zamowienieService.save(zamowienie);
+        //wyciagnięcie Id z wpisu Zamowienie
+        Long idZamowienia = zamowienie.getId();
+
+        //stworzenie listy po zmianach dla ZamowienieWpis - Koszyk
+        List<ZamowienieWpis> zamowienieWpisListUpdate = new ArrayList<>();
+
+        //dla każdego z wpisów z koszyka iteracja
+        for (ZamowienieWpis zamowienieWpis: zamowienieWpisList){
+            ZamowienieWpis zamowienieWpisItem = new ZamowienieWpis();
+
+            zamowienieWpisItem.setId(zamowienieWpis.getId());
+            zamowienieWpisItem.setUser(zamowienieWpis.getUser());
+            zamowienieWpisItem.setCena(zamowienieWpis.getCena());
+            zamowienieWpisItem.setIlosc(zamowienieWpis.getIlosc());
+            zamowienieWpisItem.setProdukt(zamowienieWpis.getProdukt());
+            zamowienieWpisItem.setStatus(StatusEnum.ZAMOWIENIE);
+            zamowienieWpisItem.setStatusZamowienia(StatusZamowieniaEnum.ZATWIERDZONE);
+            zamowienieWpisItem.setZamowienieId(idZamowienia);
+            //dodanie do listy każdego elementu
+            zamowienieWpisListUpdate.add(zamowienieWpisItem);
+        }
+        log.info(" zamowienieWpisListUpdate.toString()"+ zamowienieWpisListUpdate.toString());
+        log.info("cena:" + Double.toString(cenaCalkowita));
+        log.info("zamowienieWpisList" + zamowienieWpisList.toString());
         return ResponseEntity.created(new URI("/api/zamowienie/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);

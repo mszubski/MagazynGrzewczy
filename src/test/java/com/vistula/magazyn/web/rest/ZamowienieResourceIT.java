@@ -74,7 +74,7 @@ public class ZamowienieResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ZamowienieResource zamowienieResource = new ZamowienieResource(zamowienieService, null);
+        final ZamowienieResource zamowienieResource = new ZamowienieResource(zamowienieService, null, null);
         this.restZamowienieMockMvc = MockMvcBuilders.standaloneSetup(zamowienieResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

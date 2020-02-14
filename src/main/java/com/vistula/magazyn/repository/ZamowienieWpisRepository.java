@@ -25,5 +25,5 @@ public interface ZamowienieWpisRepository extends JpaRepository<ZamowienieWpis, 
 
     Page<ZamowienieWpis> findAllByUser(Pageable pageable, Optional<User> user);
 
-    List<ZamowienieWpis> findAllByUserAndStatus(Optional<User> user, StatusZamowieniaEnum statusZamowieniaEnum);
+    List<ZamowienieWpis> findAllByUserAndStatusZamowienia(Optional<User> user, StatusZamowieniaEnum statusZamowieniaEnum);
 }
