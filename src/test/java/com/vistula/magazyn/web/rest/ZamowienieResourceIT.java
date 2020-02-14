@@ -74,7 +74,7 @@ public class ZamowienieResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ZamowienieResource zamowienieResource = new ZamowienieResource(zamowienieService);
+        final ZamowienieResource zamowienieResource = new ZamowienieResource(zamowienieService, null);
         this.restZamowienieMockMvc = MockMvcBuilders.standaloneSetup(zamowienieResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -170,7 +170,7 @@ public class ZamowienieResourceIT {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].dataUtworzenia").value(hasItem(DEFAULT_DATA_UTWORZENIA.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getZamowienie() throws Exception {

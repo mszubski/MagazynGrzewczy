@@ -1,9 +1,11 @@
 package com.vistula.magazyn.web.rest;
 
+import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.Zamowienie;
+import com.vistula.magazyn.repository.ZamowienieWpisRepository;
+import com.vistula.magazyn.service.UserService;
 import com.vistula.magazyn.service.ZamowienieService;
 import com.vistula.magazyn.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -13,14 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +40,15 @@ public class ZamowienieResource {
     private String applicationName;
 
     private final ZamowienieService zamowienieService;
+    private final ZamowienieWpisRepository zamowienieWpisRepository;
+    private UserService userService;
 
-    public ZamowienieResource(ZamowienieService zamowienieService) {
+    public ZamowienieResource(ZamowienieService zamowienieService,
+                              ZamowienieWpisRepository zamowienieWpisRepository,
+                              UserService userService) {
         this.zamowienieService = zamowienieService;
+        this.zamowienieWpisRepository = zamowienieWpisRepository;
+        this.userService = userService;
     }
 
     /**
@@ -59,6 +66,31 @@ public class ZamowienieResource {
         }
         Zamowienie result = zamowienieService.save(zamowienie);
         return ResponseEntity.created(new URI("/api/zamowienies/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code POST  /zamowienie} : Create a new zamowienie.
+     *
+     * @param zamowienie the zamowienie to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new zamowienie, or with status {@code 400 (Bad Request)} if the zamowienie has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/zamowienie")
+    public ResponseEntity<Zamowienie> createZamowienieWithPrincipal(Principal principal, @RequestBody Zamowienie zamowienie) throws URISyntaxException {
+        log.debug("REST request to save Zamowienie : {}", zamowienie);
+
+        if (zamowienie.getId() != null) {
+            throw new BadRequestAlertException("A new zamowienie cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(principal.getName());
+        if(user.isPresent()){
+            zamowienie.setUser(user.get());
+        }
+        Zamowienie result = zamowienieService.save(zamowienie);
+
+        return ResponseEntity.created(new URI("/api/zamowienie/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }

@@ -35,7 +35,8 @@ import {
   faHome,
   faPhoneSquare,
   faJedi,
-  faCartPlus
+  faCartPlus,
+  faTruckLoading
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
@@ -75,5 +76,6 @@ export const fontAwesomeIcons = [
   faAsterisk,
   faPhoneSquare,
   faJedi,
-  faCartPlus
+  faCartPlus,
+  faTruckLoading
 ];

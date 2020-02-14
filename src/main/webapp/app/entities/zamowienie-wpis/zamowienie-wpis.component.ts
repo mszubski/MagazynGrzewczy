@@ -1,16 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
+import { IZamowienieWpis, ZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ZamowienieWpisService } from './zamowienie-wpis.service';
 import { ZamowienieWpisDeleteDialogComponent } from './zamowienie-wpis-delete-dialog.component';
 import { AccountService } from 'app/core/auth/account.service';
+import { ZamowienieService } from 'app/entities/zamowienie/zamowienie.service';
+import { Zamowienie } from 'app/shared/model/zamowienie.model';
+import { StatusZamowienieEnum } from 'app/shared/model/enumerations/status-zamowienie-enum.model';
 
 @Component({
   selector: 'jhi-zamowienie-wpis',
@@ -18,6 +21,7 @@ import { AccountService } from 'app/core/auth/account.service';
 })
 export class ZamowienieWpisComponent implements OnInit, OnDestroy {
   zamowienieWpis: IZamowienieWpis[];
+  // zamowienie: Zamowienie;
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -32,6 +36,7 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
 
   constructor(
     protected zamowienieWpisService: ZamowienieWpisService,
+    protected zamowienieService: ZamowienieService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
@@ -133,5 +138,13 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
 
   openFile(contentType, field) {
     return this.dataUtils.openFile(contentType, field);
+  }
+
+  addZamowienie() {
+    let zamowienie = new Zamowienie();
+    zamowienie.cena = 0;
+    zamowienie.dataUtworzenia = null;
+    zamowienie.status = StatusZamowienieEnum.UTWORZONE;
+    this.zamowienieService.createZamowienieWithUser(zamowienie).subscribe();
   }
 }

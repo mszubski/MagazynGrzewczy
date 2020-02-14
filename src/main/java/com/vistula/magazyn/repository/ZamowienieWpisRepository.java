@@ -2,6 +2,8 @@ package com.vistula.magazyn.repository;
 
 import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.ZamowienieWpis;
+import com.vistula.magazyn.domain.enumeration.StatusEnum;
+import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +24,6 @@ public interface ZamowienieWpisRepository extends JpaRepository<ZamowienieWpis, 
     List<ZamowienieWpis> findByUserIsCurrentUser();
 
     Page<ZamowienieWpis> findAllByUser(Pageable pageable, Optional<User> user);
+
+    List<ZamowienieWpis> findAllByUserAndStatus(Optional<User> user, StatusZamowieniaEnum statusZamowieniaEnum);
 }

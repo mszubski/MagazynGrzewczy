@@ -16,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IZamowienie[]>;
 @Injectable({ providedIn: 'root' })
 export class ZamowienieService {
   public resourceUrl = SERVER_API_URL + 'api/zamowienies';
+  public resourceUrlZamowienie = SERVER_API_URL + 'api/zamowienie';
 
   constructor(protected http: HttpClient) {}
 
@@ -24,6 +25,10 @@ export class ZamowienieService {
     return this.http
       .post<IZamowienie>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  createZamowienieWithUser(zamowienie: IZamowienie): Observable<EntityResponseType> {
+    return this.http.post<IZamowienie>(this.resourceUrlZamowienie, zamowienie, { observe: 'response' });
   }
 
   update(zamowienie: IZamowienie): Observable<EntityResponseType> {
