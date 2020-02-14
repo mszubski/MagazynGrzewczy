@@ -9,6 +9,7 @@ export interface IZamowienieWpis {
   cena?: number;
   status?: StatusEnum;
   statusZamowienia?: StatusZamowieniaEnum;
+  zamowienieId?: number;
   user?: IUser;
   produkt?: IProdukt;
 }
@@ -20,6 +21,7 @@ export class ZamowienieWpis implements IZamowienieWpis {
     public cena?: number,
     public status?: StatusEnum,
     public statusZamowienia?: StatusZamowieniaEnum,
+    public zamowienieId?: number,
     public user?: IUser,
     public produkt?: IProdukt
   ) {}

@@ -27,6 +27,9 @@
             <column name="status_zamowienia" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="zamowienie_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -60,6 +63,7 @@
             <column name="cena" type="numeric"/>
             <column name="status" type="string"/>
             <column name="status_zamowienia" type="string"/>
+            <column name="zamowienie_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

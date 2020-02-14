@@ -30,6 +30,7 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
     cena: [],
     status: [],
     statusZamowienia: [],
+    zamowienieId: [],
     user: [],
     produkt: []
   });
@@ -63,6 +64,7 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
       cena: zamowienieWpis.cena,
       status: zamowienieWpis.status,
       statusZamowienia: zamowienieWpis.statusZamowienia,
+      zamowienieId: zamowienieWpis.zamowienieId,
       user: zamowienieWpis.user,
       produkt: zamowienieWpis.produkt
     });
@@ -90,6 +92,7 @@ export class ZamowienieWpisUpdateComponent implements OnInit {
       cena: this.editForm.get(['cena']).value,
       status: this.editForm.get(['status']).value,
       statusZamowienia: this.editForm.get(['statusZamowienia']).value,
+      zamowienieId: this.editForm.get(['zamowienieId']).value,
       user: this.editForm.get(['user']).value,
       produkt: this.editForm.get(['produkt']).value
     };

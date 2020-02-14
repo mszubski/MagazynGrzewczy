@@ -1,6 +1,12 @@
 <div>
     <h2 id="page-heading">
-        <span>Koszyk</span>
+        <span>Zamowienie Wpis</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-zamowienie-wpis" [routerLink]="['/zamowienie-wpis/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Zamowienie Wpis
+            </span>
+        </button>
     </h2>
     <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
@@ -16,7 +22,8 @@
             <th scope="col"  jhiSortBy="ilosc"><span>Ilość</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="cena"><span>Cena</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="statusZamowienia"><span>Status Zamówienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="statusZamowienia"><span>Status Zamowienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="zamowienieId"><span>Zamowienie Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="user.login"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="produkt.id"><span>Produkt</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"><span>Zdjęcie</span></th>
@@ -30,6 +37,7 @@
                 <td>{{zamowienieWpis.cena}}</td>
                 <td>{{zamowienieWpis.status}}</td>
                 <td>{{zamowienieWpis.statusZamowienia}}</td>
+                <td>{{zamowienieWpis.zamowienieId}}</td>
                 <td>
                     {{zamowienieWpis.user?.login}}
                 </td>

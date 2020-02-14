@@ -22,7 +22,7 @@ describe('Service Tests', () => {
       service = injector.get(ZamowienieWpisService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new ZamowienieWpis(0, 0, 0, StatusEnum.KOSZYK, StatusZamowieniaEnum.UTWORZONE);
+      elemDefault = new ZamowienieWpis(0, 0, 0, StatusEnum.KOSZYK, StatusZamowieniaEnum.UTWORZONE, 0);
     });
 
     describe('Service methods', () => {
@@ -61,7 +61,8 @@ describe('Service Tests', () => {
             ilosc: 1,
             cena: 1,
             status: 'BBBBBB',
-            statusZamowienia: 'BBBBBB'
+            statusZamowienia: 'BBBBBB',
+            zamowienieId: 1
           },
           elemDefault
         );
@@ -82,7 +83,8 @@ describe('Service Tests', () => {
             ilosc: 1,
             cena: 1,
             status: 'BBBBBB',
-            statusZamowienia: 'BBBBBB'
+            statusZamowienia: 'BBBBBB',
+            zamowienieId: 1
           },
           elemDefault
         );

@@ -48,6 +48,9 @@ public class ZamowienieWpisResourceIT {
     private static final StatusZamowieniaEnum DEFAULT_STATUS_ZAMOWIENIA = StatusZamowieniaEnum.UTWORZONE;
     private static final StatusZamowieniaEnum UPDATED_STATUS_ZAMOWIENIA = StatusZamowieniaEnum.ZATWIERDZONE;
 
+    private static final Long DEFAULT_ZAMOWIENIE_ID = 1L;
+    private static final Long UPDATED_ZAMOWIENIE_ID = 2L;
+
     @Autowired
     private ZamowienieWpisRepository zamowienieWpisRepository;
 
@@ -96,7 +99,8 @@ public class ZamowienieWpisResourceIT {
             .ilosc(DEFAULT_ILOSC)
             .cena(DEFAULT_CENA)
             .status(DEFAULT_STATUS)
-            .statusZamowienia(DEFAULT_STATUS_ZAMOWIENIA);
+            .statusZamowienia(DEFAULT_STATUS_ZAMOWIENIA)
+            .zamowienieId(DEFAULT_ZAMOWIENIE_ID);
         return zamowienieWpis;
     }
     /**
@@ -110,7 +114,8 @@ public class ZamowienieWpisResourceIT {
             .ilosc(UPDATED_ILOSC)
             .cena(UPDATED_CENA)
             .status(UPDATED_STATUS)
-            .statusZamowienia(UPDATED_STATUS_ZAMOWIENIA);
+            .statusZamowienia(UPDATED_STATUS_ZAMOWIENIA)
+            .zamowienieId(UPDATED_ZAMOWIENIE_ID);
         return zamowienieWpis;
     }
 
@@ -138,6 +143,7 @@ public class ZamowienieWpisResourceIT {
         assertThat(testZamowienieWpis.getCena()).isEqualTo(DEFAULT_CENA);
         assertThat(testZamowienieWpis.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testZamowienieWpis.getStatusZamowienia()).isEqualTo(DEFAULT_STATUS_ZAMOWIENIA);
+        assertThat(testZamowienieWpis.getZamowienieId()).isEqualTo(DEFAULT_ZAMOWIENIE_ID);
     }
 
     @Test
@@ -174,9 +180,10 @@ public class ZamowienieWpisResourceIT {
             .andExpect(jsonPath("$.[*].ilosc").value(hasItem(DEFAULT_ILOSC)))
             .andExpect(jsonPath("$.[*].cena").value(hasItem(DEFAULT_CENA.doubleValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].statusZamowienia").value(hasItem(DEFAULT_STATUS_ZAMOWIENIA.toString())));
+            .andExpect(jsonPath("$.[*].statusZamowienia").value(hasItem(DEFAULT_STATUS_ZAMOWIENIA.toString())))
+            .andExpect(jsonPath("$.[*].zamowienieId").value(hasItem(DEFAULT_ZAMOWIENIE_ID.intValue())));
     }
-    
+
     @Test
     @Transactional
     public void getZamowienieWpis() throws Exception {
@@ -191,7 +198,8 @@ public class ZamowienieWpisResourceIT {
             .andExpect(jsonPath("$.ilosc").value(DEFAULT_ILOSC))
             .andExpect(jsonPath("$.cena").value(DEFAULT_CENA.doubleValue()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.statusZamowienia").value(DEFAULT_STATUS_ZAMOWIENIA.toString()));
+            .andExpect(jsonPath("$.statusZamowienia").value(DEFAULT_STATUS_ZAMOWIENIA.toString()))
+            .andExpect(jsonPath("$.zamowienieId").value(DEFAULT_ZAMOWIENIE_ID.intValue()));
     }
 
     @Test
@@ -218,7 +226,8 @@ public class ZamowienieWpisResourceIT {
             .ilosc(UPDATED_ILOSC)
             .cena(UPDATED_CENA)
             .status(UPDATED_STATUS)
-            .statusZamowienia(UPDATED_STATUS_ZAMOWIENIA);
+            .statusZamowienia(UPDATED_STATUS_ZAMOWIENIA)
+            .zamowienieId(UPDATED_ZAMOWIENIE_ID);
 
         restZamowienieWpisMockMvc.perform(put("/api/zamowienie-wpis")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,6 +242,7 @@ public class ZamowienieWpisResourceIT {
         assertThat(testZamowienieWpis.getCena()).isEqualTo(UPDATED_CENA);
         assertThat(testZamowienieWpis.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testZamowienieWpis.getStatusZamowienia()).isEqualTo(UPDATED_STATUS_ZAMOWIENIA);
+        assertThat(testZamowienieWpis.getZamowienieId()).isEqualTo(UPDATED_ZAMOWIENIE_ID);
     }
 
     @Test

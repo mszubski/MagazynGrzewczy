@@ -40,6 +40,9 @@ public class ZamowienieWpis implements Serializable {
     @Column(name = "status_zamowienia")
     private StatusZamowieniaEnum statusZamowienia;
 
+    @Column(name = "zamowienie_id")
+    private Long zamowienieId;
+
     @ManyToOne
     @JsonIgnoreProperties("zamowienieWpis")
     private User user;
@@ -109,6 +112,19 @@ public class ZamowienieWpis implements Serializable {
         this.statusZamowienia = statusZamowienia;
     }
 
+    public Long getZamowienieId() {
+        return zamowienieId;
+    }
+
+    public ZamowienieWpis zamowienieId(Long zamowienieId) {
+        this.zamowienieId = zamowienieId;
+        return this;
+    }
+
+    public void setZamowienieId(Long zamowienieId) {
+        this.zamowienieId = zamowienieId;
+    }
+
     public User getUser() {
         return user;
     }
@@ -160,6 +176,7 @@ public class ZamowienieWpis implements Serializable {
             ", cena=" + getCena() +
             ", status='" + getStatus() + "'" +
             ", statusZamowienia='" + getStatusZamowienia() + "'" +
+            ", zamowienieId=" + getZamowienieId() +
             "}";
     }
 }
