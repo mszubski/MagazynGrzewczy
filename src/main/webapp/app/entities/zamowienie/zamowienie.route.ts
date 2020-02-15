@@ -35,7 +35,7 @@ export const zamowienieRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       defaultSort: 'id,asc',
-      pageTitle: 'Zamowienies'
+      pageTitle: 'Zamówienia'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -47,7 +47,7 @@ export const zamowienieRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Zamowienies'
+      pageTitle: 'Zamówienia'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -58,8 +58,8 @@ export const zamowienieRoute: Routes = [
       zamowienie: ZamowienieResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'Zamowienies'
+      authorities: ['ROLE_ADMIN'],
+      pageTitle: 'Zamówienia'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -70,8 +70,8 @@ export const zamowienieRoute: Routes = [
       zamowienie: ZamowienieResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'Zamowienies'
+      authorities: ['ROLE_ADMIN'],
+      pageTitle: 'Zamówienia'
     },
     canActivate: [UserRouteAccessService]
   }

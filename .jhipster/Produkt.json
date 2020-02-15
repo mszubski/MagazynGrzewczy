@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "nazwa",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cena",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "opis",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "StatusProdukt",
+            "fieldValues": "DOSTEPNY,NIEDOSTEPNY"
+        },
+        {
+            "fieldName": "stan",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "kategoria",
+            "fieldType": "ProduktKategoriaEnum",
+            "fieldValues": "GRZEJNIKI,PIECE,KOMINKI,AKCESORIA"
+        },
+        {
+            "fieldName": "zdjecie",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "changelogDate": "20200105151925",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "produkt",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

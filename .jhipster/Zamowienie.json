@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "zamowienie"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "cena",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "StatusZamowienieEnum",
+            "fieldValues": "UTWORZONE,ZAAKCEPTOWANE,WYSLANE,ZAPLACONE,ZREALIZOWANE,ANULOWANE"
+        },
+        {
+            "fieldName": "dataUtworzenia",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20200214115016",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "zamowienie",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}
