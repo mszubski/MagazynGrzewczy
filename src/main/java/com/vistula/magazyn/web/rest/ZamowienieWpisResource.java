@@ -2,6 +2,8 @@ package com.vistula.magazyn.web.rest;
 
 import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.ZamowienieWpis;
+import com.vistula.magazyn.domain.enumeration.StatusEnum;
+import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
 import com.vistula.magazyn.repository.ZamowienieWpisRepository;
 import com.vistula.magazyn.service.UserService;
 import com.vistula.magazyn.service.ZamowienieWpisService;
@@ -132,7 +134,8 @@ public class ZamowienieWpisResource {
     public ResponseEntity<List<ZamowienieWpis>> getAllZamowienieWpisByUser(Pageable pageable, Principal principal) {
         log.debug("REST request to get a page of ZamowienieWpis");
         Optional<User> users = userService.getUserWithAuthoritiesByLogin(principal.getName());
-        Page<ZamowienieWpis> page = zamowienieWpisService.findAllByUserLogin(pageable, users);
+        Page<ZamowienieWpis> page = zamowienieWpisService.findAllByUserAndStatusAndStatusZamowienia(
+            pageable, users, StatusEnum.KOSZYK, StatusZamowieniaEnum.UTWORZONE);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

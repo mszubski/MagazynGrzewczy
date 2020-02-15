@@ -3,6 +3,8 @@ package com.vistula.magazyn.service;
 import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.domain.ZamowienieWpis;
 
+import com.vistula.magazyn.domain.enumeration.StatusEnum;
+import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -37,6 +39,17 @@ public interface ZamowienieWpisService {
      * @return the list of entities.
      */
     Page<ZamowienieWpis> findAllByUserLogin(Pageable pageable, Optional<User> user);
+
+    /**
+     * Get all the zamowienieWpisByUser.
+     *
+     * @param pageable the pagination information.
+     * @param user
+     * @return the list of entities.
+     */
+    Page<ZamowienieWpis> findAllByUserAndStatusAndStatusZamowienia(Pageable pageable, Optional<User> user,
+                                                                        StatusEnum statusEnum, StatusZamowieniaEnum statusZamowieniaEnum);
+
 
     /**
      * Get the "id" zamowienieWpis.

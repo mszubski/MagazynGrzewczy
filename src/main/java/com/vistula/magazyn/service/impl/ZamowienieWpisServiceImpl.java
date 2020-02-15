@@ -1,6 +1,8 @@
 package com.vistula.magazyn.service.impl;
 
 import com.vistula.magazyn.domain.User;
+import com.vistula.magazyn.domain.enumeration.StatusEnum;
+import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
 import com.vistula.magazyn.service.ZamowienieWpisService;
 import com.vistula.magazyn.domain.ZamowienieWpis;
 import com.vistula.magazyn.repository.ZamowienieWpisRepository;
@@ -59,6 +61,14 @@ public class ZamowienieWpisServiceImpl implements ZamowienieWpisService {
     @Transactional(readOnly = true)
     public Page<ZamowienieWpis> findAllByUserLogin(Pageable pageable, Optional<User> user) {
         return zamowienieWpisRepository.findAllByUser(pageable, user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ZamowienieWpis> findAllByUserAndStatusAndStatusZamowienia(Pageable pageable, Optional<User> user,
+                                                                          StatusEnum statusEnum, StatusZamowieniaEnum statusZamowieniaEnum) {
+        return zamowienieWpisRepository.findAllByUserAndStatusAndStatusZamowienia(
+            pageable, user, statusEnum, statusZamowieniaEnum);
     }
 
     /**

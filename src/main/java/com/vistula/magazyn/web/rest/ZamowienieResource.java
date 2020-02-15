@@ -45,13 +45,16 @@ public class ZamowienieResource {
 
     private final ZamowienieService zamowienieService;
     private final ZamowienieWpisRepository zamowienieWpisRepository;
+    private final ZamowienieWpisResource zamowienieWpisResource;
     private UserService userService;
 
     public ZamowienieResource(ZamowienieService zamowienieService,
                               ZamowienieWpisRepository zamowienieWpisRepository,
+                              ZamowienieWpisResource zamowienieWpisResource,
                               UserService userService) {
         this.zamowienieService = zamowienieService;
         this.zamowienieWpisRepository = zamowienieWpisRepository;
+        this.zamowienieWpisResource = zamowienieWpisResource;
         this.userService = userService;
     }
 
@@ -121,7 +124,6 @@ public class ZamowienieResource {
         for (ZamowienieWpis zamowienieWpis: zamowienieWpisList){
             ZamowienieWpis zamowienieWpisItem = new ZamowienieWpis();
 
-            zamowienieWpisItem.setId(zamowienieWpis.getId());
             zamowienieWpisItem.setUser(zamowienieWpis.getUser());
             zamowienieWpisItem.setCena(zamowienieWpis.getCena());
             zamowienieWpisItem.setIlosc(zamowienieWpis.getIlosc());
@@ -131,10 +133,12 @@ public class ZamowienieResource {
             zamowienieWpisItem.setZamowienieId(idZamowienia);
             //dodanie do listy każdego elementu
             zamowienieWpisListUpdate.add(zamowienieWpisItem);
+
+            //tworze nowy wpis dla każdego z elementow już update-owanej listy
+            zamowienieWpisResource.createZamowienieWpis(zamowienieWpisItem);
+            //usuwam stary wpis
+            zamowienieWpisResource.deleteZamowienieWpis(zamowienieWpis.getId());
         }
-        log.info(" zamowienieWpisListUpdate.toString()"+ zamowienieWpisListUpdate.toString());
-        log.info("cena:" + Double.toString(cenaCalkowita));
-        log.info("zamowienieWpisList" + zamowienieWpisList.toString());
         return ResponseEntity.created(new URI("/api/zamowienie/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);

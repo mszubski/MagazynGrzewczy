@@ -35,7 +35,7 @@ export const zamowienieWpisRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       defaultSort: 'id,asc',
-      pageTitle: 'ZamowienieWpis'
+      pageTitle: 'Koszyk'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -47,7 +47,7 @@ export const zamowienieWpisRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'ZamowienieWpis'
+      pageTitle: 'Koszyk'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -59,7 +59,7 @@ export const zamowienieWpisRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'ZamowienieWpis'
+      pageTitle: 'Koszyk Dodaj Nowy'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -71,7 +71,7 @@ export const zamowienieWpisRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'ZamowienieWpis'
+      pageTitle: 'Koszyk Edycja'
     },
     canActivate: [UserRouteAccessService]
   }
