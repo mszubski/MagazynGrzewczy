@@ -35,7 +35,7 @@ export const produktRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       defaultSort: 'id,asc',
-      pageTitle: 'Produkts'
+      pageTitle: 'Magazyn Produkty'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -47,7 +47,7 @@ export const produktRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Produkts'
+      pageTitle: 'Magazyn Produkty'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -59,7 +59,7 @@ export const produktRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Produkts'
+      pageTitle: 'Magazyn Produkty'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -71,7 +71,7 @@ export const produktRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'Produkts'
+      pageTitle: 'Magazyn Produkty'
     },
     canActivate: [UserRouteAccessService]
   }

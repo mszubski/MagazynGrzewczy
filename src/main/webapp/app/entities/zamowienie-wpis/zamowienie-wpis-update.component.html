@@ -10,7 +10,7 @@
                         readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_ilosc">Ilosc</label>
+                    <label class="form-control-label" for="field_ilosc">Ilość</label>
                     <input type="number" class="form-control" name="ilosc" id="field_ilosc"
                            formControlName="ilosc"/>
                 </div>
@@ -28,7 +28,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_statusZamowienia">Status Zamowienia</label>
+                    <label class="form-control-label" for="field_statusZamowienia">Status Zamówienia</label>
                     <select class="form-control" name="statusZamowienia" formControlName="statusZamowienia" id="field_statusZamowienia">
                         <option value="UTWORZONE">UTWORZONE</option>
                         <option value="ZATWIERDZONE">ZATWIERDZONE</option>
@@ -60,10 +60,10 @@
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Anuluj</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Zapisz</span>
                 </button>
             </div>
         </form>

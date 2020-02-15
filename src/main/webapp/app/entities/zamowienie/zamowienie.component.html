@@ -1,10 +1,13 @@
 <div>
     <h2 id="page-heading">
-        <span>Zamowienies</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-zamowienie" [routerLink]="['/zamowienie/new']">
+        <span>Lista Twoich zamówień</span>
+        <button id="jh-create-entity"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                class="btn btn-primary float-right jh-create-entity create-zamowienie"
+                [routerLink]="['/zamowienie/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create a new Zamowienie
+            Stwórz nowe zamówienie
             </span>
         </button>
     </h2>
@@ -12,17 +15,16 @@
     <jhi-alert></jhi-alert>
     <br/>
     <div class="alert alert-warning" *ngIf="zamowienies?.length === 0">
-        <span>No zamowienies found</span>
+        <span>Nie posiadasz żadnych zamówień!</span>
     </div>
     <div class="table-responsive" *ngIf="zamowienies?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="cena"><span>Cena</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="id"><span>Id zamówienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cena"><span>Cena zamówienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="dataUtworzenia"><span>Data Utworzenia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="user.login"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dataUtworzenia"><span>Data utworzenia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -31,10 +33,7 @@
                 <td><a [routerLink]="['/zamowienie', zamowienie.id, 'view' ]">{{zamowienie.id}}</a></td>
                 <td>{{zamowienie.cena}}</td>
                 <td>{{zamowienie.status}}</td>
-                <td>{{zamowienie.dataUtworzenia | date:'mediumDate'}}</td>
-                <td>
-                    {{zamowienie.user?.login}}
-                </td>
+                <td>{{zamowienie.dataUtworzenia | date:'dd/MM/yy'}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

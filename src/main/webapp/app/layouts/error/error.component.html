@@ -4,15 +4,15 @@
             <span class="hipster img-fluid rounded"></span>
         </div>
         <div class="col-md-8">
-            <h1>Error Page!</h1>
+            <h1>Błąd!</h1>
 
             <div [hidden]="!errorMessage">
                 <div class="alert alert-danger">{{errorMessage}}
                 </div>
             </div>
-            <div [hidden]="!error403" class="alert alert-danger">You are not authorized to access this page.
+            <div [hidden]="!error403" class="alert alert-danger">Nie masz uprawnień aby wyświetlić tę stronę!
             </div>
-            <div [hidden]="!error404" class="alert alert-danger">The page does not exist.
+            <div [hidden]="!error404" class="alert alert-danger">Ta strona nie istnieje!
             </div>
         </div>
     </div>
