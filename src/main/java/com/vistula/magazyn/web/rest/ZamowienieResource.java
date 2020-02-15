@@ -25,6 +25,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +41,8 @@ public class ZamowienieResource {
     private final Logger log = LoggerFactory.getLogger(ZamowienieResource.class);
 
     private static final String ENTITY_NAME = "zamowienie";
+    private static final LocalDate DATA_UTWORZENIA = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA_UTWORZENIA = LocalDate.now(ZoneId.systemDefault());
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -111,6 +115,7 @@ public class ZamowienieResource {
         }
         //ustawienie ceny dla zamowienia
         zamowienie.setCena(cenaCalkowita);
+        zamowienie.setDataUtworzenia(UPDATED_DATA_UTWORZENIA);
 
         //zapis wpisu dla Zamowienie
         Zamowienie result = zamowienieService.save(zamowienie);
