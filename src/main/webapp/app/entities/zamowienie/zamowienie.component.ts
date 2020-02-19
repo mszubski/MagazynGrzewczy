@@ -19,6 +19,7 @@ import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 })
 export class ZamowienieComponent implements OnInit, OnDestroy {
   zamowienies: IZamowienie[];
+  produks: IZamowienieWpis[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -125,8 +126,15 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
     this.zamowienies = data;
   }
 
-  getAllZamowienieWpisByZamowienieId(zamowienieId: number) {
-    let produkty: IZamowienieWpis[];
-    produkty = this.zamowienieWpisService.findByZamowienieId(zamowienieId).subscribe();
+  getAllZamowienieWpisByZamowienieId(zamowienieId: number): IZamowienieWpis[] {
+    this.zamowienieWpisService
+      .findByZamowienieId(zamowienieId)
+      .subscribe((res: HttpResponse<IZamowienieWpis[]>) => this.onSuccessSingle(res.body));
+    return this.produks;
+  }
+
+  protected onSuccessSingle(data: IZamowienieWpis[]) {
+    this.produks = data;
+    console.log(this.produks);
   }
 }

@@ -38,8 +38,8 @@ export class ZamowienieWpisService {
     return this.http.get<IZamowienieWpis>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  findByZamowienieId(zamowienieId: number): Observable<EntityResponseType> {
-    return this.http.get<IZamowienieWpis>(`${this.resourceUrlByZamowienieId}/${zamowienieId}`, { observe: 'response' });
+  findByZamowienieId(zamowienieId: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IZamowienieWpis[]>(`${this.resourceUrlByZamowienieId}/${zamowienieId}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

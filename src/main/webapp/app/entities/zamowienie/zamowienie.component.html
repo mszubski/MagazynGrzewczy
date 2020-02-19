@@ -76,8 +76,11 @@
                        title="Zamówienie numer: {{zamowienie.id}}
                        Data utworzenia: {{zamowienie.dataUtworzenia | date: 'yyyy/MM/dd'}}
                        Status zamówienia: {{zamowienie.status}}">
+<!--                <ng-container *ngFor="let zamowienieWpis of getAllZamowienieWpisByZamowienieId(zamowienie.id)">-->
+<!--                    <div>{{zamowienieWpis}}</div>-->
+<!--                </ng-container>-->
                 <ng-template ngbPanelContent>
-                    <div (click)="getAllZamowienieWpisByZamowienieId(zamowienie.id)"></div>
+
                     <button type="submit" (click)="getAllZamowienieWpisByZamowienieId(zamowienie.id)"
                             *jhiHasAnyAuthority="'ROLE_ADMIN'"
                             class="btn btn-danger btn-sm">
@@ -86,6 +89,7 @@
                     </button>
                     <div>{{zamowienie.id}}</div>
                     <h4>Cena zamówienia: {{zamowienie.cena}}</h4>
+                    <h1>{{produks}}</h1>
                 </ng-template>
             </ngb-panel>
         </ng-container>
