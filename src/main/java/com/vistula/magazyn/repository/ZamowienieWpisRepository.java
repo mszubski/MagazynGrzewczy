@@ -29,4 +29,6 @@ public interface ZamowienieWpisRepository extends JpaRepository<ZamowienieWpis, 
                                                                    StatusEnum statusEnum, StatusZamowieniaEnum statusZamowieniaEnum);
 
     List<ZamowienieWpis> findAllByUserAndStatusZamowienia(Optional<User> user, StatusZamowieniaEnum statusZamowieniaEnum);
+
+    Optional<List<ZamowienieWpis>> findAllByZamowienieId(Long zamowienieId);
 }

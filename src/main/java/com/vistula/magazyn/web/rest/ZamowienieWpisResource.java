@@ -47,12 +47,15 @@ public class ZamowienieWpisResource {
 
     private final ZamowienieWpisService zamowienieWpisService;
     private UserService userService;
+    private ZamowienieWpisRepository zamowienieWpisRepository;
 
     public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService,
-                                  UserService userService)
+                                  UserService userService,
+                                  ZamowienieWpisRepository zamowienieWpisRepository)
                                   {
         this.zamowienieWpisService = zamowienieWpisService;
         this.userService = userService;
+        this.zamowienieWpisRepository = zamowienieWpisRepository;
     }
 
     /**
@@ -150,6 +153,19 @@ public class ZamowienieWpisResource {
     public ResponseEntity<ZamowienieWpis> getZamowienieWpis(@PathVariable Long id) {
         log.debug("REST request to get ZamowienieWpis : {}", id);
         Optional<ZamowienieWpis> zamowienieWpis = zamowienieWpisService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(zamowienieWpis);
+    }
+
+    /**
+     * {@code GET  /zamowienie-wpis/:id} : get the "id" zamowienieWpis.
+     *
+     * @param zamowienieId the id of the zamowienieWpis to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the zamowienieWpis, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/zamowieniewpis/{zamowienieId}")
+    public ResponseEntity<List<ZamowienieWpis>> getZamowienieWpisByZamowienieId(@PathVariable Long zamowienieId) {
+        log.debug("REST request to get ZamowienieWpis : {}", zamowienieId);
+        Optional<List<ZamowienieWpis>> zamowienieWpis = zamowienieWpisRepository.findAllByZamowienieId(zamowienieId);
         return ResponseUtil.wrapOrNotFound(zamowienieWpis);
     }
 

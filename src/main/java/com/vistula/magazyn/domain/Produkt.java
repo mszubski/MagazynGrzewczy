@@ -11,7 +11,7 @@ import com.vistula.magazyn.domain.enumeration.StatusProdukt;
 import com.vistula.magazyn.domain.enumeration.ProduktKategoriaEnum;
 
 /**
- * A Produkt.
+ * Encja Produkt.
  */
 @Entity
 @Table(name = "produkt")

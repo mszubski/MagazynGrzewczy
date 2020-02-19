@@ -18,6 +18,7 @@ export class ZamowienieWpisService {
   public resourceUrl = SERVER_API_URL + 'api/zamowienie-wpis';
   public resourceUrlZamowienieWpis = SERVER_API_URL + 'api/zamowienie-wpis-principal';
   public resourceUrlByUser = SERVER_API_URL + 'api/zamowienie-wpis/user-koszyk';
+  public resourceUrlByZamowienieId = SERVER_API_URL + 'api/zamowieniewpis';
 
   constructor(protected http: HttpClient, protected userService: UserService) {}
 
@@ -35,6 +36,10 @@ export class ZamowienieWpisService {
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IZamowienieWpis>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  findByZamowienieId(zamowienieId: number): Observable<EntityResponseType> {
+    return this.http.get<IZamowienieWpis>(`${this.resourceUrlByZamowienieId}/${zamowienieId}`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

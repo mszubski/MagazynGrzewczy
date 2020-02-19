@@ -10,6 +10,8 @@ import { IZamowienie } from 'app/shared/model/zamowienie.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ZamowienieService } from './zamowienie.service';
 import { ZamowienieDeleteDialogComponent } from './zamowienie-delete-dialog.component';
+import { ZamowienieWpisService } from 'app/entities/zamowienie-wpis/zamowienie-wpis.service';
+import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 
 @Component({
   selector: 'jhi-zamowienie',
@@ -35,7 +37,8 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected zamowienieWpisService: ZamowienieWpisService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -120,5 +123,10 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.zamowienies = data;
+  }
+
+  getAllZamowienieWpisByZamowienieId(zamowienieId: number) {
+    let produkty: IZamowienieWpis[];
+    produkty = this.zamowienieWpisService.findByZamowienieId(zamowienieId).subscribe();
   }
 }

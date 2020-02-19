@@ -58,6 +58,7 @@ export class KalkulatorComponent implements OnInit {
       izolacja: ''
     });
 
+    this.wynik = 0.0;
     this.obliczone = false;
   }
 }

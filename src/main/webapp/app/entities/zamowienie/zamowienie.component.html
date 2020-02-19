@@ -70,4 +70,24 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
+    <ngb-accordion>
+        <ng-container *ngFor="let zamowienie of zamowienies; let i = index">
+            <ngb-panel id="static-{{i}}"
+                       title="Zamówienie numer: {{zamowienie.id}}
+                       Data utworzenia: {{zamowienie.dataUtworzenia | date: 'yyyy/MM/dd'}}
+                       Status zamówienia: {{zamowienie.status}}">
+                <ng-template ngbPanelContent>
+                    <div (click)="getAllZamowienieWpisByZamowienieId(zamowienie.id)"></div>
+                    <button type="submit" (click)="getAllZamowienieWpisByZamowienieId(zamowienie.id)"
+                            *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                            class="btn btn-danger btn-sm">
+                        <fa-icon [icon]="'times'"></fa-icon>
+                        <span class="d-none d-md-inline">DI</span>
+                    </button>
+                    <div>{{zamowienie.id}}</div>
+                    <h4>Cena zamówienia: {{zamowienie.cena}}</h4>
+                </ng-template>
+            </ngb-panel>
+        </ng-container>
+    </ngb-accordion>
 </div>

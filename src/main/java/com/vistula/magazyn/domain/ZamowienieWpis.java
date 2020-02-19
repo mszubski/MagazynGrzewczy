@@ -12,7 +12,7 @@ import com.vistula.magazyn.domain.enumeration.StatusEnum;
 import com.vistula.magazyn.domain.enumeration.StatusZamowieniaEnum;
 
 /**
- * A ZamowienieWpis.
+ * Encja ZamowienieWpis.
  */
 @Entity
 @Table(name = "zam_wpis")

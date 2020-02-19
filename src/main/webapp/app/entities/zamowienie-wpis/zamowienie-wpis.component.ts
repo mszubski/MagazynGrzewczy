@@ -124,6 +124,10 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  getAllZamowienieWpisByZamowienieId(zamowienieId: number) {
+    this.zamowienieWpisService.findByZamowienieId(zamowienieId).subscribe();
+  }
+
   protected paginateZamowienieWpis(data: IZamowienieWpis[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);

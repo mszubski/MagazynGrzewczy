@@ -29,7 +29,7 @@ public class SendEmailService {
     public void sendEmailWithAttachments(String host, String port, String userName, String password,
                                          String toAddress, String subject, String message, String[] attachFiles)
         throws AddressException, MessagingException {
-        // ustaw wlaściwości dla obiektu Properties - SMTP
+        // ustaw właściwości dla obiektu Properties - SMTP
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
@@ -46,8 +46,7 @@ public class SendEmailService {
             }
         };
         Session session = Session.getInstance(properties, auth);
-
-        // utwórz wiadomosc email
+        // utwórz wiadomość email
         Message msg = new MimeMessage(session);
 
         msg.setFrom(new InternetAddress(userName));
@@ -55,16 +54,13 @@ public class SendEmailService {
         msg.setRecipients(Message.RecipientType.TO, toAddresses);
         msg.setSubject(subject);
         msg.setSentDate(new Date());
-
-        // stwórz wiadomosc
+        // stwórz wiadomość
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setContent(message, "text/html; charset=UTF-8");
-
         // stwórz multi-part
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
-
-        // dodaj zalaczniki
+        // dodaj załączniki
         if (attachFiles != null && attachFiles.length > 0) {
             for (String filePath : attachFiles) {
                 MimeBodyPart attachPart = new MimeBodyPart();
@@ -78,13 +74,10 @@ public class SendEmailService {
                 multipart.addBodyPart(attachPart);
             }
         }
-
         // stwórz the multi-part as e-mail's content
         msg.setContent(multipart);
-
         // sends the e-mail
         Transport.send(msg);
-
     }
 
     /**

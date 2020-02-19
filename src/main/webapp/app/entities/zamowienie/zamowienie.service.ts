@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IZamowienie } from 'app/shared/model/zamowienie.model';
+import { ProduktService } from 'app/entities/produkt/produkt.service';
+import { ZamowienieWpisService } from 'app/entities/zamowienie-wpis/zamowienie-wpis.service';
 
 type EntityResponseType = HttpResponse<IZamowienie>;
 type EntityArrayResponseType = HttpResponse<IZamowienie[]>;
@@ -18,7 +20,7 @@ export class ZamowienieService {
   public resourceUrl = SERVER_API_URL + 'api/zamowienies';
   public resourceUrlZamowienie = SERVER_API_URL + 'api/zamowienie';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient, protected zamowienieWpisService: ZamowienieWpisService) {}
 
   create(zamowienie: IZamowienie): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(zamowienie);
