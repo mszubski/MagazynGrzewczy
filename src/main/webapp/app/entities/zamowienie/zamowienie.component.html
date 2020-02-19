@@ -6,7 +6,7 @@
                 class="btn btn-primary float-right jh-create-entity create-zamowienie"
                 [routerLink]="['/zamowienie/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span >
+            <span>
             Stwórz nowe zamówienie
             </span>
         </button>
@@ -21,11 +21,19 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span>Id zamówienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="cena"><span>Cena zamówienia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="dataUtworzenia"><span>Data utworzenia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"></th>
+                <th scope="col" jhiSortBy="id"><span>Id zamówienia</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="cena"><span>Cena zamówienia</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="status"><span>Status</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="dataUtworzenia"><span>Data utworzenia</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -67,29 +75,22 @@
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                            [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
-    <ngb-accordion>
-        <ng-container *ngFor="let zamowienie of zamowienies; let i = index">
+    <ngb-accordion *ngFor="let zamowienie of zamowienies; let i = index"
+                   (panelChange)="getAllZamowienieWpisByZamowienieId(zamowienie.id)">
+        <ng-container>
             <ngb-panel id="static-{{i}}"
                        title="Zamówienie numer: {{zamowienie.id}}
                        Data utworzenia: {{zamowienie.dataUtworzenia | date: 'yyyy/MM/dd'}}
                        Status zamówienia: {{zamowienie.status}}">
-<!--                <ng-container *ngFor="let zamowienieWpis of getAllZamowienieWpisByZamowienieId(zamowienie.id)">-->
-<!--                    <div>{{zamowienieWpis}}</div>-->
-<!--                </ng-container>-->
                 <ng-template ngbPanelContent>
-
-                    <button type="submit" (click)="getAllZamowienieWpisByZamowienieId(zamowienie.id)"
-                            *jhiHasAnyAuthority="'ROLE_ADMIN'"
-                            class="btn btn-danger btn-sm">
-                        <fa-icon [icon]="'times'"></fa-icon>
-                        <span class="d-none d-md-inline">DI</span>
-                    </button>
                     <div>{{zamowienie.id}}</div>
                     <h4>Cena zamówienia: {{zamowienie.cena}}</h4>
-                    <h1>{{produks}}</h1>
+                    <h1>{{this.produks[0].produkt.nazwa}}</h1>
+                    <h1>{{this.produks[1].produkt.nazwa}}</h1>
                 </ng-template>
             </ngb-panel>
         </ng-container>

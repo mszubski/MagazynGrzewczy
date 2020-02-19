@@ -31,6 +31,7 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  current: number = 0;
 
   constructor(
     protected zamowienieService: ZamowienieService,
