@@ -27,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class ZamowienieWpisResource {
     public ZamowienieWpisResource(ZamowienieWpisService zamowienieWpisService,
                                   UserService userService,
                                   ZamowienieWpisRepository zamowienieWpisRepository)
-                                  {
+    {
         this.zamowienieWpisService = zamowienieWpisService;
         this.userService = userService;
         this.zamowienieWpisRepository = zamowienieWpisRepository;
@@ -166,7 +167,7 @@ public class ZamowienieWpisResource {
     public ResponseEntity<List<ZamowienieWpis>> getZamowienieWpisByZamowienieId(@PathVariable Long zamowienieId) {
         log.debug("REST request to get ZamowienieWpis : {}", zamowienieId);
         Optional<List<ZamowienieWpis>> zamowienieWpis = zamowienieWpisRepository.findAllByZamowienieId(zamowienieId);
-        return ResponseUtil.wrapOrNotFound(zamowienieWpis);
+        return zamowienieWpis.isPresent() ? ResponseEntity.ok(zamowienieWpis.get()) : ResponseEntity.ok(new ArrayList<>());
     }
 
     /**

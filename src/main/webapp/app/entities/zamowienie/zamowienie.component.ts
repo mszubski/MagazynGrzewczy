@@ -19,7 +19,7 @@ import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 })
 export class ZamowienieComponent implements OnInit, OnDestroy {
   zamowienies: IZamowienie[];
-  produks: IZamowienieWpis[];
+  zamowienieWpisArr: any[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -31,7 +31,7 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  current: number = 0;
+  current = 0;
 
   constructor(
     protected zamowienieService: ZamowienieService,
@@ -125,17 +125,27 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.zamowienies = data;
+    this.loadFirstZamowienieWpis();
   }
 
-  getAllZamowienieWpisByZamowienieId(zamowienieId: number): IZamowienieWpis[] {
+  getAllZamowienieWpisByZamowienieId(zamowienieId: number) {
     this.zamowienieWpisService
       .findByZamowienieId(zamowienieId)
       .subscribe((res: HttpResponse<IZamowienieWpis[]>) => this.onSuccessSingle(res.body));
-    return this.produks;
   }
 
-  protected onSuccessSingle(data: IZamowienieWpis[]) {
-    this.produks = data;
-    console.log(this.produks);
+  protected onSuccessSingle(zamowienieWpisArr: IZamowienieWpis[]) {
+    this.zamowienieWpisArr = zamowienieWpisArr;
+  }
+
+  private loadFirstZamowienieWpis() {
+    if (this.zamowienies.length) {
+      const idFirstZamowienie = this.zamowienies[0].id;
+      this.getAllZamowienieWpisByZamowienieId(idFirstZamowienie);
+    }
+  }
+
+  getFirstZamowienieIdFromZamowienies() {
+    return Array.isArray(this.zamowienies) && this.zamowienies.length ? this.zamowienies[0].id : 0;
   }
 }
