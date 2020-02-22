@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <span>Lista Twoich zamówień</span>
+        <span>Twoje zamówienia</span>
         <button id="jh-create-entity"
                 *jhiHasAnyAuthority="'ROLE_ADMIN'"
                 class="btn btn-primary float-right jh-create-entity create-zamowienie"
@@ -17,7 +17,7 @@
     <div class="alert alert-warning" *ngIf="zamowienies?.length === 0">
         <span>Nie posiadasz żadnych zamówień!</span>
     </div>
-    <div class="table-responsive" *ngIf="zamowienies?.length > 0">
+    <!--<div class="table-responsive" *ngIf="zamowienies?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
@@ -69,16 +69,7 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div [hidden]="zamowienies?.length === 0">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
-                            [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
-    </div>
+    </div>-->
     <ngb-accordion (panelChange)="getAllZamowienieWpisByZamowienieId(+$event.panelId)"
                    activeIds="{{getFirstZamowienieIdFromZamowienies()}}"
                    closeOthers="true">
@@ -88,17 +79,28 @@
                        Data utworzenia: {{zamowienie.dataUtworzenia | date: 'yyyy/MM/dd'}}
                        Status zamówienia: {{zamowienie.status}}">
                 <ng-template ngbPanelContent>
-                    <div>Id zamówienia: {{zamowienie.id}}</div>
-                    <div>Cena zamówienia: {{zamowienie.cena}}</div>
+                    <div>Całkowita cena zamówienia: {{zamowienie.cena}} zł</div>
+                    <!-- todo tu wkleić buttony -->
                     <table class="table">
                         <tr>
                             <th style="width: 20%">Nazwa produktu</th>
                             <th>Ilość</th>
+                            <th>Cena</th>
+                            <th>Kategoria produktu</th>
+                            <th>Stan magazynowy</th>
+                            <th></th>
                         </tr>
                         <ng-container *ngFor="let zamowienieWpis of zamowienieWpisArr">
                             <tr>
                                 <td>{{zamowienieWpis.produkt.nazwa}}</td>
                                 <td>{{zamowienieWpis.ilosc}}</td>
+                                <td>{{zamowienieWpis.cena}} zł</td>
+                                <td>{{zamowienieWpis.produkt.kategoria}}</td>
+                                <td>{{zamowienieWpis.produkt.stan}} sztuk</td>
+                                <img *ngIf="zamowienieWpis.produkt.zdjecie" (click)="openFile(zamowienieWpis.produkt.zdjecieContentType, zamowienieWpis.produkt.zdjecie)"
+                                    [src]="'data:'     + zamowienieWpis.produkt.zdjecieContentType +
+                                            ';base64,'  + zamowienieWpis.produkt.zdjecie"
+                                     style="max-height: 30px;" alt="{{zamowienieWpis.produkt.nazwa}}"/>
                             </tr>
                         </ng-container>
                     </table>
@@ -109,4 +111,13 @@
             </ngb-panel>
         </ng-container>
     </ngb-accordion>
+</div>
+<div [hidden]="zamowienies?.length === 0">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
 </div>

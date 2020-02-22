@@ -16,6 +16,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { User } from 'app/core/user/user.model';
 import { IZamowienieWpis } from 'app/shared/model/zamowienie-wpis.model';
 import { ExcelServicesService } from 'app/entities/produkt/services/excel-services.service';
+import { StatusProdukt } from 'app/shared/model/enumerations/status-produkt.model';
 
 type EntityResponseType = HttpResponse<IZamowienieWpis>;
 
@@ -40,6 +41,7 @@ export class ProduktComponent implements OnInit, OnDestroy {
   reverse: any;
   ilosc = new FormControl(1, Validators.required);
   path: string;
+  niedostepny = StatusProdukt.NIEDOSTEPNY;
 
   constructor(
     protected produktService: ProduktService,
@@ -154,8 +156,6 @@ export class ProduktComponent implements OnInit, OnDestroy {
     this.accountService.identity().subscribe(account => {
       user.login = account.login;
       user.email = account.email;
-      console.log('user.login' + user.login);
-      console.log('user.login' + user.email);
     });
     console.log(user);
     return user;
