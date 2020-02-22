@@ -1,0 +1,81 @@
+<div>
+    <h2 id="page-heading">
+        <span>Dane Klients</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-dane-klient" [routerLink]="['/dane-klient/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Dodaj dane nowego klienta
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="daneKlients?.length === 0">
+        <span>Nie znaleziono żadnego klienta</span>
+    </div>
+    <div class="table-responsive" *ngIf="daneKlients?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="imie"><span>Imię</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="nazwisko"><span>Nazwisko</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="numerTelefonu"><span>Numer Telefonu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="firma"><span>Nazwa Firmy</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="nip"><span>NIP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="ulica"><span>Ulica</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="miejscowosc"><span>Miejscowość</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="kodPocztowy"><span>Kod Pocztowy</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="kraj"><span>Kraj</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let daneKlient of daneKlients ;trackBy: trackId">
+                <td><a [routerLink]="['/dane-klient', daneKlient.id, 'view' ]">{{daneKlient.id}}</a></td>
+                <td>{{daneKlient.imie}}</td>
+                <td>{{daneKlient.nazwisko}}</td>
+                <td>{{daneKlient.numerTelefonu}}</td>
+                <td>{{daneKlient.email}}</td>
+                <td>{{daneKlient.firma}}</td>
+                <td>{{daneKlient.nip}}</td>
+                <td>{{daneKlient.ulica}}</td>
+                <td>{{daneKlient.miejscowosc}}</td>
+                <td>{{daneKlient.kodPocztowy}}</td>
+                <td>{{daneKlient.kraj}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/dane-klient', daneKlient.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">Zobacz</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/dane-klient', daneKlient.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edytuj</span>
+                        </button>
+                        <button type="submit" (click)="delete(daneKlient)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Usuń</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="daneKlients?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

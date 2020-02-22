@@ -1,18 +1,18 @@
-<form name="deleteForm" (ngSubmit)="confirmDelete(zamowienieWpis.id)">
+<form name="deleteForm" (ngSubmit)="confirmDelete(daneKlient.id)">
     <div class="modal-header">
-        <h4 class="modal-title">Potwiedzenie usunięcia produktu z koszyka</h4>
+        <h4 class="modal-title">Potwierdzenie usunięcia klienta</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p id="jhi-delete-zamowienieWpis-heading">Czy na pewno chcesz usunąc ten element z koszyka?</p>
+        <p id="jhi-delete-daneKlient-heading">Czy na pewno chcesz usunąć dane tego klienta?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Anuluj</span>
         </button>
-        <button id="jhi-confirm-delete-zamowienieWpis" type="submit" class="btn btn-danger">
+        <button id="jhi-confirm-delete-daneKlient" type="submit" class="btn btn-danger">
             <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span>Usuń</span>
         </button>
     </div>

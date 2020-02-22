@@ -65,7 +65,7 @@
             <th scope="col"  jhiSortBy="nazwa"><span>Nazwa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="cena"><span>Cena</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="stan"><span>Stan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="stan"><span>Stan magazynowy</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="kategoria"><span>Kategoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"><span></span></th>
             <th scope="col"  ><span>Ilość</span></th>
@@ -88,7 +88,8 @@
                 <td><input class="form-control" type="number" [formControl]="ilosc"></td>
                 <td class="text-right">
                     <div class="btn-group">
-                        <button type="submit"
+                        <button [disabled]="produkt.stan == 0 || produkt.status == niedostepny"
+                                type="submit"
                                 class="btn btn-success btn-sm"
                                 (click)="dodajProduktZamowienieWpis(produkt, ilosc.value)">
                             <fa-icon [icon]="'plus'"></fa-icon>

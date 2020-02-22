@@ -1,0 +1,142 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-dane-klient-heading">Stwórz albo edytuj dane klienta</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_imie">Imię</label>
+                    <input type="text" class="form-control" name="imie" id="field_imie"
+                           formControlName="imie"/>
+                    <div *ngIf="editForm.get('imie').invalid && (editForm.get('imie').dirty || editForm.get('imie').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('imie').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nazwisko">Nazwisko</label>
+                    <input type="text" class="form-control" name="nazwisko" id="field_nazwisko"
+                           formControlName="nazwisko"/>
+                    <div *ngIf="editForm.get('nazwisko').invalid && (editForm.get('nazwisko').dirty || editForm.get('nazwisko').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nazwisko').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numerTelefonu">Numer Telefonu</label>
+                    <input type="number" class="form-control" name="numerTelefonu" id="field_numerTelefonu"
+                           formControlName="numerTelefonu"/>
+                    <div *ngIf="editForm.get('numerTelefonu').invalid && (editForm.get('numerTelefonu').dirty || editForm.get('numerTelefonu').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('numerTelefonu').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('numerTelefonu')?.errors?.number">
+                            To pole powinno być liczbą!
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           formControlName="email"/>
+                    <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('email').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_firma">Firma</label>
+                    <input type="text" class="form-control" name="firma" id="field_firma"
+                           formControlName="firma"/>
+                    <div *ngIf="editForm.get('firma').invalid && (editForm.get('firma').dirty || editForm.get('firma').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('firma').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nip">NIP</label>
+                    <input type="number" class="form-control" name="nip" id="field_nip"
+                           formControlName="nip"/>
+                    <div *ngIf="editForm.get('nip').invalid && (editForm.get('nip').dirty || editForm.get('nip').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nip').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('nip')?.errors?.number">
+                            To pole powinno być liczbą!
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ulica">Ulica</label>
+                    <input type="text" class="form-control" name="ulica" id="field_ulica"
+                           formControlName="ulica"/>
+                    <div *ngIf="editForm.get('ulica').invalid && (editForm.get('ulica').dirty || editForm.get('ulica').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ulica').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_miejscowosc">Miejscowość</label>
+                    <input type="text" class="form-control" name="miejscowosc" id="field_miejscowosc"
+                           formControlName="miejscowosc"/>
+                    <div *ngIf="editForm.get('miejscowosc').invalid && (editForm.get('miejscowosc').dirty || editForm.get('miejscowosc').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('miejscowosc').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_kodPocztowy">Kod Pocztowy</label>
+                    <input type="text" class="form-control" name="kodPocztowy" id="field_kodPocztowy"
+                           formControlName="kodPocztowy"/>
+                    <div *ngIf="editForm.get('kodPocztowy').invalid && (editForm.get('kodPocztowy').dirty || editForm.get('kodPocztowy').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('kodPocztowy').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_kraj">Kraj</label>
+                    <input type="text" class="form-control" name="kraj" id="field_kraj"
+                           formControlName="kraj"/>
+                    <div *ngIf="editForm.get('kraj').invalid && (editForm.get('kraj').dirty || editForm.get('kraj').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('kraj').errors.required">
+                        To pole jest wymagane.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Anuluj</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Zapisz</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

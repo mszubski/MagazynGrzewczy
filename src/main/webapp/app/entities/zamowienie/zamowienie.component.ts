@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IZamowienie } from 'app/shared/model/zamowienie.model';
@@ -37,6 +37,7 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
     protected zamowienieService: ZamowienieService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
+    protected dataUtils: JhiDataUtils,
     protected router: Router,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
@@ -147,5 +148,9 @@ export class ZamowienieComponent implements OnInit, OnDestroy {
 
   getFirstZamowienieIdFromZamowienies() {
     return Array.isArray(this.zamowienies) && this.zamowienies.length ? this.zamowienies[0].id : 0;
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
   }
 }

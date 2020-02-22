@@ -17,6 +17,7 @@
     <include file="config/liquibase/changelog/20200105151925_added_entity_Produkt.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200105153541_added_entity_ZamowienieWpis.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200214115016_added_entity_Zamowienie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200222181151_added_entity_DaneKlient.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200105153541_added_entity_constraints_ZamowienieWpis.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200214115016_added_entity_constraints_Zamowienie.xml" relativeToChangelogFile="false"/>

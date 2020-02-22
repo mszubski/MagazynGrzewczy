@@ -45,6 +45,7 @@ public class CacheConfiguration {
             createCache(cm, com.vistula.magazyn.domain.Produkt.class.getName());
             createCache(cm, com.vistula.magazyn.domain.ZamowienieWpis.class.getName());
             createCache(cm, com.vistula.magazyn.domain.Zamowienie.class.getName());
+            createCache(cm, com.vistula.magazyn.domain.DaneKlient.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
