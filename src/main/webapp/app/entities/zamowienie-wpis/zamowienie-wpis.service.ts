@@ -58,14 +58,14 @@ export class ZamowienieWpisService {
   }
 
   createProduktZamowienieWpis(produkt: IProdukt, ilosc: number) {
-    let zamowienieWpis = new ZamowienieWpis();
-    if (ilosc > 0 && produkt.stan > ilosc && produkt.status === StatusProdukt.DOSTEPNY) {
+    const zamowienieWpis = new ZamowienieWpis();
+    if (ilosc > 0) {
       zamowienieWpis.produkt = produkt;
       zamowienieWpis.cena = produkt.cena * ilosc;
       zamowienieWpis.ilosc = ilosc;
       zamowienieWpis.status = StatusEnum.KOSZYK;
       zamowienieWpis.statusZamowienia = StatusZamowieniaEnum.UTWORZONE;
       this.createZamowienieWpisWithUser(zamowienieWpis).subscribe();
-    } else null;
+    }
   }
 }

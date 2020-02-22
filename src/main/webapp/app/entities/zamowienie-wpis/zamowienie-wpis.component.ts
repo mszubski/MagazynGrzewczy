@@ -145,7 +145,7 @@ export class ZamowienieWpisComponent implements OnInit, OnDestroy {
   }
 
   addZamowienie() {
-    let zamowienie = new Zamowienie();
+    const zamowienie = new Zamowienie();
     zamowienie.cena = 0;
     zamowienie.dataUtworzenia = null;
     zamowienie.status = StatusZamowienieEnum.UTWORZONE;

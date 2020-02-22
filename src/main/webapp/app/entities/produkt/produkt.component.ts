@@ -152,7 +152,7 @@ export class ProduktComponent implements OnInit, OnDestroy {
 
   pobierzObecnegoUzytkownika(): User {
     console.log('pobierzObecnegoUzytkownika');
-    let user = new User();
+    const user = new User();
     this.accountService.identity().subscribe(account => {
       user.login = account.login;
       user.email = account.email;

@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { MouseEvent } from '@agm/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { JhiAlertService } from 'ng-jhipster';
 import { KontaktService } from 'app/entities/kontakt/kontakt.service';
+
+// just an interface for type safety.
+interface Marker {
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
+}
 
 @Component({
   selector: 'jhi-kontakt',
   templateUrl: './kontakt.component.html'
 })
 export class KontaktComponent implements OnInit {
-  lat: number = 52.3060318;
-  lng: number = 20.9881805;
-  zoom: number = 10;
+  lat = 52.3060318;
+  lng = 20.9881805;
+  zoom = 10;
   label?: string;
   isNavbarCollapsed: boolean;
   dane: string;
@@ -20,6 +27,15 @@ export class KontaktComponent implements OnInit {
   email: string;
   poleTekstowe: string;
   wyslane = false;
+
+  markers: Marker[] = [
+    {
+      lat: 52.3060318,
+      lng: 20.9881805,
+      label: 'MG',
+      draggable: false
+    }
+  ];
 
   // Tworzenie formularza ze zmiennymi
   form = new FormGroup({
@@ -37,11 +53,11 @@ export class KontaktComponent implements OnInit {
   ngOnInit() {}
 
   clickedMarker(label: string, index: number) {
-    console.log(`Kliknąłeś punkt na mapie: ${label || index}`);
+    //console.log(`Kliknąłeś punkt na mapie: ${label || index}`);
   }
 
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
+  markerDragEnd(m: Marker, $event: MouseEvent) {
+    //console.log('dragEnd', m, $event);
   }
 
   mapClicked($event: MouseEvent) {
@@ -51,15 +67,6 @@ export class KontaktComponent implements OnInit {
       draggable: false
     });
   }
-
-  markers: marker[] = [
-    {
-      lat: 52.3060318,
-      lng: 20.9881805,
-      label: 'MG',
-      draggable: false
-    }
-  ];
 
   collapseNavbar() {
     this.isNavbarCollapsed = true;
@@ -98,12 +105,4 @@ export class KontaktComponent implements OnInit {
 
     this.kontaktService.sendKontaktMail(formData);
   }
-}
-
-// just an interface for type safety.
-interface marker {
-  lat: number;
-  lng: number;
-  label?: string;
-  draggable: boolean;
 }

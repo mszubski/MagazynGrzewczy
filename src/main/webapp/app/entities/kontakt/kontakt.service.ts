@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SERVER_API_URL } from 'app/app.constants';
 
 @Injectable({ providedIn: 'root' })
-export class KontaktService {
+export class KontaktService implements OnInit {
   public resourceUrlKontaktMailService = SERVER_API_URL + 'api/wyslijEmailKontakt';
 
   constructor(private http: HttpClient) {}
