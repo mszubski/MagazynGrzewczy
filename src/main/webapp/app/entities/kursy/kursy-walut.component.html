@@ -1,3 +1,37 @@
 <div>
     <h2>Kursy Walut</h2>
+    <table class="table table-hover table">
+        <h3>Waluta bazowa: {{kurs.base}}</h3>
+        <h4>Status zapytania API: {{kurs.success}}</h4>
+    </table>
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Waluta</th>
+            <th scope="col">Nazwa waluty</th>
+            <th scope="col">Kurs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>AED</td>
+            <td>{{symbole.symbols.AED}}</td>
+            <td>{{kurs.rates.AED}}</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>AFN</td>
+            <td>{{symbole.symbols.AFN}}</td>
+            <td>{{kurs.rates.AFN}}</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>ALL</td>
+            <td>{{symbole.symbols.ALL}}</td>
+            <td>{{kurs.rates.ALL}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>

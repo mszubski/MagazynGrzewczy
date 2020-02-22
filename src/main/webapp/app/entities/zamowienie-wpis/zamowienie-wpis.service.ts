@@ -9,7 +9,6 @@ import { IProdukt } from 'app/shared/model/produkt.model';
 import { StatusEnum } from 'app/shared/model/enumerations/status-enum.model';
 import { StatusZamowieniaEnum } from 'app/shared/model/enumerations/status-zamowienia-enum.model';
 import { UserService } from 'app/core/user/user.service';
-import { StatusProdukt } from 'app/shared/model/enumerations/status-produkt.model';
 
 type EntityResponseType = HttpResponse<IZamowienieWpis>;
 type EntityArrayResponseType = HttpResponse<IZamowienieWpis[]>;

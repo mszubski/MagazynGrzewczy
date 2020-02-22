@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -151,13 +151,11 @@ export class ProduktComponent implements OnInit, OnDestroy {
   }
 
   pobierzObecnegoUzytkownika(): User {
-    console.log('pobierzObecnegoUzytkownika');
     const user = new User();
     this.accountService.identity().subscribe(account => {
       user.login = account.login;
       user.email = account.email;
     });
-    console.log(user);
     return user;
   }
 
@@ -170,7 +168,6 @@ export class ProduktComponent implements OnInit, OnDestroy {
   }
 
   getAllProduktXlsx(path) {
-    console.log(path);
     this.produktService.getAllProduktXlsx(path).subscribe();
   }
 
