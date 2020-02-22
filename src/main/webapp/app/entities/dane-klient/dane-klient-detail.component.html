@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="daneKlient">
+            <h2><span>Dane Klienta</span> {{daneKlient.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Imię</span></dt>
+                <dd>
+                    <span>{{daneKlient.imie}}</span>
+                </dd>
+                <dt><span>Nazwisko</span></dt>
+                <dd>
+                    <span>{{daneKlient.nazwisko}}</span>
+                </dd>
+                <dt><span>Numer Telefonu</span></dt>
+                <dd>
+                    <span>{{daneKlient.numerTelefonu}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{daneKlient.email}}</span>
+                </dd>
+                <dt><span>Firma</span></dt>
+                <dd>
+                    <span>{{daneKlient.firma}}</span>
+                </dd>
+                <dt><span>NIP</span></dt>
+                <dd>
+                    <span>{{daneKlient.nip}}</span>
+                </dd>
+                <dt><span>Ulica</span></dt>
+                <dd>
+                    <span>{{daneKlient.ulica}}</span>
+                </dd>
+                <dt><span>Miejscowość</span></dt>
+                <dd>
+                    <span>{{daneKlient.miejscowosc}}</span>
+                </dd>
+                <dt><span>Kod Pocztowy</span></dt>
+                <dd>
+                    <span>{{daneKlient.kodPocztowy}}</span>
+                </dd>
+                <dt><span>Kraj</span></dt>
+                <dd>
+                    <span>{{daneKlient.kraj}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Wróć</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/dane-klient', daneKlient.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span>Edytuj</span>
+            </button>
+        </div>
+    </div>
+</div>
