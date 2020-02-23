@@ -3,6 +3,7 @@ package com.vistula.magazyn.service.impl;
 import com.vistula.magazyn.service.DaneKlientService;
 import com.vistula.magazyn.domain.DaneKlient;
 import com.vistula.magazyn.repository.DaneKlientRepository;
+import com.vistula.magazyn.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,11 @@ public class DaneKlientServiceImpl implements DaneKlientService {
 
     private final DaneKlientRepository daneKlientRepository;
 
-    public DaneKlientServiceImpl(DaneKlientRepository daneKlientRepository) {
+    private final UserRepository userRepository;
+
+    public DaneKlientServiceImpl(DaneKlientRepository daneKlientRepository, UserRepository userRepository) {
         this.daneKlientRepository = daneKlientRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -37,6 +41,8 @@ public class DaneKlientServiceImpl implements DaneKlientService {
     @Override
     public DaneKlient save(DaneKlient daneKlient) {
         log.debug("Request to save DaneKlient : {}", daneKlient);
+        long userId = daneKlient.getUser().getId();
+        userRepository.findById(userId).ifPresent(daneKlient::user);
         return daneKlientRepository.save(daneKlient);
     }
 

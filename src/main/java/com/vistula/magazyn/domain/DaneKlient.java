@@ -43,10 +43,6 @@ public class DaneKlient implements Serializable {
     private String firma;
 
     @NotNull
-    @Column(name = "nip", nullable = false)
-    private Integer nip;
-
-    @NotNull
     @Column(name = "ulica", nullable = false)
     private String ulica;
 
@@ -61,6 +57,16 @@ public class DaneKlient implements Serializable {
     @NotNull
     @Column(name = "kraj", nullable = false)
     private String kraj;
+
+    @NotNull
+    @Column(name = "nip", nullable = false)
+    private Long nip;
+
+    @OneToOne
+
+    @MapsId
+    @JoinColumn(name = "id")
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -136,19 +142,6 @@ public class DaneKlient implements Serializable {
         this.firma = firma;
     }
 
-    public Integer getNip() {
-        return nip;
-    }
-
-    public DaneKlient nip(Integer nip) {
-        this.nip = nip;
-        return this;
-    }
-
-    public void setNip(Integer nip) {
-        this.nip = nip;
-    }
-
     public String getUlica() {
         return ulica;
     }
@@ -200,6 +193,32 @@ public class DaneKlient implements Serializable {
     public void setKraj(String kraj) {
         this.kraj = kraj;
     }
+
+    public Long getNip() {
+        return nip;
+    }
+
+    public DaneKlient nip(Long nip) {
+        this.nip = nip;
+        return this;
+    }
+
+    public void setNip(Long nip) {
+        this.nip = nip;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public DaneKlient user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -227,11 +246,11 @@ public class DaneKlient implements Serializable {
             ", numerTelefonu=" + getNumerTelefonu() +
             ", email='" + getEmail() + "'" +
             ", firma='" + getFirma() + "'" +
-            ", nip=" + getNip() +
             ", ulica='" + getUlica() + "'" +
             ", miejscowosc='" + getMiejscowosc() + "'" +
             ", kodPocztowy='" + getKodPocztowy() + "'" +
             ", kraj='" + getKraj() + "'" +
+            ", nip=" + getNip() +
             "}";
     }
 }

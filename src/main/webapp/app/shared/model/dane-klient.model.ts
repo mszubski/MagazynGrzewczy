@@ -1,3 +1,5 @@
+import { IUser } from 'app/core/user/user.model';
+
 export interface IDaneKlient {
   id?: number;
   imie?: string;
@@ -5,11 +7,12 @@ export interface IDaneKlient {
   numerTelefonu?: number;
   email?: string;
   firma?: string;
-  nip?: number;
   ulica?: string;
   miejscowosc?: string;
   kodPocztowy?: string;
   kraj?: string;
+  nip?: number;
+  user?: IUser;
 }
 
 export class DaneKlient implements IDaneKlient {
@@ -20,10 +23,11 @@ export class DaneKlient implements IDaneKlient {
     public numerTelefonu?: number,
     public email?: string,
     public firma?: string,
-    public nip?: number,
     public ulica?: string,
     public miejscowosc?: string,
     public kodPocztowy?: string,
-    public kraj?: string
+    public kraj?: string,
+    public nip?: number,
+    public user?: IUser
   ) {}
 }

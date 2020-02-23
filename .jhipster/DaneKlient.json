@@ -1,7 +1,17 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "useJPADerivedIdentifier": true,
+            "otherEntityRelationshipName": "daneKlient"
+        }
+    ],
     "fields": [
         {
             "fieldName": "imie",
@@ -39,13 +49,6 @@
             ]
         },
         {
-            "fieldName": "nip",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "ulica",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -69,6 +72,13 @@
         {
             "fieldName": "kraj",
             "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nip",
+            "fieldType": "Long",
             "fieldValidateRules": [
                 "required"
             ]

@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(DaneKlientService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new DaneKlient(0, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new DaneKlient(0, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0);
     });
 
     describe('Service methods', () => {
@@ -61,11 +61,11 @@ describe('Service Tests', () => {
             numerTelefonu: 1,
             email: 'BBBBBB',
             firma: 'BBBBBB',
-            nip: 1,
             ulica: 'BBBBBB',
             miejscowosc: 'BBBBBB',
             kodPocztowy: 'BBBBBB',
-            kraj: 'BBBBBB'
+            kraj: 'BBBBBB',
+            nip: 1
           },
           elemDefault
         );
@@ -88,11 +88,11 @@ describe('Service Tests', () => {
             numerTelefonu: 1,
             email: 'BBBBBB',
             firma: 'BBBBBB',
-            nip: 1,
             ulica: 'BBBBBB',
             miejscowosc: 'BBBBBB',
             kodPocztowy: 'BBBBBB',
-            kraj: 'BBBBBB'
+            kraj: 'BBBBBB',
+            nip: 1
           },
           elemDefault
         );

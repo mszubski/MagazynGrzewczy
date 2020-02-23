@@ -30,9 +30,6 @@
             <column name="firma" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="nip" type="integer">
-                <constraints nullable="false" />
-            </column>
             <column name="ulica" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -43,6 +40,9 @@
                 <constraints nullable="false" />
             </column>
             <column name="kraj" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="nip" type="bigint">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -73,11 +73,11 @@
             <column name="numer_telefonu" type="numeric"/>
             <column name="email" type="string"/>
             <column name="firma" type="string"/>
-            <column name="nip" type="numeric"/>
             <column name="ulica" type="string"/>
             <column name="miejscowosc" type="string"/>
             <column name="kod_pocztowy" type="string"/>
             <column name="kraj" type="string"/>
+            <column name="nip" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

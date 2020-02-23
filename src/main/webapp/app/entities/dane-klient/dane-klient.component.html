@@ -4,7 +4,7 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-dane-klient" [routerLink]="['/dane-klient/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Dodaj dane nowego klienta
+            Dodaj dane
             </span>
         </button>
     </h2>
@@ -18,7 +18,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="imie"><span>Imię</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="nazwisko"><span>Nazwisko</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="numerTelefonu"><span>Numer Telefonu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -34,7 +33,6 @@
             </thead>
             <tbody>
             <tr *ngFor="let daneKlient of daneKlients ;trackBy: trackId">
-                <td><a [routerLink]="['/dane-klient', daneKlient.id, 'view' ]">{{daneKlient.id}}</a></td>
                 <td>{{daneKlient.imie}}</td>
                 <td>{{daneKlient.nazwisko}}</td>
                 <td>{{daneKlient.numerTelefonu}}</td>

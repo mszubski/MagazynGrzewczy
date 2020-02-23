@@ -64,7 +64,7 @@
                     <div *ngIf="editForm.get('firma').invalid && (editForm.get('firma').dirty || editForm.get('firma').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('firma').errors.required">
-                        To pole jest wymagane.
+                        This field is required.
                         </small>
                     </div>
                 </div>
@@ -75,11 +75,11 @@
                     <div *ngIf="editForm.get('nip').invalid && (editForm.get('nip').dirty || editForm.get('nip').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('nip').errors.required">
-                        To pole jest wymagane.
+                            To pole jest wymagane.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.get('nip')?.errors?.number">
-                            To pole powinno być liczbą!
+                               [hidden]="!editForm.get('nip')?.errors?.number">
+                            TTo pole jest musi być liczbą!
                         </small>
                     </div>
                 </div>
@@ -128,6 +128,14 @@
                     </div>
                 </div>
 
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('user').value?.id ? editForm.get('user').value : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

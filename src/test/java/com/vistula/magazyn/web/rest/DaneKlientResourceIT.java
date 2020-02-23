@@ -2,6 +2,7 @@ package com.vistula.magazyn.web.rest;
 
 import com.vistula.magazyn.MagazynGrzewczyApp;
 import com.vistula.magazyn.domain.DaneKlient;
+import com.vistula.magazyn.domain.User;
 import com.vistula.magazyn.repository.DaneKlientRepository;
 import com.vistula.magazyn.service.DaneKlientService;
 import com.vistula.magazyn.web.rest.errors.ExceptionTranslator;
@@ -49,9 +50,6 @@ public class DaneKlientResourceIT {
     private static final String DEFAULT_FIRMA = "AAAAAAAAAA";
     private static final String UPDATED_FIRMA = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_NIP = 1;
-    private static final Integer UPDATED_NIP = 2;
-
     private static final String DEFAULT_ULICA = "AAAAAAAAAA";
     private static final String UPDATED_ULICA = "BBBBBBBBBB";
 
@@ -63,6 +61,9 @@ public class DaneKlientResourceIT {
 
     private static final String DEFAULT_KRAJ = "AAAAAAAAAA";
     private static final String UPDATED_KRAJ = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_NIP = 1L;
+    private static final Long UPDATED_NIP = 2L;
 
     @Autowired
     private DaneKlientRepository daneKlientRepository;
@@ -114,11 +115,16 @@ public class DaneKlientResourceIT {
             .numerTelefonu(DEFAULT_NUMER_TELEFONU)
             .email(DEFAULT_EMAIL)
             .firma(DEFAULT_FIRMA)
-            .nip(DEFAULT_NIP)
             .ulica(DEFAULT_ULICA)
             .miejscowosc(DEFAULT_MIEJSCOWOSC)
             .kodPocztowy(DEFAULT_KOD_POCZTOWY)
-            .kraj(DEFAULT_KRAJ);
+            .kraj(DEFAULT_KRAJ)
+            .nip(DEFAULT_NIP);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        daneKlient.setUser(user);
         return daneKlient;
     }
     /**
@@ -134,11 +140,16 @@ public class DaneKlientResourceIT {
             .numerTelefonu(UPDATED_NUMER_TELEFONU)
             .email(UPDATED_EMAIL)
             .firma(UPDATED_FIRMA)
-            .nip(UPDATED_NIP)
             .ulica(UPDATED_ULICA)
             .miejscowosc(UPDATED_MIEJSCOWOSC)
             .kodPocztowy(UPDATED_KOD_POCZTOWY)
-            .kraj(UPDATED_KRAJ);
+            .kraj(UPDATED_KRAJ)
+            .nip(UPDATED_NIP);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        daneKlient.setUser(user);
         return daneKlient;
     }
 
@@ -167,11 +178,14 @@ public class DaneKlientResourceIT {
         assertThat(testDaneKlient.getNumerTelefonu()).isEqualTo(DEFAULT_NUMER_TELEFONU);
         assertThat(testDaneKlient.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testDaneKlient.getFirma()).isEqualTo(DEFAULT_FIRMA);
-        assertThat(testDaneKlient.getNip()).isEqualTo(DEFAULT_NIP);
         assertThat(testDaneKlient.getUlica()).isEqualTo(DEFAULT_ULICA);
         assertThat(testDaneKlient.getMiejscowosc()).isEqualTo(DEFAULT_MIEJSCOWOSC);
         assertThat(testDaneKlient.getKodPocztowy()).isEqualTo(DEFAULT_KOD_POCZTOWY);
         assertThat(testDaneKlient.getKraj()).isEqualTo(DEFAULT_KRAJ);
+        assertThat(testDaneKlient.getNip()).isEqualTo(DEFAULT_NIP);
+
+        // Validate the id for MapsId, the ids must be same
+        assertThat(testDaneKlient.getId()).isEqualTo(testDaneKlient.getUser().getId());
     }
 
     @Test
@@ -193,6 +207,42 @@ public class DaneKlientResourceIT {
         assertThat(daneKlientList).hasSize(databaseSizeBeforeCreate);
     }
 
+    @Test
+    @Transactional
+    public void updateDaneKlientMapsIdAssociationWithNewId() throws Exception {
+        // Initialize the database
+        daneKlientService.save(daneKlient);
+        int databaseSizeBeforeCreate = daneKlientRepository.findAll().size();
+
+        // Add a new parent entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+
+        // Load the daneKlient
+        DaneKlient updatedDaneKlient = daneKlientRepository.findById(daneKlient.getId()).get();
+        // Disconnect from session so that the updates on updatedDaneKlient are not directly saved in db
+        em.detach(updatedDaneKlient);
+
+        // Update the User with new association value
+        updatedDaneKlient.setUser(user);
+
+        // Update the entity
+        restDaneKlientMockMvc.perform(put("/api/dane-klients")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(updatedDaneKlient)))
+            .andExpect(status().isOk());
+
+        // Validate the DaneKlient in the database
+        List<DaneKlient> daneKlientList = daneKlientRepository.findAll();
+        assertThat(daneKlientList).hasSize(databaseSizeBeforeCreate);
+        DaneKlient testDaneKlient = daneKlientList.get(daneKlientList.size() - 1);
+
+        // Validate the id for MapsId, the ids must be same
+        // Uncomment the following line for assertion. However, please note that there is a known issue and uncommenting will fail the test.
+        // Please look at https://github.com/jhipster/generator-jhipster/issues/9100. You can modify this test as necessary.
+        // assertThat(testDaneKlient.getId()).isEqualTo(testDaneKlient.getUser().getId());
+    }
 
     @Test
     @Transactional
@@ -286,24 +336,6 @@ public class DaneKlientResourceIT {
 
     @Test
     @Transactional
-    public void checkNipIsRequired() throws Exception {
-        int databaseSizeBeforeTest = daneKlientRepository.findAll().size();
-        // set the field null
-        daneKlient.setNip(null);
-
-        // Create the DaneKlient, which fails.
-
-        restDaneKlientMockMvc.perform(post("/api/dane-klients")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(daneKlient)))
-            .andExpect(status().isBadRequest());
-
-        List<DaneKlient> daneKlientList = daneKlientRepository.findAll();
-        assertThat(daneKlientList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkUlicaIsRequired() throws Exception {
         int databaseSizeBeforeTest = daneKlientRepository.findAll().size();
         // set the field null
@@ -376,6 +408,24 @@ public class DaneKlientResourceIT {
 
     @Test
     @Transactional
+    public void checkNipIsRequired() throws Exception {
+        int databaseSizeBeforeTest = daneKlientRepository.findAll().size();
+        // set the field null
+        daneKlient.setNip(null);
+
+        // Create the DaneKlient, which fails.
+
+        restDaneKlientMockMvc.perform(post("/api/dane-klients")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(daneKlient)))
+            .andExpect(status().isBadRequest());
+
+        List<DaneKlient> daneKlientList = daneKlientRepository.findAll();
+        assertThat(daneKlientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllDaneKlients() throws Exception {
         // Initialize the database
         daneKlientRepository.saveAndFlush(daneKlient);
@@ -390,11 +440,11 @@ public class DaneKlientResourceIT {
             .andExpect(jsonPath("$.[*].numerTelefonu").value(hasItem(DEFAULT_NUMER_TELEFONU)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].firma").value(hasItem(DEFAULT_FIRMA)))
-            .andExpect(jsonPath("$.[*].nip").value(hasItem(DEFAULT_NIP)))
             .andExpect(jsonPath("$.[*].ulica").value(hasItem(DEFAULT_ULICA)))
             .andExpect(jsonPath("$.[*].miejscowosc").value(hasItem(DEFAULT_MIEJSCOWOSC)))
             .andExpect(jsonPath("$.[*].kodPocztowy").value(hasItem(DEFAULT_KOD_POCZTOWY)))
-            .andExpect(jsonPath("$.[*].kraj").value(hasItem(DEFAULT_KRAJ)));
+            .andExpect(jsonPath("$.[*].kraj").value(hasItem(DEFAULT_KRAJ)))
+            .andExpect(jsonPath("$.[*].nip").value(hasItem(DEFAULT_NIP.intValue())));
     }
     
     @Test
@@ -413,11 +463,11 @@ public class DaneKlientResourceIT {
             .andExpect(jsonPath("$.numerTelefonu").value(DEFAULT_NUMER_TELEFONU))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.firma").value(DEFAULT_FIRMA))
-            .andExpect(jsonPath("$.nip").value(DEFAULT_NIP))
             .andExpect(jsonPath("$.ulica").value(DEFAULT_ULICA))
             .andExpect(jsonPath("$.miejscowosc").value(DEFAULT_MIEJSCOWOSC))
             .andExpect(jsonPath("$.kodPocztowy").value(DEFAULT_KOD_POCZTOWY))
-            .andExpect(jsonPath("$.kraj").value(DEFAULT_KRAJ));
+            .andExpect(jsonPath("$.kraj").value(DEFAULT_KRAJ))
+            .andExpect(jsonPath("$.nip").value(DEFAULT_NIP.intValue()));
     }
 
     @Test
@@ -446,11 +496,11 @@ public class DaneKlientResourceIT {
             .numerTelefonu(UPDATED_NUMER_TELEFONU)
             .email(UPDATED_EMAIL)
             .firma(UPDATED_FIRMA)
-            .nip(UPDATED_NIP)
             .ulica(UPDATED_ULICA)
             .miejscowosc(UPDATED_MIEJSCOWOSC)
             .kodPocztowy(UPDATED_KOD_POCZTOWY)
-            .kraj(UPDATED_KRAJ);
+            .kraj(UPDATED_KRAJ)
+            .nip(UPDATED_NIP);
 
         restDaneKlientMockMvc.perform(put("/api/dane-klients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -466,11 +516,11 @@ public class DaneKlientResourceIT {
         assertThat(testDaneKlient.getNumerTelefonu()).isEqualTo(UPDATED_NUMER_TELEFONU);
         assertThat(testDaneKlient.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testDaneKlient.getFirma()).isEqualTo(UPDATED_FIRMA);
-        assertThat(testDaneKlient.getNip()).isEqualTo(UPDATED_NIP);
         assertThat(testDaneKlient.getUlica()).isEqualTo(UPDATED_ULICA);
         assertThat(testDaneKlient.getMiejscowosc()).isEqualTo(UPDATED_MIEJSCOWOSC);
         assertThat(testDaneKlient.getKodPocztowy()).isEqualTo(UPDATED_KOD_POCZTOWY);
         assertThat(testDaneKlient.getKraj()).isEqualTo(UPDATED_KRAJ);
+        assertThat(testDaneKlient.getNip()).isEqualTo(UPDATED_NIP);
     }
 
     @Test
