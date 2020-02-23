@@ -36,7 +36,11 @@
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Wróć</span>
             </button>
-
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="drukuj()">
+                <fa-icon [icon]="'print'"></fa-icon><span>Drukuj</span>
+            </button>
             <button type="button"
                     *jhiHasAnyAuthority="'ROLE_ADMIN'"
                     [routerLink]="['/produkt', produkt.id, 'edit']"

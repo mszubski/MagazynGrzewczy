@@ -26,7 +26,12 @@ export class ProduktDetailComponent implements OnInit {
   openFile(contentType, field) {
     return this.dataUtils.openFile(contentType, field);
   }
+
   previousState() {
     window.history.back();
+  }
+
+  drukuj() {
+    window.print();
   }
 }

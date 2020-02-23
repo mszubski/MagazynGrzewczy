@@ -35,7 +35,7 @@ export const daneKlientRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       defaultSort: 'id,asc',
-      pageTitle: 'DaneKlients'
+      pageTitle: 'Dane Klientów'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -47,7 +47,7 @@ export const daneKlientRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'DaneKlients'
+      pageTitle: 'Dane Klientów'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -59,7 +59,7 @@ export const daneKlientRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'DaneKlients'
+      pageTitle: 'Dane Klientów'
     },
     canActivate: [UserRouteAccessService]
   },
@@ -71,7 +71,7 @@ export const daneKlientRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'DaneKlients'
+      pageTitle: 'Dane Klientów'
     },
     canActivate: [UserRouteAccessService]
   }
